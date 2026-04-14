@@ -1,13 +1,12 @@
 
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig = {
+  output: "export",
+  basePath: isProd ? "/Resume" : "",
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
-      },
-    ],
+    unoptimized: true,
   },
 };
 
