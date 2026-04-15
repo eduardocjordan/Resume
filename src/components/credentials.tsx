@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FadeIn } from "./fade-in";
 import { credentials } from "@/lib/data";
 
@@ -16,14 +17,27 @@ export function Credentials() {
               </h2>
               <ul className="space-y-8">
                 {credentials.education.map((edu) => (
-                  <li key={edu.degree}>
-                    <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">
-                      {edu.degree}
-                    </h4>
-                    <p className="text-xs text-tertiary mt-1">
-                      {edu.institution}
-                      {edu.year ? ` · ${edu.year}` : ""}
-                    </p>
+                  <li key={edu.degree} className="flex items-start gap-4">
+                    {edu.logo && (
+                      <div className="relative flex-shrink-0 w-10 h-10 mt-0.5">
+                        <Image
+                          src={edu.logo}
+                          alt={edu.institution}
+                          fill
+                          className="object-contain"
+                          sizes="40px"
+                        />
+                      </div>
+                    )}
+                    <div>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">
+                        {edu.degree}
+                      </h4>
+                      <p className="text-xs text-tertiary mt-1">
+                        {edu.institution}
+                        {edu.year ? ` · ${edu.year}` : ""}
+                      </p>
+                    </div>
                   </li>
                 ))}
               </ul>

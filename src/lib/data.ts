@@ -4,8 +4,7 @@ export const hero = {
   location: "Mexico City",
   tagline:
     "Engineer-turned-marketer with <strong>13+ years</strong> in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
-  portrait:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB6-FRZm4QBzwKYeTvn7EPr8lgLzEKBOknwxBnQNYfwvOnBD8udCNvW_L-3YY2dU3GSwJ4OEDFchnH_mm5MvOnYdA-6zfruSng9EReWQsaNLQukyYBEF545S6vdU3FbUQULdHL49tMGwnr4GyGs9G2fPYktXfJasSIHDAPpI_gBewrVhAHG7I_wDVkpcBkw9L4gzE4xcHk27Y0flHT_nEO4ltaW1tx0ljasIAj7BtOu4Iv2szUOoPQ2DVuGIJDf4PcshW9e9TF0OVM",
+  portrait: "/assets/IMG_3827.jpeg",
   stats: [
     { value: "13", suffix: "+", label: "Years FMCG" },
     { value: "200", suffix: "M", label: "Impressions" },
@@ -192,17 +191,21 @@ export const experience: Role[] = [
   },
 ];
 
-export const brands = [
-  "Pepsi",
-  "Doritos",
-  "Neutrogena",
-  "Listerine",
-  "Johnson's Baby",
-  "Tylenol",
-  "Cheetos",
-  "Tostitos",
-  "Quaker",
-  "+More",
+export type Brand = { name: string; logo: string | null };
+
+export const brands: Brand[] = [
+  { name: "Doritos",         logo: "/assets/Doritos-logo.png" },
+  { name: "Cheetos",         logo: "/assets/CHEETOS-logo.png" },
+  { name: "Tostitos",        logo: "/assets/Tostitos-Logo.svg" },
+  { name: "Quaker",          logo: "/assets/Quaker-Logo.png" },
+  { name: "Neutrogena",      logo: "/assets/Neutrogena-Logo.svg" },
+  { name: "Listerine",       logo: "/assets/Listerine-logo.png" },
+  { name: "Johnson's Baby",  logo: "/assets/JohnsonBaby-Logo.svg" },
+  { name: "Aveeno",          logo: "/assets/Aveeno-logo.svg" },
+  { name: "Lubriderm",       logo: "/assets/LURBIDERM-SQ.jpeg" },
+  { name: "Grupo Mariposa",  logo: "/assets/IMG_0576.png" },
+  { name: "Bia Foods",       logo: "/assets/Bia-Foods-Logo.svg" },
+  { name: "CBC",             logo: "/assets/CBC-logo.png" },
 ];
 
 export type Story = { title: string; body: string };
@@ -228,10 +231,10 @@ export const stories: Story[] = [
 
 export const credentials = {
   education: [
-    { degree: "MBA — Business Administration", institution: "Tecnológico de Monterrey", year: "2027" },
-    { degree: "BSc — Computer Engineering", institution: "Tecnológico de Monterrey", year: "" },
-    { degree: "Project Management Professional (PMP)", institution: "PMI", year: "Oct 2016" },
-    { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "" },
+    { degree: "MBA — Business Administration", institution: "Tecnológico de Monterrey", year: "2027", logo: "/assets/ITESMSchool-Logo.svg" },
+    { degree: "BSc — Computer Engineering", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg" },
+    { degree: "Project Management Professional (PMP)", institution: "PMI", year: "Oct 2016", logo: "/assets/PMI-Logo.png" },
+    { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "", logo: "/assets/KelloggSchool-Logo.svg" },
   ],
   awards: [
     { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos Rainbow initiative" },

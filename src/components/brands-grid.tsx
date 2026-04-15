@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { brands } from "@/lib/data";
@@ -17,19 +18,33 @@ export function BrandsGrid() {
           </h2>
         </FadeIn>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 items-center justify-items-center opacity-60">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-12 gap-y-14 items-center justify-items-center">
           {brands.map((brand, i) => (
-            <FadeIn key={brand} delay={i * 0.05}>
+            <FadeIn key={brand.name} delay={i * 0.04}>
               <motion.div
                 className="flex flex-col items-center gap-3 cursor-default"
-                initial={{ filter: "grayscale(1)", opacity: 0.6 }}
-                whileHover={{ filter: "grayscale(0)", opacity: 1 }}
+                initial={{ opacity: 0.5, filter: "grayscale(1)" }}
+                whileHover={{ opacity: 1, filter: "grayscale(0)" }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center font-bold text-[10px] text-center px-2">
-                  {brand}
-                </div>
-                <span className="text-[9px] uppercase tracking-widest font-bold">{brand}</span>
+                {brand.logo ? (
+                  <div className="h-10 w-28 relative flex items-center justify-center">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      fill
+                      className="object-contain"
+                      sizes="112px"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-10 w-28 flex items-center justify-center font-bold text-[10px] text-tertiary uppercase tracking-widest">
+                    {brand.name}
+                  </div>
+                )}
+                <span className="text-[9px] uppercase tracking-widest font-bold text-tertiary">
+                  {brand.name}
+                </span>
               </motion.div>
             </FadeIn>
           ))}
