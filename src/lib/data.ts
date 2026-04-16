@@ -1,10 +1,10 @@
 export const hero = {
   name: "Eduardo Castro",
-  role: "Marketing Director",
+  role: "Brand Strategy",
   location: "Mexico City",
   taglines: [
-    "Engineer-turned-marketer with <strong>13+ years</strong> in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
-    "The project that defines my career is <strong>Doritos Rainbow</strong> — PepsiCo's first purpose-driven product. Launched the week of the Pulse massacre in Orlando. Sold out in one week instead of eight. 200M+ organic impressions. It's been a Pride flagship ever since.",
+    "Engineer-turned-marketer with <strong>13+ years</strong> in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
+    "The project that defines my career is <strong>Doritos® Rainbow</strong> — PepsiCo®'s first purpose-driven product. Launched the week of the Pulse massacre in Orlando. Sold out in one week instead of eight. 200M+ organic impressions. It's been a Pride flagship ever since.",
     "I build brands that move both culture and market share.",
   ],
   portrait: "/assets/IMG_3827.jpeg",
@@ -15,7 +15,7 @@ export const hero = {
   ],
   cv: "/downloads/CV Eduardo Castro.pdf",
   linkedin: "https://www.linkedin.com/in/eduardocaj",
-  email: "mailto:eduardocjordan@icloud.com?subject=Let's connect",
+  email: "mailto:eduardo@casjor.com?subject=Let's connect",
 };
 
 export type Project = {
@@ -25,37 +25,40 @@ export type Project = {
   description: string;
   metrics: string;
   image: string;
+  altText?: string;
   imagePlaceholder?: { bg: string; label: string };
 };
 
 export const projects: Project[] = [
   {
     index: "01",
-    company: "PepsiCo",
-    title: "Doritos Rainbow",
+    company: "PepsiCo®",
+    title: "Doritos® Rainbow",
     description:
-      "PepsiCo's first purpose-driven product. Launched the week of the Pulse massacre in Orlando. 100% of profits donated to LGBT+ ally NGOs. Sold out in one week instead of eight.",
+      "PepsiCo®'s first purpose-driven product. Launched the week of the Pulse massacre in Orlando. 100% of profits donated to LGBT+ ally NGOs. Sold out in one week instead of eight.",
     metrics: "200M+ organic impressions · +2.3% brand SOM · President's Outliers Award",
     image: "/assets/20160812_102324-1.jpeg",
+    altText: "Doritos Rainbow — PepsiCo's first purpose-driven product, launched 2016",
   },
   {
     index: "02",
-    company: "J&J / PepsiCo",
+    company: "J&J / PepsiCo®",
     title: "ERG Leadership & Inclusion",
     description:
-      "Founded EQUAL ERG at PepsiCo and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
+      "Founded EQUAL ERG at PepsiCo® and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
     metrics: "HRC Best Place to Work · James E. Burke Award · LATAM Forum recognition",
     image: "/assets/IMG_0576.png",
+    altText: "Pride Connection National Congress — Eduardo Castro speaking on LGBTQ+ inclusion in the workplace",
   },
   {
     index: "03",
     company: "Johnson & Johnson",
-    title: "Neutrogena Sun Care Launch",
+    title: "Neutrogena® Sun Care Launch",
     description:
       "Unlocked a four-year regulatory stall by mapping the SPF 55+ COFEPRIS pathway. Coordinated regional production in Brazil and launched the category from zero.",
     metrics: "New category from zero · +10% incremental B2B revenue · New market share",
-    image: "",
-    imagePlaceholder: { bg: "#f0f0ec", label: "Neutrogena · J&J" },
+    image: "/assets/IMG_0583.jpeg",
+    altText: "Neutrogena Sun Care product portfolio — J&J Mexico market launch",
   },
   {
     index: "04",
@@ -64,8 +67,8 @@ export const projects: Project[] = [
     description:
       "Built a brand and innovation system from scratch. Filtered 165 ideas down to one market-ready product through rigorous consumer validation gates.",
     metrics: "+35% revenue growth · Digital-first export brand · Full P&L ownership",
-    image: "",
-    imagePlaceholder: { bg: "#f0f0ec", label: "Grupo Mariposa" },
+    image: "/assets/IMG_0584.jpeg",
+    altText: "Grupo Mariposa brand launch — product portfolio built from zero",
   },
 ];
 
@@ -105,19 +108,20 @@ export const impactMetrics: ImpactMetric[] = [
     company: "Johnson & Johnson",
     stat: "+11%",
     label: "YoY B2B Revenue",
-    description: "Launched Neutrogena's Sun Care category in Mexico after mapping a regulatory stall.",
+    description: "Launched Neutrogena®'s Sun Care category in Mexico after mapping a regulatory stall.",
   },
   {
-    company: "PepsiCo",
+    company: "PepsiCo®",
     stat: "+2.3%",
     label: "Brand SOM Growth",
-    description: "Doritos Rainbow generated 200M+ impressions and sold out in record time.",
+    description: "Doritos® Rainbow generated 200M+ impressions and sold out in record time.",
   },
 ];
 
 export type Role = {
   logo: string | null;
   logoExternal?: string;
+  logoText?: string;
   dates: string;
   company: string;
   industry: string;
@@ -130,6 +134,7 @@ export type Role = {
 export const experience: Role[] = [
   {
     logo: null,
+    logoText: "aC\n&Co",
     dates: "Mar 2024 — Present",
     company: "apex Consulting",
     industry: "Marketing Consulting",
@@ -167,7 +172,7 @@ export const experience: Role[] = [
     industry: "Health & Beauty CPG",
     title: "Senior Regional Marketing Manager, LATAM",
     description:
-      "Managed brand growth for Neutrogena, Listerine, Johnson's Baby, and Tylenol across Mexico, Central America, the Caribbean, and Andean region.",
+      "Managed brand growth for Neutrogena®, Listerine®, Johnson's® Baby, and Tylenol across Mexico, Central America, the Caribbean, and Andean region.",
     bullets: [
       { bold: "James E. Burke Award", rest: " — J&J's global recognition for creative leadership" },
       { bold: "+11% YoY revenue", rest: " through innovation launches and shopper marketing" },
@@ -184,7 +189,7 @@ export const experience: Role[] = [
     industry: "Food & Beverage FMCG",
     title: "Marketing Innovation Manager → PMO & Ideation Leader → IT Project Manager",
     description:
-      "Owned the full pipeline for Doritos, Cheetos, Tostitos, and Quaker — 60+ products annually. Led the defining Doritos Rainbow project.",
+      "Owned the full pipeline for Doritos®, Cheetos®, Tostitos®, and Quaker® — 60+ products annually. Led the defining Doritos® Rainbow project.",
     bullets: [
       { bold: "200M+ organic media impressions", rest: " — sold out in record time" },
       { bold: "Circle of Champions & President's Outliers Award", rest: " for innovation leadership" },
@@ -216,11 +221,11 @@ export type Story = { title: string; body: string };
 export const stories: Story[] = [
   {
     title: "The brief nobody asked for",
-    body: "At PepsiCo, I noticed limited-edition launches underperformed because of sequencing. I mapped data from 6 launches and proposed a trade activation adjustment that became standard practice. Nobody asked for it. That's when the useful ones happen.",
+    body: "At PepsiCo®, I noticed limited-edition launches underperformed because of sequencing. I mapped data from 6 launches and proposed a trade activation adjustment that became standard practice. Nobody asked for it. That's when the useful ones happen.",
   },
   {
     title: "The regulatory detour",
-    body: "Neutrogena's Sun Care had been sitting at the border for 4 years. I diagnosed that SPF 55+ is a drug in Mexico, requiring COFEPRIS pathways. I coordinated regional production in Brazil and launched the category in 2 years. Strategy without diagnosis is just confidence.",
+    body: "Neutrogena®'s Sun Care had been sitting at the border for 4 years. I diagnosed that SPF 55+ is a drug in Mexico, requiring COFEPRIS pathways. I coordinated regional production in Brazil and launched the category in 2 years. Strategy without diagnosis is just confidence.",
   },
   {
     title: "The 165 ideas",
@@ -235,13 +240,13 @@ export const stories: Story[] = [
 export const credentials = {
   education: [
     { degree: "BSc — Computer Engineering & IT Project Management", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg" },
-    { degree: "Project Management Professional (PMP)", institution: "PMI", year: "Oct 2016", logo: "/assets/PMI-Logo.png" },
-    { degree: "Certified Scrum Product Owner (CSPO)", institution: "Scrum Inc.", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg" },
+    { degree: "Project Management Professional® (PMP®)", institution: "Project Management Institute", year: "Oct 2016", logo: "/assets/PMI-SQ.jpeg" },
+    { degree: "Certified Scrum Product Owner℠ (CSPO)", institution: "Scrum Inc.", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg" },
     { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "Aug 2023", logo: "/assets/KelloggSchool-Logo.svg" },
     { degree: "Data Analysis", institution: "Wharton Executive Education", year: "Aug 2022", logo: "/assets/WhartonSchool-logo.jpeg" },
   ],
   awards: [
-    { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos Rainbow initiative" },
+    { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos® Rainbow initiative" },
     { icon: "workspace_premium", name: "Circle of Champions", org: "PepsiCo · Top 0.1% worldwide" },
     { icon: "verified", name: "James E. Burke Award", org: "Johnson & Johnson · Creative Leadership" },
     { icon: "emoji_events", name: "HRC Best Place to Work", org: "J&J Mexico · LGBTQ+ Equity" },
@@ -258,7 +263,8 @@ export const credentials = {
 };
 
 export const contact = {
-  email: "eduardocjordan@icloud.com",
+  emailDirect: "eduardo@casjor.com",
+  emailConsulting: "consulting@casjor.com",
   linkedin: "/in/eduardocaj",
   linkedinUrl: "https://www.linkedin.com/in/eduardocaj",
   cvUrl: "/downloads/CV Eduardo Castro.pdf",

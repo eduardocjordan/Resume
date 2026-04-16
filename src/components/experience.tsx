@@ -66,10 +66,12 @@ function TimelineEntry({
                 />
               )
             ) : (
-              <div className="w-12 h-12 rounded-sm bg-surface-container-high flex items-center justify-center">
-                <span className="font-headline italic text-primary text-sm font-bold">
-                  {role.company.slice(0, 2)}
-                </span>
+              <div className="w-12 h-12 rounded-sm bg-surface-container-high flex flex-col items-end justify-center pr-1">
+                {(role.logoText ?? role.company.slice(0, 2)).split("\n").map((line, idx) => (
+                  <span key={idx} className="font-headline italic text-primary text-[10px] font-bold leading-tight text-right">
+                    {line}
+                  </span>
+                ))}
               </div>
             )}
           </div>

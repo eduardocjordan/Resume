@@ -115,7 +115,7 @@ export function NavBar() {
             whileTap={{ scale: 0.94 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
-            Download CV
+            Download Resume
           </motion.a>
 
           {/* Hamburger — mobile only */}

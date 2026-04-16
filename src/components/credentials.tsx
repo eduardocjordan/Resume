@@ -80,7 +80,7 @@ export function Credentials() {
                     {edu.logo && (
                       <Image
                         src={edu.logo}
-                        alt={edu.institution}
+                        alt={`${edu.institution} logo`}
                         width={80}
                         height={24}
                         style={{
