@@ -1,12 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { hero } from "@/lib/data";
 
 export function Hero() {
+  const { scrollY } = useScroll();
+  const h1Opacity = useTransform(scrollY, [0, 200], [1, 0]);
+  const h1Scale = useTransform(scrollY, [0, 200], [1, 0.95]);
+
   return (
-    <section className="min-h-screen flex flex-col justify-center px-8 md:px-24 py-20 bg-surface">
+    <section
+      className="min-h-[100dvh] flex flex-col justify-center px-8 md:px-24 py-20 bg-surface"
+      id="hero"
+      aria-labelledby="hero-heading"
+    >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center max-w-[1600px] mx-auto w-full">
 
         {/* Left column */}
@@ -20,16 +28,20 @@ export function Hero() {
             {hero.role} · {hero.location}
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-            className="text-7xl md:text-9xl leading-[0.9] font-headline text-on-surface"
-          >
-            Eduardo
-            <br />
-            <span className="italic text-primary">Castro</span>
-          </motion.h1>
+          {/* Scroll-driven opacity wrapper; entry animation on inner motion.h1 */}
+          <motion.div style={{ opacity: h1Opacity, scale: h1Scale }}>
+            <motion.h1
+              id="hero-heading"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+              className="text-7xl md:text-9xl leading-[0.9] font-headline text-on-surface"
+            >
+              Eduardo
+              <br />
+              <span className="italic text-primary">Castro</span>
+            </motion.h1>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

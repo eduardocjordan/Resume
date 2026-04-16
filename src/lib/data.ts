@@ -13,7 +13,7 @@ export const hero = {
     { value: "200", suffix: "M", label: "Impressions" },
     { value: "35", suffix: "%", label: "Revenue Growth" },
   ],
-  cv: "/assets/CV Eduardo Castro.pdf",
+  cv: "/downloads/CV Eduardo Castro.pdf",
   linkedin: "https://www.linkedin.com/in/eduardocaj",
   email: "mailto:eduardocjordan@icloud.com?subject=Let's connect",
 };
@@ -25,6 +25,7 @@ export type Project = {
   description: string;
   metrics: string;
   image: string;
+  imagePlaceholder?: { bg: string; label: string };
 };
 
 export const projects: Project[] = [
@@ -44,7 +45,7 @@ export const projects: Project[] = [
     description:
       "Founded EQUAL ERG at PepsiCo and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
     metrics: "HRC Best Place to Work · James E. Burke Award · LATAM Forum recognition",
-    image: "/assets/IMG_3381.jpeg",
+    image: "/assets/IMG_0576.png",
   },
   {
     index: "03",
@@ -53,8 +54,8 @@ export const projects: Project[] = [
     description:
       "Unlocked a four-year regulatory stall by mapping the SPF 55+ COFEPRIS pathway. Coordinated regional production in Brazil and launched the category from zero.",
     metrics: "New category from zero · +10% incremental B2B revenue · New market share",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAeBLjkxBtLaNAxKMWh11uCBrNVnnoOfcq6u2DNjyFIqtEjqIXelvXko-ftrnSgXntTfgU5D2Mtf9PFnK7kYMWjMX-FjrnnWEwgd5X773ZKm6q4kDokIn9Ceopa3jlbt1K3pMOorbDzO9lZvEPuFeTMVvSli8hjNryAzZ3icRECfep26KfT51qVkKkPmwH7P3e7PMvDt3XWWHgSxWEmwMcVP6ywsLY8HDX0hm1sguS0goEvfmMTk7kRtzJ7zC0LFDb5BlqNQ3a9zi4",
+    image: "",
+    imagePlaceholder: { bg: "#f0f0ec", label: "Neutrogena · J&J" },
   },
   {
     index: "04",
@@ -63,8 +64,8 @@ export const projects: Project[] = [
     description:
       "Built a brand and innovation system from scratch. Filtered 165 ideas down to one market-ready product through rigorous consumer validation gates.",
     metrics: "+35% revenue growth · Digital-first export brand · Full P&L ownership",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA21Fgo4TH-AdMXqDalP8rIDugq90_uPkivj6n5EdwjG86XSJDnXLHdIPTxTfF0rwtkfrv9saujza2o2eMohJdT0qSRi_Op1_ByvScCFWyhrJstN2rVkBLJyqgILStZltm7by3rcAIKAH1vTmXRM3w_aIGp1tcdR28wKcmT8ajdPPJrny_7D-PY3NnQkaC30mwAyf5cfsyVriOaPDWoK3b8cOLFM-ylE3hSzqHAp808Mg6FHg2quUeUeRkqcBY51tKoXbZtye-hA6Q",
+    image: "",
+    imagePlaceholder: { bg: "#f0f0ec", label: "Grupo Mariposa" },
   },
 ];
 
@@ -171,6 +172,7 @@ export const experience: Role[] = [
       { bold: "James E. Burke Award", rest: " — J&J's global recognition for creative leadership" },
       { bold: "+11% YoY revenue", rest: " through innovation launches and shopper marketing" },
       { bold: "Founded the LGBTQ+ ERG", rest: " earning HRC 'Best Place to Work' ranking" },
+      { bold: "Drove two promotions", rest: " within the team and built the business case to create a new role, expanding the team's capacity to support regional growth" },
     ],
     tags: ["Multichannel Strategy", "LATAM", "Shopper Marketing"],
   },
@@ -242,6 +244,7 @@ export const credentials = {
     { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos Rainbow initiative" },
     { icon: "workspace_premium", name: "Circle of Champions", org: "PepsiCo · Top 0.1% worldwide" },
     { icon: "verified", name: "James E. Burke Award", org: "Johnson & Johnson · Creative Leadership" },
+    { icon: "emoji_events", name: "HRC Best Place to Work", org: "J&J Mexico · LGBTQ+ Equity" },
   ],
   languages: [
     { lang: "English", level: "Native / Bilingual" },
@@ -258,5 +261,5 @@ export const contact = {
   email: "eduardocjordan@icloud.com",
   linkedin: "/in/eduardocaj",
   linkedinUrl: "https://www.linkedin.com/in/eduardocaj",
-  cvUrl: "/assets/CV Eduardo Castro.pdf",
+  cvUrl: "/downloads/CV Eduardo Castro.pdf",
 };

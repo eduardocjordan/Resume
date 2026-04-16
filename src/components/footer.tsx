@@ -22,7 +22,7 @@ export function Footer() {
           </a>
         </div>
         <p className="font-label text-[10px] tracking-widest uppercase">
-          &copy; {year} Eduardo Castro. Mexico City.
+          Eduardo Castro &middot; Mexico City &middot; &copy; {year}
         </p>
       </div>
     </footer>

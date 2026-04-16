@@ -6,9 +6,23 @@ import Image from "next/image";
 import { FadeIn } from "./fade-in";
 import { experience, type Role } from "@/lib/data";
 
-function TimelineEntry({ role, index }: { role: Role; index: number }) {
-  const [open, setOpen] = useState(index === 0);
+function TimelineEntry({
+  role,
+  index,
+  open,
+  onToggle,
+}: {
+  role: Role;
+  index: number;
+  open: boolean;
+  onToggle: () => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
+  const onToggleRef = useRef(onToggle);
+  const openRef = useRef(open);
+
+  useEffect(() => { onToggleRef.current = onToggle; }, [onToggle]);
+  useEffect(() => { openRef.current = open; }, [open]);
 
   // Mobile: auto-expand via IntersectionObserver at 30% visibility
   useEffect(() => {
@@ -16,7 +30,9 @@ function TimelineEntry({ role, index }: { role: Role; index: number }) {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && window.innerWidth < 768) setOpen(true);
+        if (entry.isIntersecting && window.innerWidth < 768 && !openRef.current) {
+          onToggleRef.current();
+        }
       },
       { threshold: 0.3 }
     );
@@ -68,7 +84,7 @@ function TimelineEntry({ role, index }: { role: Role; index: number }) {
         {/* Right: content */}
         <div className="flex-1 pb-10">
           <button
-            onClick={() => setOpen((o) => !o)}
+            onClick={onToggle}
             className="w-full text-left group"
             aria-expanded={open}
           >
@@ -138,12 +154,22 @@ function TimelineEntry({ role, index }: { role: Role; index: number }) {
 }
 
 export function Experience() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (i: number) => {
+    setOpenIndex((prev) => (prev === i ? null : i));
+  };
+
   return (
-    <section className="px-8 md:px-24 py-16 md:py-32 bg-surface-container-low" id="experience">
+    <section
+      className="min-h-[100dvh] px-8 md:px-24 py-16 md:py-32 bg-surface-container-low"
+      id="experience"
+      aria-labelledby="experience-heading"
+    >
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
           <div className="mb-16">
-            <h2 className="text-5xl md:text-7xl font-headline italic">Where I&rsquo;ve worked</h2>
+            <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic">Career</h2>
             <p className="text-secondary mt-4 font-body">
               A career built at the intersection of strategy, innovation, and execution.
             </p>
@@ -152,7 +178,13 @@ export function Experience() {
 
         <div>
           {experience.map((role, i) => (
-            <TimelineEntry key={role.company} role={role} index={i} />
+            <TimelineEntry
+              key={role.company}
+              role={role}
+              index={i}
+              open={openIndex === i}
+              onToggle={() => handleToggle(i)}
+            />
           ))}
         </div>
       </div>
