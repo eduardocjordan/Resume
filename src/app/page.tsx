@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <main className="pt-24">
+      <main id="main-content" className="pt-24">
         <Hero />
         <DefiningWork />
         <Impact />

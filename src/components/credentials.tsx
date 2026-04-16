@@ -1,41 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import { FadeIn } from "./fade-in";
 import { credentials } from "@/lib/data";
 
 export function Credentials() {
   return (
-    <section className="px-8 md:px-24 py-32 bg-surface" id="credentials">
+    <section className="px-8 md:px-24 py-16 md:py-32 bg-surface" id="credentials">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
-          {/* Education */}
+
+          {/* Education & Certs */}
           <FadeIn>
             <div>
               <h2 className="text-3xl font-headline mb-10 italic border-b-2 border-primary pb-4 inline-block">
                 Education &amp; Certs
               </h2>
-              <ul className="space-y-8">
+              <ul className="space-y-7">
                 {credentials.education.map((edu) => (
-                  <li key={edu.degree} className="flex items-start gap-4">
+                  <li key={edu.degree} className="flex items-start gap-3">
                     {edu.logo && (
-                      <div className="relative flex-shrink-0 w-10 h-10 mt-0.5">
-                        <Image
-                          src={edu.logo}
-                          alt={edu.institution}
-                          fill
-                          className="object-contain"
-                          sizes="40px"
-                        />
-                      </div>
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={edu.logo}
+                        alt={edu.institution}
+                        style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }}
+                      />
                     )}
                     <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">
                         {edu.degree}
                       </h4>
-                      <p className="text-xs text-tertiary mt-1">
-                        {edu.institution}
-                        {edu.year ? ` · ${edu.year}` : ""}
+                      <p className="text-xs text-tertiary mt-0.5">
+                        {edu.institution}{edu.year ? ` · ${edu.year}` : ""}
                       </p>
                     </div>
                   </li>
@@ -44,7 +40,7 @@ export function Credentials() {
             </div>
           </FadeIn>
 
-          {/* Awards */}
+          {/* Honors & Awards */}
           <FadeIn delay={0.1}>
             <div>
               <h2 className="text-3xl font-headline mb-10 italic border-b-2 border-primary pb-4 inline-block">
@@ -77,15 +73,11 @@ export function Credentials() {
                   <li
                     key={lang.lang}
                     className={`flex justify-between items-center py-3 ${
-                      i < credentials.languages.length - 1
-                        ? "border-b border-outline-variant/30"
-                        : ""
+                      i < credentials.languages.length - 1 ? "border-b border-outline-variant/30" : ""
                     }`}
                   >
                     <span className="text-sm font-bold text-on-surface">{lang.lang}</span>
-                    <span className="text-[10px] uppercase font-bold text-tertiary">
-                      {lang.level}
-                    </span>
+                    <span className="text-[10px] uppercase font-bold text-tertiary">{lang.level}</span>
                   </li>
                 ))}
               </ul>
@@ -107,6 +99,7 @@ export function Credentials() {
               </div>
             </div>
           </FadeIn>
+
         </div>
       </div>
     </section>

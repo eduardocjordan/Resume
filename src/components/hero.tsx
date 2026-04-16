@@ -8,6 +8,7 @@ export function Hero() {
   return (
     <section className="min-h-screen flex flex-col justify-center px-8 md:px-24 py-20 bg-surface">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center max-w-[1600px] mx-auto w-full">
+
         {/* Left column */}
         <div className="md:col-span-7 space-y-8">
           <motion.div
@@ -30,13 +31,20 @@ export function Hero() {
             <span className="italic text-primary">Castro</span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
-            className="text-xl md:text-2xl leading-relaxed text-secondary max-w-xl font-light"
-            dangerouslySetInnerHTML={{ __html: hero.tagline }}
-          />
+            className="space-y-4"
+          >
+            {hero.taglines.map((t, i) => (
+              <p
+                key={i}
+                className="text-lg md:text-xl leading-relaxed text-secondary font-light"
+                dangerouslySetInnerHTML={{ __html: t }}
+              />
+            ))}
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -46,6 +54,9 @@ export function Hero() {
           >
             <motion.a
               href={hero.cv}
+              download
+              data-gtm-event="resume_download"
+              data-gtm-location="hero"
               className="editorial-gradient text-white px-8 py-4 rounded-sm font-label text-sm font-bold tracking-widest uppercase flex items-center gap-2"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -56,6 +67,11 @@ export function Hero() {
             </motion.a>
             <motion.a
               href={hero.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-gtm-event="social_click"
+              data-gtm-location="hero"
+              data-gtm-platform="linkedin"
               className="bg-white border border-outline-variant text-on-surface px-8 py-4 rounded-sm font-label text-sm font-bold tracking-widest uppercase flex items-center gap-2 hover:bg-surface-container-low transition-colors"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -84,22 +100,21 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         >
-          <div className="aspect-[4/5] bg-surface-container-low overflow-hidden rounded-sm relative shadow-2xl group">
+          <div className="aspect-[4/5] bg-surface-container-low overflow-hidden rounded-sm relative shadow-2xl">
             <Image
               src={hero.portrait}
-              alt="Eduardo Castro Professional Portrait"
+              alt="Eduardo Castro — Marketing Director"
               fill
-              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              className="object-cover object-top"
               priority
               sizes="(max-width: 768px) 100vw, 42vw"
             />
-            {/* Stats overlay */}
-            <div className="absolute bottom-0 left-0 right-0 bg-on-background/90 backdrop-blur-md grid grid-cols-3 divide-x divide-white/10 text-center py-6">
+            {/* Stats overlay — desktop only */}
+            <div className="hidden md:grid absolute bottom-0 left-0 right-0 bg-on-background/90 backdrop-blur-md grid-cols-3 divide-x divide-white/10 text-center py-6">
               {hero.stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="text-3xl font-headline text-white">
-                    {stat.value}
-                    <span className="text-primary">{stat.suffix}</span>
+                    {stat.value}<span className="text-primary">{stat.suffix}</span>
                   </div>
                   <div className="text-[10px] uppercase tracking-tighter text-white/50 font-bold">
                     {stat.label}
@@ -108,7 +123,22 @@ export function Hero() {
               ))}
             </div>
           </div>
+
+          {/* Stats strip — mobile only, below photo */}
+          <div className="md:hidden grid grid-cols-3 divide-x divide-outline-variant/30 bg-on-background text-center py-5 mt-0">
+            {hero.stats.map((stat) => (
+              <div key={stat.label}>
+                <div className="text-2xl font-headline text-white">
+                  {stat.value}<span className="text-primary">{stat.suffix}</span>
+                </div>
+                <div className="text-[9px] uppercase tracking-tighter text-white/50 font-bold">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </motion.div>
+
       </div>
     </section>
   );
