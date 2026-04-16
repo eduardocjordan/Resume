@@ -87,7 +87,7 @@ export function DefiningWork() {
               ) : (
                 <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={project.altText ?? project.title}
                   width={400}
                   height={225}
                   className="w-full h-full object-cover"
@@ -122,7 +122,7 @@ export function DefiningWork() {
                 ) : (
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt={project.altText ?? project.title}
                     width={800}
                     height={450}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"

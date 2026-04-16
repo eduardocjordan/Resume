@@ -20,7 +20,7 @@ export function BrandsGrid() {
               <div className="flex items-center justify-center cursor-default w-full opacity-70 hover:opacity-100 transition-opacity duration-300">
                 <Image
                   src={brand.logo}
-                  alt={brand.name}
+                  alt={`${brand.name} logo`}
                   width={120}
                   height={40}
                   style={{ height: "40px", width: "auto", objectFit: "contain" }}

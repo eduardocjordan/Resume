@@ -75,7 +75,7 @@ export function Hero() {
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               <span className="material-symbols-outlined text-lg">download</span>
-              Download CV
+              Download Resume
             </motion.a>
             <motion.a
               href={hero.linkedin}
@@ -115,7 +115,7 @@ export function Hero() {
           <div className="aspect-[4/5] bg-surface-container-low overflow-hidden rounded-sm relative shadow-2xl">
             <Image
               src={hero.portrait}
-              alt="Eduardo Castro — Marketing Director"
+              alt="Eduardo Castro — Marketing Director, Brand Growth Strategist"
               fill
               className="object-cover object-top"
               priority

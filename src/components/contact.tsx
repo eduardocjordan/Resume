@@ -7,12 +7,23 @@ import { contact } from "@/lib/data";
 const contactLinks = [
   {
     icon: "mail",
-    label: "Send Email",
-    value: contact.email,
-    href: `mailto:${contact.email}?subject=Let%27s%20connect`,
+    label: "Direct",
+    value: contact.emailDirect,
+    href: `mailto:${contact.emailDirect}?subject=Let%27s%20connect`,
     download: false,
     external: false,
-    accent: true,
+    accent: false,
+    gtmEvent: "email_click",
+    gtmLocation: "contact",
+  },
+  {
+    icon: "mail_outline",
+    label: "Consulting Inquiries",
+    value: contact.emailConsulting,
+    href: `mailto:${contact.emailConsulting}?subject=Consulting%20Inquiry`,
+    download: false,
+    external: false,
+    accent: false,
     gtmEvent: "email_click",
     gtmLocation: "contact",
   },
@@ -30,7 +41,7 @@ const contactLinks = [
   {
     icon: "description",
     label: "Download Resume",
-    value: "PDF · English",
+    value: "Resume · English",
     href: contact.cvUrl,
     download: true,
     external: false,
@@ -76,17 +87,11 @@ export function Contact() {
                     : {})}
                   data-gtm-event={link.gtmEvent}
                   data-gtm-location={link.gtmLocation}
-                  className={`flex items-center gap-6 p-8 bg-white shadow-sm border-l-4 ${
-                    link.accent ? "border-primary" : "border-outline"
-                  }`}
+                  className="flex items-center gap-6 p-8 bg-white shadow-sm border-l-4 border-outline"
                   whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.10)" }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
-                  <span
-                    className={`material-symbols-outlined text-3xl ${
-                      link.accent ? "text-primary" : "text-tertiary"
-                    }`}
-                  >
+                  <span className="material-symbols-outlined text-3xl text-tertiary">
                     {link.icon}
                   </span>
                   <div className="text-left">
