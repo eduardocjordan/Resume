@@ -31,8 +31,9 @@ export function HowIWork() {
 
   return (
     <section
-      className="py-16 md:py-32 bg-editorial-maroon text-white relative overflow-hidden"
+      className="min-h-[100dvh] py-16 md:py-32 bg-editorial-maroon text-white relative overflow-hidden"
       id="how-i-work"
+      aria-labelledby="how-i-work-heading"
     >
       {/* Background accent */}
       <div className="absolute top-0 right-0 w-[50%] h-full bg-white/[0.03] -skew-x-12 translate-x-1/4 pointer-events-none" />
@@ -43,7 +44,7 @@ export function HowIWork() {
             <p className="text-white/40 font-label font-bold text-[10px] tracking-[0.3em] uppercase mb-4">
               Process &amp; Approach
             </p>
-            <h2 className="text-7xl md:text-9xl font-headline italic mb-12">How I Work</h2>
+            <h2 id="how-i-work-heading" className="text-7xl md:text-9xl font-headline italic mb-12">How I Work</h2>
             <div className="w-full h-px bg-white/10 mb-12 md:mb-20" />
           </div>
         </FadeIn>

@@ -20,6 +20,22 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
   );
 }
 
+function ProjectImage({ project }: { project: typeof projects[number] }) {
+  if (project.imagePlaceholder) {
+    return (
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={{ backgroundColor: project.imagePlaceholder.bg }}
+      >
+        <span className="text-xs font-label font-bold uppercase tracking-widest text-secondary/60">
+          {project.imagePlaceholder.label}
+        </span>
+      </div>
+    );
+  }
+  return null;
+}
+
 export function DefiningWork() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
@@ -32,11 +48,11 @@ export function DefiningWork() {
   };
 
   return (
-    <section className="py-16 md:py-32 bg-surface-container-low" id="defining-work">
+    <section className="min-h-[100dvh] py-16 md:py-32 bg-surface-container-low" id="defining-work" aria-labelledby="defining-work-heading">
       <div className="max-w-[1600px] mx-auto px-8 md:px-24">
         <FadeIn>
           <div className="flex flex-col md:flex-row justify-between items-baseline mb-12 md:mb-20 gap-4">
-            <h2 className="text-5xl md:text-7xl font-headline">Defining Work</h2>
+            <h2 id="defining-work-heading" className="text-5xl md:text-7xl font-headline">Defining Work</h2>
             <p className="font-label text-sm uppercase tracking-widest text-primary font-bold">
               Selected projects that went beyond the brief
             </p>
@@ -66,20 +82,24 @@ export function DefiningWork() {
               <p className="text-[10px] uppercase tracking-wider font-bold text-primary">{project.metrics}</p>
             </div>
             <div className="aspect-video overflow-hidden bg-surface-container-high rounded-sm">
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={400}
-                height={225}
-                className="w-full h-full object-cover"
-              />
+              {project.imagePlaceholder ? (
+                <ProjectImage project={project} />
+              ) : (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={400}
+                  height={225}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           </div>
         ))}
       </div>
       <ScrollDots count={projects.length} active={activeCard} />
 
-      {/* Desktop grid */}
+      {/* Desktop grid — 2 columns, 2 rows; first row visible on entry */}
       <div className="hidden md:grid grid-cols-2 gap-px bg-outline-variant/20 max-w-[1600px] mx-auto px-24">
         {projects.map((project, i) => (
           <FadeIn key={project.index} delay={i * 0.08}>
@@ -97,13 +117,17 @@ export function DefiningWork() {
                 <p className="text-[11px] uppercase tracking-wider font-bold text-primary">{project.metrics}</p>
               </div>
               <div className="aspect-video overflow-hidden bg-surface-container-high rounded-sm">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={800}
-                  height={450}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
+                {project.imagePlaceholder ? (
+                  <ProjectImage project={project} />
+                ) : (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={800}
+                    height={450}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                )}
               </div>
             </motion.div>
           </FadeIn>

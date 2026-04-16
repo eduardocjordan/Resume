@@ -32,17 +32,15 @@ export function Impact() {
 
   return (
     <section
-      className="py-16 md:py-32 bg-on-background text-white relative overflow-hidden"
+      className="min-h-[100dvh] py-16 md:py-32 bg-on-background text-white relative overflow-hidden"
       id="impact"
+      aria-labelledby="impact-heading"
     >
-      {/* Angled accent */}
-      <div className="absolute top-0 left-0 w-1/3 h-full bg-primary/10 skew-x-12 -translate-x-1/2 pointer-events-none" />
-
       <div className="max-w-[1600px] mx-auto px-8 md:px-24 relative z-10">
         <FadeIn>
           <div className="flex flex-col md:flex-row items-end gap-12 mb-16 md:mb-24">
             <div className="md:w-1/2">
-              <h2 className="text-5xl md:text-8xl font-headline leading-tight">
+              <h2 id="impact-heading" className="text-5xl md:text-8xl font-headline leading-tight">
                 Results that <br />
                 <span className="italic text-primary">hold up.</span>
               </h2>
@@ -86,7 +84,7 @@ export function Impact() {
       <ScrollDots count={impactMetrics.length} active={activeCard} />
 
       {/* Desktop grid */}
-      <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1600px] mx-auto px-24 relative z-10">
+      <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1600px] mx-auto px-24 relative z-10 mt-0">
         {impactMetrics.map((metric, i) => (
           <FadeIn key={i} delay={i * 0.07}>
             <motion.div

@@ -42,7 +42,7 @@ const contactLinks = [
 
 export function Contact() {
   return (
-    <section className="px-8 md:px-24 py-16 md:py-32 bg-surface-container-low" id="contact">
+    <section className="min-h-[100dvh] px-8 md:px-24 py-16 md:py-32 bg-surface-container-low" id="contact" aria-labelledby="contact-heading">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
           {/* Left */}
@@ -51,7 +51,7 @@ export function Contact() {
               <p className="text-primary font-bold text-[10px] tracking-widest uppercase mb-4">
                 Open to opportunities
               </p>
-              <h2 className="text-7xl md:text-9xl font-headline mb-8 text-on-surface leading-none">
+              <h2 id="contact-heading" className="text-7xl md:text-9xl font-headline mb-8 text-on-surface leading-none">
                 Let&rsquo;s
                 <br />
                 <span className="italic text-primary">Talk.</span>

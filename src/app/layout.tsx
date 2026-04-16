@@ -4,12 +4,12 @@ import "./globals.css";
 const siteUrl = "https://eduardocjordan.github.io/Resume";
 
 export const metadata: Metadata = {
-  title: "Eduardo Castro | Marketing Director",
+  title: "Eduardo Castro — Marketing Director | FMCG & CPG",
   description:
     "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Eduardo Castro | Marketing Director",
+    title: "Eduardo Castro — Marketing Director | FMCG & CPG",
     description:
       "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
     url: siteUrl,
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eduardo Castro | Marketing Director",
+    title: "Eduardo Castro — Marketing Director | FMCG & CPG",
     description:
       "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
     images: [`${siteUrl}/assets/IMG_3827.jpeg`],
