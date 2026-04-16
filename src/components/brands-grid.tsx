@@ -6,30 +6,29 @@ import { brands } from "@/lib/data";
 
 export function BrandsGrid() {
   return (
-    <section className="px-8 md:px-24 py-32 bg-surface" id="brands">
+    <section className="px-8 md:px-24 py-16 md:py-32 bg-surface" id="brands">
       <div className="max-w-[1200px] mx-auto text-center">
         <FadeIn>
-          <p className="text-primary font-bold text-[10px] tracking-[0.3em] uppercase mb-6">
-            Portfolio Impact
-          </p>
-          <h2 className="text-5xl md:text-6xl font-headline italic mb-20">
-            I've built brands for
+          <h2 className="text-5xl md:text-6xl font-headline italic mb-16 md:mb-20">
+            Brands I&rsquo;ve helped grow
           </h2>
         </FadeIn>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 items-center justify-items-center opacity-60">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-10 gap-y-12 items-center justify-items-center">
           {brands.map((brand, i) => (
-            <FadeIn key={brand} delay={i * 0.05}>
+            <FadeIn key={brand.name} delay={i * 0.04}>
               <motion.div
-                className="flex flex-col items-center gap-3 cursor-default"
-                initial={{ filter: "grayscale(1)", opacity: 0.6 }}
-                whileHover={{ filter: "grayscale(0)", opacity: 1 }}
-                transition={{ duration: 0.3 }}
+                className="flex items-center justify-center cursor-default w-full"
+                initial={{ opacity: 0.75 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.25 }}
               >
-                <div className="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center font-bold text-[10px] text-center px-2">
-                  {brand}
-                </div>
-                <span className="text-[9px] uppercase tracking-widest font-bold">{brand}</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={brand.logo}
+                  alt={brand.name}
+                  style={{ maxHeight: "40px", width: "auto", objectFit: "contain" }}
+                />
               </motion.div>
             </FadeIn>
           ))}

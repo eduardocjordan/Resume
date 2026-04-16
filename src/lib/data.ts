@@ -2,18 +2,20 @@ export const hero = {
   name: "Eduardo Castro",
   role: "Marketing Director",
   location: "Mexico City",
-  tagline:
+  taglines: [
     "Engineer-turned-marketer with <strong>13+ years</strong> in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
-  portrait:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB6-FRZm4QBzwKYeTvn7EPr8lgLzEKBOknwxBnQNYfwvOnBD8udCNvW_L-3YY2dU3GSwJ4OEDFchnH_mm5MvOnYdA-6zfruSng9EReWQsaNLQukyYBEF545S6vdU3FbUQULdHL49tMGwnr4GyGs9G2fPYktXfJasSIHDAPpI_gBewrVhAHG7I_wDVkpcBkw9L4gzE4xcHk27Y0flHT_nEO4ltaW1tx0ljasIAj7BtOu4Iv2szUOoPQ2DVuGIJDf4PcshW9e9TF0OVM",
+    "The project that defines my career is <strong>Doritos Rainbow</strong> — PepsiCo's first purpose-driven product. Launched the week of the Pulse massacre in Orlando. Sold out in one week instead of eight. 200M+ organic impressions. It's been a Pride flagship ever since.",
+    "I build brands that move both culture and market share.",
+  ],
+  portrait: "/assets/IMG_3827.jpeg",
   stats: [
     { value: "13", suffix: "+", label: "Years FMCG" },
     { value: "200", suffix: "M", label: "Impressions" },
     { value: "35", suffix: "%", label: "Revenue Growth" },
   ],
-  cv: "#",
-  linkedin: "https://linkedin.com/in/eduardocaj",
-  email: "mailto:eduardocjordan@icloud.com",
+  cv: "/assets/CV Eduardo Castro.pdf",
+  linkedin: "https://www.linkedin.com/in/eduardocaj",
+  email: "mailto:eduardocjordan@icloud.com?subject=Let's connect",
 };
 
 export type Project = {
@@ -33,8 +35,7 @@ export const projects: Project[] = [
     description:
       "PepsiCo's first purpose-driven product. Launched the week of the Pulse massacre in Orlando. 100% of profits donated to LGBT+ ally NGOs. Sold out in one week instead of eight.",
     metrics: "200M+ organic impressions · +2.3% brand SOM · President's Outliers Award",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBwEjYELq9UL1kRBsPdKFIU5RPFx8gW1oqFQwECCpcovPa_ZBD0KqOrrpSuPah58CfgMAE_8dr-vpdO3vJDnvKZn_r1y_B2NLm0-M8glGPbUaZ-kaTbJJXk6gaeRAHGVXGYYfF58yNDrIcopqLzgklr-GhofWXKbH6bG_4cyKOVJe0rhBsLyRna57NKF5N_KZRmXLoQKhKA76IkKUtIkoiMKFhBb-ZYpSPXk1zrvlBMYCxeDj39-I9bSB2rtVkMjQpYC--Jhhu37ik",
+    image: "/assets/20160812_102324-1.jpeg",
   },
   {
     index: "02",
@@ -43,8 +44,7 @@ export const projects: Project[] = [
     description:
       "Founded EQUAL ERG at PepsiCo and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
     metrics: "HRC Best Place to Work · James E. Burke Award · LATAM Forum recognition",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCsJDfbJZFlreQoHPQkWzhm6hU8-U_UQlvCC0gTqanf599YYDvV7AY8tv14-OdoImQwjNn34jXX5oAxaYmHQbUk_id6W2JeAYthktmXxyeBVOxKaTOHy4o7g2a3ugyhZIDE-cPWaHaGdYgjudnj6C6kEs2vkbB9KrpqTsLzo267t0maRAymbLDNMvGqHfNbGfsDYGt2FNpFPd_9sJkQGC25taCUKJLSiBM2kIMZ9dEsnk539QhLafeR48r3gvWU10pNW5DzIrNVrjk",
+    image: "/assets/IMG_3381.jpeg",
   },
   {
     index: "03",
@@ -80,22 +80,19 @@ export const impactMetrics: ImpactMetric[] = [
     company: "apex Consulting",
     stat: "+15%",
     label: "YoY Sales Growth",
-    description:
-      "Disruptive GTM strategy and portfolio repositioning for a drinks FMCG client in Mexico.",
+    description: "Disruptive GTM strategy and portfolio repositioning for a drinks FMCG client in Mexico.",
   },
   {
     company: "apex Consulting",
     stat: "-35%",
     label: "Drop-off Reduction",
-    description:
-      "Consumer research driving UX improvements for a US telecom client's support funnel.",
+    description: "Consumer research driving UX improvements for a US telecom client's support funnel.",
   },
   {
     company: "apex Consulting",
     stat: "-20%",
     label: "CPC Reduction",
-    description:
-      "A/B testing and SEO strategy for a FinTech client's social media acquisition campaigns.",
+    description: "A/B testing and SEO strategy for a FinTech client's social media acquisition campaigns.",
   },
   {
     company: "Grupo Mariposa",
@@ -107,8 +104,7 @@ export const impactMetrics: ImpactMetric[] = [
     company: "Johnson & Johnson",
     stat: "+11%",
     label: "YoY B2B Revenue",
-    description:
-      "Launched Neutrogena's Sun Care category in Mexico after mapping a regulatory stall.",
+    description: "Launched Neutrogena's Sun Care category in Mexico after mapping a regulatory stall.",
   },
   {
     company: "PepsiCo",
@@ -119,7 +115,8 @@ export const impactMetrics: ImpactMetric[] = [
 ];
 
 export type Role = {
-  monogram: string;
+  logo: string | null;
+  logoExternal?: string;
   dates: string;
   company: string;
   industry: string;
@@ -131,7 +128,7 @@ export type Role = {
 
 export const experience: Role[] = [
   {
-    monogram: "aC",
+    logo: null,
     dates: "Mar 2024 — Present",
     company: "apex Consulting",
     industry: "Marketing Consulting",
@@ -146,7 +143,7 @@ export const experience: Role[] = [
     tags: ["Brand Strategy", "Performance Marketing", "CRM", "A/B Testing"],
   },
   {
-    monogram: "GM",
+    logo: "/assets/IMG_0576.png",
     dates: "Apr 2020 — Feb 2024",
     company: "Grupo Mariposa",
     industry: "Food & Beverage FMCG",
@@ -157,11 +154,13 @@ export const experience: Role[] = [
       { bold: "+35% revenue growth", rest: " in a lean, digital-first export operation" },
       { bold: "3% CTR", rest: " through omni-channel campaign management" },
       { bold: "165 ideas filtered to 1", rest: " launched product through rigorous consumer validation" },
+      { bold: "Drove two promotions", rest: " within the team and built the business case to create a new role, expanding the team's capacity to support regional growth" },
     ],
     tags: ["P&L Management", "NPD", "Go-to-Market"],
   },
   {
-    monogram: "J&J",
+    logo: null,
+    logoExternal: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Johnson_and_Johnson_Logo.svg/320px-Johnson_and_Johnson_Logo.svg.png",
     dates: "Mar 2017 — Apr 2020",
     company: "Johnson & Johnson",
     industry: "Health & Beauty CPG",
@@ -176,11 +175,12 @@ export const experience: Role[] = [
     tags: ["Multichannel Strategy", "LATAM", "Shopper Marketing"],
   },
   {
-    monogram: "Pepsi",
+    logo: null,
+    logoExternal: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Pepsi_2023.svg/320px-Pepsi_2023.svg.png",
     dates: "Nov 2012 — Mar 2017",
     company: "PepsiCo",
     industry: "Food & Beverage FMCG",
-    title: "Marketing Innovation Manager",
+    title: "Marketing Innovation Manager → PMO & Ideation Leader → IT Project Manager",
     description:
       "Owned the full pipeline for Doritos, Cheetos, Tostitos, and Quaker — 60+ products annually. Led the defining Doritos Rainbow project.",
     bullets: [
@@ -192,17 +192,21 @@ export const experience: Role[] = [
   },
 ];
 
-export const brands = [
-  "Pepsi",
-  "Doritos",
-  "Neutrogena",
-  "Listerine",
-  "Johnson's Baby",
-  "Tylenol",
-  "Cheetos",
-  "Tostitos",
-  "Quaker",
-  "+More",
+export type Brand = { name: string; logo: string };
+
+export const brands: Brand[] = [
+  { name: "Doritos",        logo: "/assets/Doritos-logo.png" },
+  { name: "Neutrogena",     logo: "/assets/Neutrogena-Logo.svg" },
+  { name: "Johnson's Baby", logo: "/assets/JohnsonBaby-Logo.svg" },
+  { name: "Beliv",          logo: "/assets/Beliv-SQ.jpeg" },
+  { name: "Quaker",         logo: "/assets/Quaker-Logo.png" },
+  { name: "Listerine",      logo: "/assets/Listerine-logo.png" },
+  { name: "Cheetos",        logo: "/assets/CHEETOS-logo.png" },
+  { name: "Bía Foods",      logo: "/assets/Bia-Foods-Logo.svg" },
+  { name: "Tostitos",       logo: "/assets/Tostitos-Logo.svg" },
+  { name: "Lubriderm",      logo: "/assets/LURBIDERM-SQ.jpeg" },
+  { name: "Aveeno",         logo: "/assets/Aveeno-logo.svg" },
+  { name: "CBC",            logo: "/assets/CBC-logo.png" },
 ];
 
 export type Story = { title: string; body: string };
@@ -228,10 +232,11 @@ export const stories: Story[] = [
 
 export const credentials = {
   education: [
-    { degree: "MBA — Business Administration", institution: "Tecnológico de Monterrey", year: "2027" },
-    { degree: "BSc — Computer Engineering", institution: "Tecnológico de Monterrey", year: "" },
-    { degree: "Project Management Professional (PMP)", institution: "PMI", year: "Oct 2016" },
-    { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "" },
+    { degree: "BSc — Computer Engineering & IT Project Management", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg" },
+    { degree: "Project Management Professional (PMP)", institution: "PMI", year: "Oct 2016", logo: "/assets/PMI-Logo.png" },
+    { degree: "Certified Scrum Product Owner (CSPO)", institution: "Scrum Inc.", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg" },
+    { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "Aug 2023", logo: "/assets/KelloggSchool-Logo.svg" },
+    { degree: "Data Analysis", institution: "Wharton Executive Education", year: "Aug 2022", logo: "/assets/WhartonSchool-logo.jpeg" },
   ],
   awards: [
     { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos Rainbow initiative" },
@@ -243,12 +248,15 @@ export const credentials = {
     { lang: "Spanish", level: "Native / Bilingual" },
     { lang: "Portuguese", level: "Professional Working" },
   ],
-  tools: ["Nielsen", "Tableau", "Meta Business", "HubSpot"],
+  tools: [
+    "Nielsen", "Euromonitor", "Google Analytics", "Meta Business Suite",
+    "SEMrush", "Tableau", "HubSpot", "Shopify", "Kantar",
+  ],
 };
 
 export const contact = {
   email: "eduardocjordan@icloud.com",
   linkedin: "/in/eduardocaj",
-  linkedinUrl: "https://linkedin.com/in/eduardocaj",
-  cvUrl: "#",
+  linkedinUrl: "https://www.linkedin.com/in/eduardocaj",
+  cvUrl: "/assets/CV Eduardo Castro.pdf",
 };

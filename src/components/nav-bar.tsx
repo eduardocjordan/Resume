@@ -1,63 +1,187 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { hero } from "@/lib/data";
 
 const links = [
-  { label: "Defining Work", href: "#defining-work" },
-  { label: "Experience", href: "#experience" },
-  { label: "How I Work", href: "#how-i-work" },
-  { label: "Credentials", href: "#credentials" },
-  { label: "Contact", href: "#contact" },
+  { label: "Defining Work", href: "#defining-work", section: "defining-work" },
+  { label: "Experience",    href: "#experience",    section: "experience" },
+  { label: "How I Work",    href: "#how-i-work",    section: "how-i-work" },
+  { label: "Credentials",   href: "#credentials",   section: "credentials" },
+  { label: "Contact",       href: "#contact",       section: "contact" },
 ];
 
 export function NavBar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled]         = useState(false);
+  const [menuOpen, setMenuOpen]         = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const [scrollPct, setScrollPct]       = useState(0);
 
+  // Scroll listener: shadow + progress bar + active section
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const pct =
+        window.scrollY /
+        Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      setScrollPct(pct);
+
+      // scroll depth milestones for GTM
+      const milestones = [25, 50, 75, 100];
+      const hit: Record<number, boolean> = (window as any).__scrollHit || {};
+      const rounded = Math.round(pct * 100);
+      milestones.forEach((m) => {
+        if (rounded >= m && !hit[m]) {
+          hit[m] = true;
+          (window as any).dataLayer = (window as any).dataLayer || [];
+          (window as any).dataLayer.push({ event: "scroll_depth", percent: m });
+        }
+      });
+      (window as any).__scrollHit = hit;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#f9f9f7]/90 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm"
-          : "bg-[#f9f9f7]/80 backdrop-blur-xl border-b border-outline-variant/20"
-      }`}
-    >
-      <div className="flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
-        <a
-          href="#"
-          className="font-headline italic text-2xl font-bold text-on-surface hover:text-primary transition-colors duration-300"
-        >
-          Eduardo Castro
-        </a>
+  // IntersectionObserver for active nav section
+  useEffect(() => {
+    const sectionIds = links.map((l) => l.section);
+    const observers: IntersectionObserver[] = [];
 
-        <div className="hidden md:flex items-center space-x-12">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="font-label tracking-tight text-sm uppercase font-semibold text-on-surface opacity-70 hover:opacity-100 hover:text-primary transition-all duration-300"
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  const handleLinkClick = () => setMenuOpen(false);
+
+  return (
+    <>
+      {/* Desktop vertical progress bar */}
+      <div className="hidden md:block fixed left-0 top-1/2 -translate-y-1/2 w-[2px] h-[60vh] bg-outline-variant/30 z-40">
+        <div
+          className="w-full bg-primary transition-none"
+          style={{ height: `${scrollPct * 100}%` }}
+        />
+      </div>
+
+      {/* Mobile horizontal progress bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-[3px] bg-outline-variant/30 z-[200]">
+        <div
+          className="h-full bg-primary transition-none"
+          style={{ width: `${scrollPct * 100}%` }}
+        />
+      </div>
+
+      <nav
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#f9f9f7]/90 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm"
+            : "bg-[#f9f9f7]/80 backdrop-blur-xl border-b border-outline-variant/20"
+        }`}
+      >
+        <div className="flex justify-between items-center px-8 py-5 max-w-[1920px] mx-auto">
+          <a
+            href="#"
+            className="font-headline italic text-2xl font-bold text-on-surface hover:text-primary transition-colors duration-300"
+          >
+            Eduardo Castro
+          </a>
+
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center space-x-12">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`font-label tracking-tight text-sm uppercase font-semibold transition-all duration-300 ${
+                  activeSection === link.section
+                    ? "text-primary opacity-100"
+                    : "text-on-surface opacity-70 hover:opacity-100 hover:text-primary"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <motion.a
+              href={hero.cv}
+              download
+              data-gtm-event="resume_download"
+              data-gtm-location="nav"
+              className="editorial-gradient text-white px-5 py-2.5 rounded-sm font-label text-sm font-semibold tracking-wide"
+              whileHover={{ scale: 0.97 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
-              {link.label}
-            </a>
-          ))}
+              Download CV
+            </motion.a>
+
+            {/* Hamburger — mobile only */}
+            <button
+              className="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9 p-1"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <span
+                className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${
+                  menuOpen ? "rotate-45 translate-y-[7px]" : ""
+                }`}
+              />
+              <span
+                className={`block h-[2px] w-full bg-on-surface transition-all duration-300 ${
+                  menuOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${
+                  menuOpen ? "-rotate-45 -translate-y-[7px]" : ""
+                }`}
+              />
+            </button>
+          </div>
         </div>
 
-        <motion.a
-          href="#"
-          className="editorial-gradient text-white px-6 py-2.5 rounded-sm font-label text-sm font-semibold tracking-wide"
-          whileHover={{ scale: 0.97 }}
-          whileTap={{ scale: 0.94 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        >
-          Download CV
-        </motion.a>
-      </div>
-    </nav>
+        {/* Mobile dropdown panel */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="md:hidden overflow-hidden bg-[#f9f9f7]/95 backdrop-blur-xl border-t border-outline-variant/20"
+            >
+              <div className="flex flex-col px-8 py-6 space-y-5">
+                {links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={handleLinkClick}
+                    className={`font-label text-sm uppercase font-semibold tracking-widest transition-colors duration-200 ${
+                      activeSection === link.section ? "text-primary" : "text-on-surface"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 }

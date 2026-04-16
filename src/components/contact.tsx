@@ -9,28 +9,40 @@ const contactLinks = [
     icon: "mail",
     label: "Send Email",
     value: contact.email,
-    href: `mailto:${contact.email}`,
+    href: `mailto:${contact.email}?subject=Let%27s%20connect`,
+    download: false,
+    external: false,
     accent: true,
+    gtmEvent: "email_click",
+    gtmLocation: "contact",
   },
   {
     icon: "group",
     label: "LinkedIn Profile",
     value: contact.linkedin,
     href: contact.linkedinUrl,
+    download: false,
+    external: true,
     accent: false,
+    gtmEvent: "linkedin_click",
+    gtmLocation: "contact",
   },
   {
     icon: "description",
     label: "Download Resume",
     value: "PDF · English",
     href: contact.cvUrl,
+    download: true,
+    external: false,
     accent: false,
+    gtmEvent: "resume_download",
+    gtmLocation: "contact",
   },
 ];
 
 export function Contact() {
   return (
-    <section className="px-8 md:px-24 py-40 bg-surface-container-low" id="contact">
+    <section className="px-8 md:px-24 py-16 md:py-32 bg-surface-container-low" id="contact">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
           {/* Left */}
@@ -54,10 +66,16 @@ export function Contact() {
           {/* Right — contact cards */}
           <FadeIn delay={0.12}>
             <div className="space-y-4">
-              {contactLinks.map((link, i) => (
+              {contactLinks.map((link) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
+                  {...(link.download ? { download: true } : {})}
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  data-gtm-event={link.gtmEvent}
+                  data-gtm-location={link.gtmLocation}
                   className={`flex items-center gap-6 p-8 bg-white shadow-sm border-l-4 ${
                     link.accent ? "border-primary" : "border-outline"
                   }`}

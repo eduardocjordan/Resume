@@ -1,46 +1,96 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { FadeIn } from "./fade-in";
 import { stories } from "@/lib/data";
 
+function ScrollDots({ count, active }: { count: number; active: number }) {
+  return (
+    <div className="flex justify-center gap-2 mt-5 md:hidden">
+      {Array.from({ length: count }).map((_, i) => (
+        <span
+          key={i}
+          className="block w-2 h-2 rounded-full transition-colors duration-300"
+          style={{ backgroundColor: i === active ? "#d4622a" : "rgba(255,255,255,0.25)" }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function HowIWork() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeCard, setActiveCard] = useState(0);
+
+  const onScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const idx = Math.round(el.scrollLeft / el.offsetWidth);
+    setActiveCard(Math.min(idx, stories.length - 1));
+  };
+
   return (
     <section
-      className="px-8 md:px-24 py-32 bg-editorial-maroon text-white relative overflow-hidden"
+      className="py-16 md:py-32 bg-editorial-maroon text-white relative overflow-hidden"
       id="how-i-work"
     >
       {/* Background accent */}
       <div className="absolute top-0 right-0 w-[50%] h-full bg-white/[0.03] -skew-x-12 translate-x-1/4 pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto relative z-10">
+      <div className="max-w-[1400px] mx-auto px-8 md:px-24 relative z-10">
         <FadeIn>
           <div className="mb-12">
             <p className="text-white/40 font-label font-bold text-[10px] tracking-[0.3em] uppercase mb-4">
               Process &amp; Approach
             </p>
             <h2 className="text-7xl md:text-9xl font-headline italic mb-12">How I Work</h2>
-            <div className="w-full h-px bg-white/10 mb-20" />
+            <div className="w-full h-px bg-white/10 mb-12 md:mb-20" />
           </div>
         </FadeIn>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-24 mb-32">
-          {stories.map((story, i) => (
-            <FadeIn key={story.title} delay={i * 0.1}>
-              {i === 2 && (
-                <div className="hidden md:block col-span-2 w-full h-px bg-white/10 -my-4" />
-              )}
-              <div>
-                <h3 className="text-3xl font-headline italic mb-6">{story.title}</h3>
-                <p className="text-white/70 leading-relaxed font-body text-sm font-light">
-                  {story.body}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+      {/* Mobile carousel */}
+      <div
+        ref={scrollRef}
+        onScroll={onScroll}
+        className="md:hidden flex overflow-x-auto gap-4 px-8 snap-x snap-mandatory relative z-10"
+        style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+      >
+        {stories.map((story, i) => (
+          <div
+            key={story.title}
+            className="flex-shrink-0 snap-start p-8 bg-white/5 border border-white/10"
+            style={{ width: "85vw" }}
+          >
+            <h3 className="text-2xl font-headline italic mb-4">{story.title}</h3>
+            <p className="text-white/70 leading-relaxed font-body text-sm font-light">
+              {story.body}
+            </p>
+          </div>
+        ))}
+      </div>
+      <ScrollDots count={stories.length} active={activeCard} />
 
-        <FadeIn>
-          <div className="mt-24 pt-16 border-t border-white/10 flex flex-col md:flex-row items-start gap-8">
+      {/* Desktop grid */}
+      <div className="hidden md:grid grid-cols-2 gap-x-20 gap-y-24 mb-32 max-w-[1400px] mx-auto px-24 relative z-10">
+        {stories.map((story, i) => (
+          <FadeIn key={story.title} delay={i * 0.1}>
+            {i === 2 && (
+              <div className="col-span-2 w-full h-px bg-white/10 -my-4" />
+            )}
+            <div>
+              <h3 className="text-3xl font-headline italic mb-6">{story.title}</h3>
+              <p className="text-white/70 leading-relaxed font-body text-sm font-light">
+                {story.body}
+              </p>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+
+      <FadeIn>
+        <div className="max-w-[1400px] mx-auto px-8 md:px-24 relative z-10 mt-16 md:mt-0">
+          <div className="pt-16 border-t border-white/10 flex flex-col md:flex-row items-start gap-8">
             <div className="opacity-30 mt-2 flex-shrink-0">
               <svg
                 fill="currentColor"
@@ -57,8 +107,8 @@ export function HowIWork() {
               arrived.&rdquo;
             </blockquote>
           </div>
-        </FadeIn>
-      </div>
+        </div>
+      </FadeIn>
     </section>
   );
 }
