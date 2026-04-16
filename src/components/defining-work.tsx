@@ -66,9 +66,11 @@ export function DefiningWork() {
               <p className="text-[10px] uppercase tracking-wider font-bold text-primary">{project.metrics}</p>
             </div>
             <div className="aspect-video overflow-hidden bg-surface-container-high rounded-sm">
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
+                width={400}
+                height={225}
                 className="w-full h-full object-cover"
               />
             </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FadeIn } from "./fade-in";
 import { credentials } from "@/lib/data";
 
@@ -19,10 +20,11 @@ export function Credentials() {
                 {credentials.education.map((edu) => (
                   <li key={edu.degree} className="flex items-start gap-3">
                     {edu.logo && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={edu.logo}
                         alt={edu.institution}
+                        width={80}
+                        height={24}
                         style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }}
                       />
                     )}

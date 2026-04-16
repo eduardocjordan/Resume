@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { brands } from "@/lib/data";
@@ -23,11 +24,12 @@ export function BrandsGrid() {
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.25 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={brand.logo}
                   alt={brand.name}
-                  style={{ maxHeight: "40px", width: "auto", objectFit: "contain" }}
+                  width={120}
+                  height={40}
+                  style={{ height: "40px", width: "auto", objectFit: "contain" }}
                 />
               </motion.div>
             </FadeIn>
