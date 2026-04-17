@@ -28,7 +28,6 @@ export function Credentials() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px 0px" });
   const [showNudge, setShowNudge] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (inView) {
@@ -38,47 +37,11 @@ export function Credentials() {
     }
   }, [inView]);
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const first = el.children[1] as HTMLElement;
-    if (first) {
-      el.style.scrollBehavior = "auto";
-      el.scrollLeft = first.offsetLeft;
-    }
-  }, []);
-
-  const jumpTo = (el: HTMLElement, idx: number) => {
-    const child = el.children[idx] as HTMLElement;
-    if (!child) return;
-    el.style.scrollBehavior = "auto";
-    el.scrollLeft = child.offsetLeft;
-    requestAnimationFrame(() => requestAnimationFrame(() => { el.style.scrollBehavior = ""; }));
-  };
-
   const onScroll = () => {
     const el = scrollRef.current;
     if (!el) return;
-    const children = Array.from(el.children) as HTMLElement[];
-
-    let closest = 1;
-    let minDist = Infinity;
-    children.forEach((child, i) => {
-      const dist = Math.abs(child.offsetLeft - el.scrollLeft);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    });
-
-    let realIdx: number;
-    if (closest <= 0) realIdx = SLIDES - 1;
-    else if (closest >= SLIDES + 1) realIdx = 0;
-    else realIdx = closest - 1;
-    setActiveSlide(realIdx);
-
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      if (closest <= 0) jumpTo(el, SLIDES);
-      else if (closest >= SLIDES + 1) jumpTo(el, 1);
-    }, 80);
+    const idx = Math.round(el.scrollLeft / el.offsetWidth);
+    setActiveSlide(Math.min(idx, SLIDES - 1));
   };
 
   return (
@@ -107,18 +70,6 @@ export function Credentials() {
           className="flex overflow-x-auto snap-x snap-mandatory h-full"
           style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
         >
-          {/* Clone of last slide — Tools */}
-          <div aria-hidden="true" className="flex-shrink-0 w-full snap-start px-8 pt-4">
-            <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Key Tools</p>
-              <div className="flex flex-wrap gap-3">
-                {credentials.tools.map((tool) => (
-                  <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* Slide 1 — Education */}
           <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
@@ -180,27 +131,6 @@ export function Credentials() {
                   <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
                 ))}
               </div>
-            </div>
-          </div>
-
-          {/* Clone of first slide — Education */}
-          <div aria-hidden="true" className="flex-shrink-0 w-full snap-start px-8 pt-4">
-            <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Education &amp; Certifications</p>
-              <ul className="space-y-7">
-                {credentials.education.map((edu) => (
-                  <li key={edu.degree} className="flex items-start gap-4">
-                    {edu.logo && (
-                      <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
-                        style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
-                    )}
-                    <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">{edu.degree}</h4>
-                      <p className="text-xs text-tertiary mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>

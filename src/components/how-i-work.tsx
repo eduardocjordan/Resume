@@ -1,11 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FadeIn } from "./fade-in";
 import { stories } from "@/lib/data";
-
-const N = stories.length;
-const extended = [stories[N - 1], ...stories, stories[0]];
 
 function ScrollDots({ count, active }: { count: number; active: number }) {
   return (
@@ -24,52 +21,19 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
 export function HowIWork() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const pl = parseFloat(getComputedStyle(el).paddingLeft) || 0;
-    const first = el.children[1] as HTMLElement;
-    if (first) {
-      el.style.scrollBehavior = "auto";
-      el.scrollLeft = first.offsetLeft - pl;
-    }
-  }, []);
-
-  const jumpTo = (el: HTMLElement, idx: number) => {
-    const child = el.children[idx] as HTMLElement;
-    if (!child) return;
-    const pl = parseFloat(getComputedStyle(el).paddingLeft) || 0;
-    el.style.scrollBehavior = "auto";
-    el.scrollLeft = child.offsetLeft - pl;
-    requestAnimationFrame(() => requestAnimationFrame(() => { el.style.scrollBehavior = ""; }));
-  };
 
   const onScroll = () => {
     const el = scrollRef.current;
     if (!el) return;
     const pl = parseFloat(getComputedStyle(el).paddingLeft) || 0;
     const children = Array.from(el.children) as HTMLElement[];
-
-    let closest = 1;
+    let closest = 0;
     let minDist = Infinity;
     children.forEach((child, i) => {
       const dist = Math.abs(child.offsetLeft - pl - el.scrollLeft);
       if (dist < minDist) { minDist = dist; closest = i; }
     });
-
-    let realIdx: number;
-    if (closest <= 0) realIdx = N - 1;
-    else if (closest >= N + 1) realIdx = 0;
-    else realIdx = closest - 1;
-    setActiveCard(realIdx);
-
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      if (closest <= 0) jumpTo(el, N);
-      else if (closest >= N + 1) jumpTo(el, 1);
-    }, 80);
+    setActiveCard(closest);
   };
 
   return (
@@ -78,15 +42,11 @@ export function HowIWork() {
       id="how-i-work"
       aria-labelledby="how-i-work-heading"
     >
-      {/* Background accent */}
       <div className="absolute top-0 right-0 w-[50%] h-full bg-white/[0.03] -skew-x-12 translate-x-1/4 pointer-events-none" />
 
-      {/* Header */}
       <div className="max-w-[1400px] w-full mx-auto px-8 md:px-24 pt-12 pb-6 flex-shrink-0 relative z-10">
         <FadeIn>
-          <p className="text-white/40 font-label font-bold text-[10px] tracking-[0.3em] uppercase mb-3">
-            Process &amp; Approach
-          </p>
+          <p className="text-white/40 font-label font-bold text-[10px] tracking-[0.3em] uppercase mb-3">Process &amp; Approach</p>
           <h2 id="how-i-work-heading" className="text-4xl md:text-9xl font-headline italic mb-6 md:mb-12">How I Work</h2>
           <div className="w-full h-px bg-white/10" />
         </FadeIn>
@@ -99,21 +59,14 @@ export function HowIWork() {
         className="md:hidden flex overflow-x-auto gap-4 px-8 snap-x snap-mandatory flex-shrink-0 relative z-10"
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
       >
-        {extended.map((story, i) => (
-          <div
-            key={i}
-            aria-hidden={i === 0 || i === extended.length - 1 ? "true" : undefined}
-            className="flex-shrink-0 snap-start p-8 bg-white/5 border border-white/10"
-            style={{ width: "85vw" }}
-          >
+        {stories.map((story) => (
+          <div key={story.title} className="flex-shrink-0 snap-start p-8 bg-white/5 border border-white/10" style={{ width: "85vw" }}>
             <h3 className="text-xl font-headline italic mb-4">{story.title}</h3>
-            <p className="text-white/70 leading-relaxed font-body text-sm font-light">
-              {story.body}
-            </p>
+            <p className="text-white/70 leading-relaxed font-body text-sm font-light">{story.body}</p>
           </div>
         ))}
       </div>
-      <ScrollDots count={N} active={activeCard} />
+      <ScrollDots count={stories.length} active={activeCard} />
 
       {/* Mobile blockquote */}
       <div className="md:hidden px-8 pt-6 flex-shrink-0 relative z-10">
@@ -126,14 +79,10 @@ export function HowIWork() {
       <div className="hidden md:grid grid-cols-2 gap-x-20 gap-y-24 max-w-[1400px] w-full mx-auto px-24 flex-1 content-center relative z-10">
         {stories.map((story, i) => (
           <FadeIn key={story.title} delay={i * 0.1}>
-            {i === 2 && (
-              <div className="col-span-2 w-full h-px bg-white/10 -my-4" />
-            )}
+            {i === 2 && <div className="col-span-2 w-full h-px bg-white/10 -my-4" />}
             <div>
               <h3 className="text-3xl font-headline italic mb-6">{story.title}</h3>
-              <p className="text-white/70 leading-relaxed font-body text-sm font-light">
-                {story.body}
-              </p>
+              <p className="text-white/70 leading-relaxed font-body text-sm font-light">{story.body}</p>
             </div>
           </FadeIn>
         ))}
