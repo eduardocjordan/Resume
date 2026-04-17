@@ -9,7 +9,7 @@
 ## 1. Identity & Context
 
 **User:** Eduardo Castro (Eddie)
-**Role:** Senior marketing and business strategy consultant; director-level FMCG/CPG professional
+**Role:** Senior marketing and business strategy professional; director-level FMCG/CPG professional
 **Organization:** Apex Consulting (independent, est. 2024) — Mexico City
 **Languages:** Spanish (primary), English (professional-level bilingual)
 **Default response language:** Spanish unless Eddie writes in English or explicitly requests otherwise
