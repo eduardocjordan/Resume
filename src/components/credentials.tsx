@@ -6,6 +6,8 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { credentials } from "@/lib/data";
 
+const SLIDES = 3;
+
 function ScrollDots({ count, active }: { count: number; active: number }) {
   return (
     <div className="flex justify-center gap-2 mt-6">
@@ -26,6 +28,7 @@ export function Credentials() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px 0px" });
   const [showNudge, setShowNudge] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (inView) {
@@ -35,21 +38,58 @@ export function Credentials() {
     }
   }, [inView]);
 
+  // On mount scroll to first real slide (index 1)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const first = el.children[1] as HTMLElement;
+    if (first) {
+      el.style.scrollBehavior = "auto";
+      el.scrollLeft = first.offsetLeft;
+    }
+  }, []);
+
+  const jumpTo = (el: HTMLElement, idx: number) => {
+    const child = el.children[idx] as HTMLElement;
+    if (!child) return;
+    el.style.scrollBehavior = "auto";
+    el.scrollLeft = child.offsetLeft;
+    requestAnimationFrame(() => requestAnimationFrame(() => { el.style.scrollBehavior = ""; }));
+  };
+
   const onScroll = () => {
     const el = scrollRef.current;
     if (!el) return;
-    const idx = Math.round(el.scrollLeft / el.offsetWidth);
-    setActiveSlide(Math.min(idx, 2));
+    const children = Array.from(el.children) as HTMLElement[];
+
+    let closest = 1;
+    let minDist = Infinity;
+    children.forEach((child, i) => {
+      const dist = Math.abs(child.offsetLeft - el.scrollLeft);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+
+    let realIdx: number;
+    if (closest <= 0) realIdx = SLIDES - 1;
+    else if (closest >= SLIDES + 1) realIdx = 0;
+    else realIdx = closest - 1;
+    setActiveSlide(realIdx);
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      if (closest <= 0) jumpTo(el, SLIDES);
+      else if (closest >= SLIDES + 1) jumpTo(el, 1);
+    }, 80);
   };
 
   return (
     <section
       ref={sectionRef}
-      className="min-h-[100dvh] py-16 md:py-32 bg-surface"
+      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-surface"
       id="credentials"
       aria-labelledby="credentials-heading"
     >
-      <div className="max-w-[1200px] mx-auto px-8 md:px-24 mb-12">
+      <div className="max-w-[1200px] w-full mx-auto px-8 md:px-24 pt-12 pb-8 flex-shrink-0">
         <FadeIn>
           <h2
             id="credentials-heading"
@@ -61,15 +101,34 @@ export function Credentials() {
       </div>
 
       {/* Carousel wrapper */}
-      <div className="relative">
+      <div className="relative flex-1 min-h-0">
         <div
           ref={scrollRef}
           onScroll={onScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory"
+          className="flex overflow-x-auto snap-x snap-mandatory h-full"
           style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
         >
+          {/* Clone of last slide (slide 3 — Tools) */}
+          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
+            <div className="max-w-[1200px] mx-auto">
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
+                Key Tools
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {credentials.tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* Slide 1 — Education */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24">
+          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
             <div className="max-w-[1200px] mx-auto">
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
                 Education &amp; Certifications
@@ -109,7 +168,7 @@ export function Credentials() {
           </div>
 
           {/* Slide 2 — Honors + Languages */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24">
+          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
             <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
@@ -159,7 +218,7 @@ export function Credentials() {
           </div>
 
           {/* Slide 3 — Tools */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24">
+          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
             <div className="max-w-[1200px] mx-auto">
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
                 Key Tools
@@ -176,9 +235,49 @@ export function Credentials() {
               </div>
             </div>
           </div>
+
+          {/* Clone of first slide (slide 1 — Education) */}
+          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
+            <div className="max-w-[1200px] mx-auto">
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
+                Education &amp; Certifications
+              </p>
+              <ul className="space-y-7">
+                {credentials.education.map((edu) => (
+                  <li key={edu.degree} className="flex items-start gap-4">
+                    {edu.logo && (
+                      <Image
+                        src={edu.logo}
+                        alt={`${edu.institution} logo`}
+                        width={80}
+                        height={24}
+                        style={{
+                          maxHeight: "24px",
+                          width: "auto",
+                          objectFit: "contain",
+                          opacity: 0.7,
+                          flexShrink: 0,
+                          marginTop: "2px",
+                        }}
+                      />
+                    )}
+                    <div>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">
+                        {edu.degree}
+                      </h4>
+                      <p className="text-xs text-tertiary mt-0.5">
+                        {edu.institution}
+                        {edu.year ? ` · ${edu.year}` : ""}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
-        {/* Nudge arrow — appears on section entry, fades out after 2s */}
+        {/* Nudge arrow */}
         <AnimatePresence>
           {showNudge && activeSlide === 0 && (
             <motion.div
@@ -197,7 +296,7 @@ export function Credentials() {
         </AnimatePresence>
       </div>
 
-      <ScrollDots count={3} active={activeSlide} />
+      <ScrollDots count={SLIDES} active={activeSlide} />
     </section>
   );
 }
