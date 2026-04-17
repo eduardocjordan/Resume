@@ -42,8 +42,8 @@ const contactLinks = [
 
 export function Contact() {
   return (
-    <section className="min-h-[100dvh] px-8 md:px-24 py-16 md:py-32 bg-surface-container-low" id="contact" aria-labelledby="contact-heading">
-      <div className="max-w-[1200px] mx-auto">
+    <section className="min-h-[calc(100dvh-72px)] flex items-center px-8 md:px-24 py-16 md:py-32 bg-surface-container-low" id="contact" aria-labelledby="contact-heading">
+      <div className="max-w-[1200px] mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
           {/* Left */}
           <FadeIn direction="left">
@@ -60,9 +60,23 @@ export function Contact() {
             </div>
           </FadeIn>
 
-          {/* Right — contact cards */}
+          {/* Right — contact links */}
           <FadeIn delay={0.12}>
-            <div className="space-y-4">
+            {/* Mobile: plain text */}
+            <div className="md:hidden text-center">
+              <p className="text-sm text-on-surface/60 leading-loose">
+                <a href={contact.cvUrl} download className="hover:text-primary transition-colors">Resume</a>
+                {" · "}
+                <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
+                {" · "}
+                <a href={`mailto:${contact.emailDirect}?subject=Let%27s%20connect`} className="hover:text-primary transition-colors">{contact.emailDirect}</a>
+                {" · "}
+                <a href={`mailto:${contact.emailConsulting}?subject=Keynote%20%26%20Speaking`} className="hover:text-primary transition-colors">{contact.emailConsulting}</a>
+              </p>
+            </div>
+
+            {/* Desktop: card CTAs */}
+            <div className="hidden md:block space-y-4">
               {contactLinks.map((link) => (
                 <motion.a
                   key={link.label}

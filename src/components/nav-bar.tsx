@@ -17,6 +17,7 @@ export function NavBar() {
   const [scrolled, setScrolled]           = useState(false);
   const [menuOpen, setMenuOpen]           = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [ctaVisible, setCtaVisible]       = useState(false);
 
   const { scrollY } = useScroll();
   // Logo: fades in 250→350px, out on scroll back (useTransform is bidirectional)
@@ -27,6 +28,7 @@ export function NavBar() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
+      setCtaVisible(window.scrollY > 300);
       const pct =
         window.scrollY /
         Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
@@ -54,7 +56,7 @@ export function NavBar() {
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-40% 0px -55% 0px" }
+        { threshold: 0.3 }
       );
       obs.observe(el);
       observers.push(obs);
@@ -75,7 +77,7 @@ export function NavBar() {
         {/* Logo — hidden on load, fades in at 300px */}
         <motion.a
           href="#hero"
-          className="font-headline italic text-2xl font-bold group flex-shrink-0"
+          className={`font-headline italic text-2xl font-bold group flex-shrink-0 ${ctaVisible ? "" : "pointer-events-none"}`}
           style={{ opacity: logoOpacity }}
           aria-label="Back to top"
         >
@@ -110,7 +112,7 @@ export function NavBar() {
             download
             data-gtm-event="resume_download"
             data-gtm-location="nav"
-            className="editorial-gradient text-white px-5 py-2.5 rounded-sm font-label text-sm font-semibold tracking-wide"
+            className={`editorial-gradient text-white px-5 py-2.5 rounded-sm font-label text-sm font-semibold tracking-wide ${ctaVisible ? "" : "pointer-events-none"}`}
             style={{ opacity: ctaOpacity }}
             whileHover={{ scale: 0.97 }}
             whileTap={{ scale: 0.94 }}

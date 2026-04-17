@@ -84,7 +84,7 @@ export function Credentials() {
   return (
     <section
       ref={sectionRef}
-      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden md:h-auto md:overflow-visible md:block bg-surface"
+      className="h-[calc(100dvh-120px)] flex flex-col overflow-hidden md:h-auto md:overflow-visible md:block bg-surface"
       id="credentials"
       aria-labelledby="credentials-heading"
     >

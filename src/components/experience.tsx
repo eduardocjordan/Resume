@@ -68,7 +68,7 @@ function TimelineEntry({
             ) : (
               <div className="w-12 h-12 rounded-sm bg-surface-container-high flex flex-col items-end justify-center pr-1">
                 {(role.logoText ?? role.company.slice(0, 2)).split("\n").map((line, idx) => (
-                  <span key={idx} className="font-headline italic text-primary text-[10px] font-bold leading-tight text-right">
+                  <span key={idx} className={`font-headline italic text-primary font-bold leading-tight text-right ${idx === 0 ? "text-base" : "text-sm"}`}>
                     {line}
                   </span>
                 ))}
@@ -84,7 +84,7 @@ function TimelineEntry({
         </div>
 
         {/* Right: content */}
-        <div className="flex-1 pb-10">
+        <div className="flex-1 pb-2 md:pb-10">
           <button
             onClick={onToggle}
             className="w-full text-left group"
@@ -164,13 +164,13 @@ export function Experience() {
 
   return (
     <section
-      className="min-h-[100dvh] px-8 md:px-24 py-16 md:py-32 bg-surface-container-low"
+      className="min-h-[calc(100dvh-72px)] px-8 md:px-24 py-8 md:py-32 bg-surface-container-low"
       id="experience"
       aria-labelledby="experience-heading"
     >
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
-          <div className="mb-16">
+          <div className="mb-6 md:mb-16">
             <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic">Where I&rsquo;ve worked</h2>
             <p className="text-secondary mt-4 font-body">
               A career built at the intersection of strategy, innovation, and execution.

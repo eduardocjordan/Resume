@@ -134,7 +134,7 @@ export type Role = {
 export const experience: Role[] = [
   {
     logo: null,
-    logoText: "aC\n&Co",
+    logoText: "aC\n&Co.",
     dates: "Mar 2024 — Present",
     company: "apex Consulting",
     industry: "Marketing Consulting",
