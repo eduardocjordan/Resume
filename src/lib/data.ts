@@ -166,7 +166,7 @@ export const experience: Role[] = [
   },
   {
     logo: null,
-    logoExternal: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Johnson_and_Johnson_Logo.svg/320px-Johnson_and_Johnson_Logo.svg.png",
+    logoText: "J&J",
     dates: "Mar 2017 — Apr 2020",
     company: "Johnson & Johnson",
     industry: "Health & Beauty CPG",
@@ -183,7 +183,7 @@ export const experience: Role[] = [
   },
   {
     logo: null,
-    logoExternal: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Pepsi_2023.svg/320px-Pepsi_2023.svg.png",
+    logoText: "PepsiCo",
     dates: "Nov 2012 — Mar 2017",
     company: "PepsiCo",
     industry: "Food & Beverage FMCG",

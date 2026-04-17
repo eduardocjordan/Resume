@@ -5,12 +5,12 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { hero } from "@/lib/data";
 
 const links = [
-  { label: "Highlights",   href: "#defining-work", section: "defining-work" },
-  { label: "Impact",       href: "#impact",         section: "impact" },
-  { label: "Career",       href: "#experience",     section: "experience" },
-  { label: "Method",       href: "#how-i-work",     section: "how-i-work" },
-  { label: "Credentials",  href: "#credentials",    section: "credentials" },
-  { label: "Contact",      href: "#contact",        section: "contact" },
+  { label: "Highlights",  href: "#defining-work", section: "defining-work" },
+  { label: "Impact",      href: "#impact",         section: "impact" },
+  { label: "Career",      href: "#experience",     section: "experience" },
+  { label: "Method",      href: "#how-i-work",     section: "how-i-work" },
+  { label: "Credentials", href: "#credentials",    section: "credentials" },
+  { label: "Contact",     href: "#contact",        section: "contact" },
 ];
 
 export function NavBar() {
@@ -19,14 +19,14 @@ export function NavBar() {
   const [activeSection, setActiveSection] = useState("");
 
   const { scrollY } = useScroll();
-  // Nav logo fades in as hero h1 fades out (200–300px scroll)
-  const logoOpacity = useTransform(scrollY, [200, 300], [0, 1]);
+  // Logo: fades in 250→350px, out on scroll back (useTransform is bidirectional)
+  const logoOpacity = useTransform(scrollY, [250, 350], [0, 1]);
+  // CTA: fades in slightly after logo
+  const ctaOpacity  = useTransform(scrollY, [300, 400], [0, 1]);
 
-  // Scroll listener: shadow + GTM depth milestones
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
-
       const pct =
         window.scrollY /
         Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
@@ -46,11 +46,9 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // IntersectionObserver for active nav section
   useEffect(() => {
     const sectionIds = links.map((l) => l.section);
     const observers: IntersectionObserver[] = [];
-
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -68,18 +66,18 @@ export function NavBar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#f9f9f7]/90 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm"
-          : "bg-[#f9f9f7]/80 backdrop-blur-xl border-b border-outline-variant/20"
+      className={`fixed top-0 w-full z-50 transition-shadow duration-300 bg-[#f9f9f7]/90 backdrop-blur-xl border-b border-outline-variant/20 ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
-      <div className="flex justify-between items-center px-8 py-5 max-w-[1920px] mx-auto">
-        {/* Logo — fades in as hero h1 fades out */}
+      <div className="flex items-center px-8 py-5 max-w-[1920px] mx-auto gap-8">
+
+        {/* Logo — hidden on load, fades in at 300px */}
         <motion.a
           href="#hero"
-          className="font-headline italic text-2xl font-bold group"
+          className="font-headline italic text-2xl font-bold group flex-shrink-0"
           style={{ opacity: logoOpacity }}
+          aria-label="Back to top"
         >
           <span className="text-on-surface group-hover:opacity-50 transition-opacity duration-300">
             Eduardo
@@ -87,8 +85,8 @@ export function NavBar() {
           <span className="text-primary"> Castro</span>
         </motion.a>
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center space-x-12">
+        {/* Desktop nav links — always visible, centered */}
+        <div className="hidden md:flex flex-1 justify-center items-center gap-10">
           {links.map((link) => (
             <a
               key={link.href}
@@ -104,13 +102,16 @@ export function NavBar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Right side: CTA + hamburger */}
+        <div className="ml-auto flex items-center gap-3">
+          {/* CTA — hidden on load, fades in at 300px */}
           <motion.a
             href={hero.cv}
             download
             data-gtm-event="resume_download"
             data-gtm-location="nav"
             className="editorial-gradient text-white px-5 py-2.5 rounded-sm font-label text-sm font-semibold tracking-wide"
+            style={{ opacity: ctaOpacity }}
             whileHover={{ scale: 0.97 }}
             whileTap={{ scale: 0.94 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -118,33 +119,21 @@ export function NavBar() {
             Download Resume
           </motion.a>
 
-          {/* Hamburger — mobile only */}
+          {/* Hamburger — mobile only, always visible */}
           <button
             className="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9 p-1"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
-            <span
-              className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${
-                menuOpen ? "rotate-45 translate-y-[7px]" : ""
-              }`}
-            />
-            <span
-              className={`block h-[2px] w-full bg-on-surface transition-all duration-300 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${
-                menuOpen ? "-rotate-45 -translate-y-[7px]" : ""
-              }`}
-            />
+            <span className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block h-[2px] w-full bg-on-surface transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </div>
       </div>
 
-      {/* Mobile dropdown panel */}
+      {/* Mobile dropdown */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
