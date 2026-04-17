@@ -18,9 +18,9 @@ const contactLinks = [
   },
   {
     icon: "mail_outline",
-    label: "Consulting Inquiries",
+    label: "Consulting & Speaking",
     value: contact.emailConsulting,
-    href: `mailto:${contact.emailConsulting}?subject=Consulting%20Inquiry`,
+    href: `mailto:${contact.emailConsulting}?subject=Keynote%20%26%20Speaking`,
     download: false,
     external: false,
     accent: false,
@@ -38,17 +38,6 @@ const contactLinks = [
     gtmEvent: "linkedin_click",
     gtmLocation: "contact",
   },
-  {
-    icon: "description",
-    label: "Download Resume",
-    value: "Resume · English",
-    href: contact.cvUrl,
-    download: true,
-    external: false,
-    accent: false,
-    gtmEvent: "resume_download",
-    gtmLocation: "contact",
-  },
 ];
 
 export function Contact() {
@@ -59,9 +48,6 @@ export function Contact() {
           {/* Left */}
           <FadeIn direction="left">
             <div className="text-left">
-              <p className="text-primary font-bold text-[10px] tracking-widest uppercase mb-4">
-                Open to opportunities
-              </p>
               <h2 id="contact-heading" className="text-7xl md:text-9xl font-headline mb-8 text-on-surface leading-none">
                 Let&rsquo;s
                 <br />

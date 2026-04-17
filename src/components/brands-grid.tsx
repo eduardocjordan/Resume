@@ -90,6 +90,7 @@ export function BrandsGrid() {
           {extendedGroups.map((group, gi) => (
             <div
               key={gi}
+              aria-hidden={gi === 0 || gi === extendedGroups.length - 1 ? "true" : undefined}
               className="flex-shrink-0 w-full snap-start grid grid-cols-2 gap-x-10 gap-y-10 items-center justify-items-center px-4"
             >
               {group.map((brand) => (

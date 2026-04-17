@@ -21,10 +21,10 @@ export function Footer() {
             eduardo@casjor.com
           </a>
           <a
-            href="mailto:consulting@casjor.com?subject=Consulting%20Inquiry"
+            href="mailto:keynote@casjor.com?subject=Keynote%20%26%20Speaking"
             className="hover:text-primary transition-colors"
           >
-            consulting@casjor.com
+            keynote@casjor.com
           </a>
         </div>
         <p className="font-label text-[10px] tracking-widest uppercase">

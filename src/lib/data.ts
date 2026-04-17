@@ -264,7 +264,7 @@ export const credentials = {
 
 export const contact = {
   emailDirect: "eduardo@casjor.com",
-  emailConsulting: "consulting@casjor.com",
+  emailConsulting: "keynote@casjor.com",
   linkedin: "/in/eduardocaj",
   linkedinUrl: "https://www.linkedin.com/in/eduardocaj",
   cvUrl: "/downloads/CV Eduardo Castro.pdf",

@@ -38,7 +38,6 @@ export function Credentials() {
     }
   }, [inView]);
 
-  // On mount scroll to first real slide (index 1)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -85,7 +84,7 @@ export function Credentials() {
   return (
     <section
       ref={sectionRef}
-      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-surface"
+      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden md:h-auto md:overflow-visible md:block bg-surface"
       id="credentials"
       aria-labelledby="credentials-heading"
     >
@@ -100,66 +99,40 @@ export function Credentials() {
         </FadeIn>
       </div>
 
-      {/* Carousel wrapper */}
-      <div className="relative flex-1 min-h-0">
+      {/* Mobile carousel (hidden on desktop) */}
+      <div className="md:hidden flex-1 min-h-0 relative">
         <div
           ref={scrollRef}
           onScroll={onScroll}
           className="flex overflow-x-auto snap-x snap-mandatory h-full"
           style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
         >
-          {/* Clone of last slide (slide 3 — Tools) */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
+          {/* Clone of last slide — Tools */}
+          <div aria-hidden="true" className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
-                Key Tools
-              </p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Key Tools</p>
               <div className="flex flex-wrap gap-3">
                 {credentials.tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface"
-                  >
-                    {tool}
-                  </span>
+                  <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
                 ))}
               </div>
             </div>
           </div>
 
           {/* Slide 1 — Education */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
+          <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
-                Education &amp; Certifications
-              </p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Education &amp; Certifications</p>
               <ul className="space-y-7">
                 {credentials.education.map((edu) => (
                   <li key={edu.degree} className="flex items-start gap-4">
                     {edu.logo && (
-                      <Image
-                        src={edu.logo}
-                        alt={`${edu.institution} logo`}
-                        width={80}
-                        height={24}
-                        style={{
-                          maxHeight: "24px",
-                          width: "auto",
-                          objectFit: "contain",
-                          opacity: 0.7,
-                          flexShrink: 0,
-                          marginTop: "2px",
-                        }}
-                      />
+                      <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
+                        style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
                     )}
                     <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">
-                        {edu.degree}
-                      </h4>
-                      <p className="text-xs text-tertiary mt-0.5">
-                        {edu.institution}
-                        {edu.year ? ` · ${edu.year}` : ""}
-                      </p>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">{edu.degree}</h4>
+                      <p className="text-xs text-tertiary mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
                     </div>
                   </li>
                 ))}
@@ -168,22 +141,16 @@ export function Credentials() {
           </div>
 
           {/* Slide 2 — Honors + Languages */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
-                  Honors &amp; Awards
-                </p>
+          <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
+            <div className="max-w-[1200px] mx-auto">
+              <div className="mb-10">
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Honors &amp; Awards</p>
                 <ul className="space-y-8">
                   {credentials.awards.map((award) => (
                     <li key={award.name} className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-primary">
-                        {award.icon}
-                      </span>
+                      <span className="material-symbols-outlined text-primary">{award.icon}</span>
                       <div>
-                        <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">
-                          {award.name}
-                        </h4>
+                        <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">{award.name}</h4>
                         <p className="text-xs text-tertiary mt-1">{award.org}</p>
                       </div>
                     </li>
@@ -191,25 +158,12 @@ export function Credentials() {
                 </ul>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
-                  Languages
-                </p>
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Languages</p>
                 <ul className="space-y-4">
                   {credentials.languages.map((lang, i) => (
-                    <li
-                      key={lang.lang}
-                      className={`flex justify-between items-center py-3 ${
-                        i < credentials.languages.length - 1
-                          ? "border-b border-outline-variant/30"
-                          : ""
-                      }`}
-                    >
-                      <span className="text-sm font-bold text-on-surface">
-                        {lang.lang}
-                      </span>
-                      <span className="text-[10px] uppercase font-bold text-tertiary">
-                        {lang.level}
-                      </span>
+                    <li key={lang.lang} className={`flex justify-between items-center py-3 ${i < credentials.languages.length - 1 ? "border-b border-outline-variant/30" : ""}`}>
+                      <span className="text-sm font-bold text-on-surface">{lang.lang}</span>
+                      <span className="text-[10px] uppercase font-bold text-tertiary">{lang.level}</span>
                     </li>
                   ))}
                 </ul>
@@ -218,57 +172,31 @@ export function Credentials() {
           </div>
 
           {/* Slide 3 — Tools */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
+          <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
-                Key Tools
-              </p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Key Tools</p>
               <div className="flex flex-wrap gap-3">
                 {credentials.tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface"
-                  >
-                    {tool}
-                  </span>
+                  <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Clone of first slide (slide 1 — Education) */}
-          <div className="flex-shrink-0 w-full snap-start px-8 md:px-24 pt-4">
+          {/* Clone of first slide — Education */}
+          <div aria-hidden="true" className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">
-                Education &amp; Certifications
-              </p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Education &amp; Certifications</p>
               <ul className="space-y-7">
                 {credentials.education.map((edu) => (
                   <li key={edu.degree} className="flex items-start gap-4">
                     {edu.logo && (
-                      <Image
-                        src={edu.logo}
-                        alt={`${edu.institution} logo`}
-                        width={80}
-                        height={24}
-                        style={{
-                          maxHeight: "24px",
-                          width: "auto",
-                          objectFit: "contain",
-                          opacity: 0.7,
-                          flexShrink: 0,
-                          marginTop: "2px",
-                        }}
-                      />
+                      <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
+                        style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
                     )}
                     <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">
-                        {edu.degree}
-                      </h4>
-                      <p className="text-xs text-tertiary mt-0.5">
-                        {edu.institution}
-                        {edu.year ? ` · ${edu.year}` : ""}
-                      </p>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">{edu.degree}</h4>
+                      <p className="text-xs text-tertiary mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
                     </div>
                   </li>
                 ))}
@@ -282,21 +210,87 @@ export function Credentials() {
           {showNudge && activeSlide === 0 && (
             <motion.div
               key="nudge"
-              className="absolute right-8 md:right-24 top-1/2 -translate-y-1/2 pointer-events-none"
+              className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none"
               initial={{ opacity: 0, x: -4 }}
               animate={{ opacity: [0, 1, 1, 0], x: [-4, 4, -4, 4] }}
               exit={{ opacity: 0 }}
               transition={{ duration: 2, ease: "easeInOut" }}
             >
-              <span className="material-symbols-outlined text-primary text-4xl">
-                chevron_right
-              </span>
+              <span className="material-symbols-outlined text-primary text-4xl">chevron_right</span>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+      <div className="md:hidden">
+        <ScrollDots count={SLIDES} active={activeSlide} />
+      </div>
 
-      <ScrollDots count={SLIDES} active={activeSlide} />
+      {/* Desktop static layout (hidden on mobile) */}
+      <div className="hidden md:block max-w-[1200px] mx-auto px-24 pb-24 space-y-20">
+        {/* Education & Certifications */}
+        <FadeIn>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Education &amp; Certifications</p>
+            <ul className="space-y-7">
+              {credentials.education.map((edu) => (
+                <li key={edu.degree} className="flex items-start gap-4">
+                  {edu.logo && (
+                    <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
+                      style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
+                  )}
+                  <div>
+                    <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">{edu.degree}</h4>
+                    <p className="text-xs text-tertiary mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </FadeIn>
+
+        {/* Honors + Languages */}
+        <FadeIn>
+          <div className="grid grid-cols-2 gap-16">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Honors &amp; Awards</p>
+              <ul className="space-y-8">
+                {credentials.awards.map((award) => (
+                  <li key={award.name} className="flex items-start gap-4">
+                    <span className="material-symbols-outlined text-primary">{award.icon}</span>
+                    <div>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">{award.name}</h4>
+                      <p className="text-xs text-tertiary mt-1">{award.org}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Languages</p>
+              <ul className="space-y-4">
+                {credentials.languages.map((lang, i) => (
+                  <li key={lang.lang} className={`flex justify-between items-center py-3 ${i < credentials.languages.length - 1 ? "border-b border-outline-variant/30" : ""}`}>
+                    <span className="text-sm font-bold text-on-surface">{lang.lang}</span>
+                    <span className="text-[10px] uppercase font-bold text-tertiary">{lang.level}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Key Tools */}
+        <FadeIn>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Key Tools</p>
+            <div className="flex flex-wrap gap-3">
+              {credentials.tools.map((tool) => (
+                <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      </div>
     </section>
   );
 }

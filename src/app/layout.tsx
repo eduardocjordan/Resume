@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const siteUrl = "https://eduardocjordan.github.io/Resume";
+const siteUrl = "https://eduardo.casjor.com";
 
 export const metadata: Metadata = {
   title: "Brand Strategy | Eduardo Castro",

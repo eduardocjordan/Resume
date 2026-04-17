@@ -171,7 +171,7 @@ export function Experience() {
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
           <div className="mb-16">
-            <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic">Career</h2>
+            <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic">Where I&rsquo;ve worked</h2>
             <p className="text-secondary mt-4 font-body">
               A career built at the intersection of strategy, innovation, and execution.
             </p>

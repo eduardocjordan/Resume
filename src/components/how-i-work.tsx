@@ -102,6 +102,7 @@ export function HowIWork() {
         {extended.map((story, i) => (
           <div
             key={i}
+            aria-hidden={i === 0 || i === extended.length - 1 ? "true" : undefined}
             className="flex-shrink-0 snap-start p-8 bg-white/5 border border-white/10"
             style={{ width: "85vw" }}
           >
