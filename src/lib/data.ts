@@ -47,7 +47,7 @@ export const projects: Project[] = [
     description:
       "Founded EQUAL ERG at PepsiCo® and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
     metrics: "HRC Best Place to Work · James E. Burke Award · LATAM Forum recognition",
-    image: "/assets/IMG_0576.png",
+    image: "/assets/IMG_3381.jpeg",
     altText: "Pride Connection National Congress — Eduardo Castro speaking on LGBTQ+ inclusion in the workplace",
   },
   {
@@ -166,7 +166,7 @@ export const experience: Role[] = [
   },
   {
     logo: null,
-    logoExternal: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Johnson_and_Johnson_Logo.svg/320px-Johnson_and_Johnson_Logo.svg.png",
+    logoText: "J&J",
     dates: "Mar 2017 — Apr 2020",
     company: "Johnson & Johnson",
     industry: "Health & Beauty CPG",
@@ -183,7 +183,7 @@ export const experience: Role[] = [
   },
   {
     logo: null,
-    logoExternal: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Pepsi_2023.svg/320px-Pepsi_2023.svg.png",
+    logoText: "PepsiCo",
     dates: "Nov 2012 — Mar 2017",
     company: "PepsiCo",
     industry: "Food & Beverage FMCG",

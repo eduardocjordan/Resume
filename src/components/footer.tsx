@@ -18,13 +18,13 @@ export function Footer() {
             href="mailto:eduardo@casjor.com?subject=Let%27s%20connect"
             className="hover:text-primary transition-colors"
           >
-            Direct
+            eduardo@casjor.com
           </a>
           <a
             href="mailto:consulting@casjor.com?subject=Consulting%20Inquiry"
             className="hover:text-primary transition-colors"
           >
-            Consulting
+            consulting@casjor.com
           </a>
         </div>
         <p className="font-label text-[10px] tracking-widest uppercase">
