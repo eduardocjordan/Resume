@@ -10,6 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        ink:          'rgb(var(--ink) / <alpha-value>)',
+        'ink-muted':  'rgb(var(--ink) / 0.6)',
+        paper:        'rgb(var(--paper) / <alpha-value>)',
+        'paper-dark': 'rgb(var(--paper-dark) / <alpha-value>)',
+        accent:       'rgb(var(--accent) / <alpha-value>)',
+        'accent-soft':'rgb(var(--accent) / 0.08)',
+        rule:         'rgb(var(--ink) / 0.15)',
         "on-background": "#1a1c1b",
         "inverse-primary": "#ffb596",
         "on-tertiary-container": "#fefcfb",

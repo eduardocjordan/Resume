@@ -24,7 +24,6 @@ function TimelineEntry({
   useEffect(() => { onToggleRef.current = onToggle; }, [onToggle]);
   useEffect(() => { openRef.current = open; }, [open]);
 
-  // Mobile: auto-expand via IntersectionObserver at 30% visibility
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -66,9 +65,9 @@ function TimelineEntry({
                 />
               )
             ) : (
-              <div className="w-12 h-12 rounded-sm bg-surface-container-high flex flex-col items-end justify-center pr-1">
+              <div className="w-12 h-12 rounded-sm bg-paper-dark flex flex-col items-end justify-center pr-1">
                 {(role.logoText ?? role.company.slice(0, 2)).split("\n").map((line, idx) => (
-                  <span key={idx} className={`font-headline italic text-primary font-bold leading-tight text-right ${idx === 0 ? "text-base" : "text-sm"}`}>
+                  <span key={idx} className={`font-headline italic text-accent font-bold leading-tight text-right ${idx === 0 ? "text-base" : "text-sm"}`}>
                     {line}
                   </span>
                 ))}
@@ -79,8 +78,8 @@ function TimelineEntry({
 
         {/* Center: timeline line + dot */}
         <div className="flex flex-col items-center mx-4">
-          <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0 mt-1.5 z-10" />
-          <div className="w-px bg-outline-variant/30 flex-1 mt-1" />
+          <div className="w-3 h-3 rounded-full bg-accent flex-shrink-0 mt-1.5 z-10" />
+          <div className="w-px bg-ink/20 flex-1 mt-1" />
         </div>
 
         {/* Right: content */}
@@ -92,18 +91,18 @@ function TimelineEntry({
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-[10px] uppercase tracking-widest font-bold text-tertiary mb-1">
+                <div className="text-[10px] uppercase tracking-widest font-bold text-ink/50 mb-1">
                   {role.dates}
                 </div>
-                <h3 className="text-lg font-bold font-label text-on-surface leading-snug">
+                <h3 className="text-lg font-bold font-label text-ink leading-snug">
                   {role.company}
                 </h3>
-                <p className="text-sm text-secondary mt-0.5 leading-snug">{role.title}</p>
+                <p className="text-sm text-ink/70 mt-0.5 leading-snug">{role.title}</p>
               </div>
               <motion.span
                 animate={{ rotate: open ? 180 : 0 }}
                 transition={{ duration: 0.25 }}
-                className="material-symbols-outlined text-tertiary flex-shrink-0 mt-1 text-xl"
+                className="material-symbols-outlined text-ink/50 flex-shrink-0 mt-1 text-xl"
               >
                 expand_more
               </motion.span>
@@ -121,13 +120,13 @@ function TimelineEntry({
                 className="overflow-hidden"
               >
                 <div className="pt-4">
-                  <p className="text-sm text-secondary leading-relaxed mb-5">
+                  <p className="text-sm text-ink/70 leading-relaxed mb-5">
                     {role.description}
                   </p>
                   <ul className="space-y-2.5 mb-5">
                     {role.bullets.map((b, j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm text-on-surface">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      <li key={j} className="flex items-start gap-2.5 text-sm text-ink">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 flex-shrink-0" />
                         <span>
                           <strong>{b.bold}</strong>
                           {b.rest}
@@ -139,7 +138,7 @@ function TimelineEntry({
                     {role.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-surface-container-high text-[10px] uppercase font-bold text-tertiary rounded-sm"
+                        className="px-3 py-1 bg-paper-dark text-[10px] uppercase font-bold text-ink/50 rounded-sm"
                       >
                         {tag}
                       </span>
@@ -164,15 +163,15 @@ export function Experience() {
 
   return (
     <section
-      className="min-h-[calc(100dvh-72px)] px-8 md:px-24 py-8 md:py-32 bg-surface-container-low"
+      className="min-h-[calc(100dvh-72px)] px-8 md:px-24 py-8 md:py-32 bg-paper-dark"
       id="experience"
       aria-labelledby="experience-heading"
     >
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
           <div className="mb-6 md:mb-16">
-            <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic">Where I&rsquo;ve worked</h2>
-            <p className="text-secondary mt-4 font-body">
+            <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic text-ink">Where I&rsquo;ve worked</h2>
+            <p className="text-ink/70 mt-4 font-body">
               A career built at the intersection of strategy, innovation, and execution.
             </p>
           </div>

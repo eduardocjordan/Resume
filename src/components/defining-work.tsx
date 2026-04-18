@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { projects } from "@/lib/data";
 
@@ -13,7 +12,7 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
         <span
           key={i}
           className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#d4622a" : "#e2e3e1" }}
+          style={{ backgroundColor: i === active ? "#C25028" : "#EDE8E0" }}
         />
       ))}
     </div>
@@ -24,7 +23,7 @@ function ProjectImage({ project }: { project: typeof projects[number] }) {
   if (project.imagePlaceholder) {
     return (
       <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: project.imagePlaceholder.bg }}>
-        <span className="text-xs font-label font-bold uppercase tracking-widest text-secondary/60">{project.imagePlaceholder.label}</span>
+        <span className="text-xs font-label font-bold uppercase tracking-widest text-ink/40">{project.imagePlaceholder.label}</span>
       </div>
     );
   }
@@ -51,15 +50,15 @@ export function DefiningWork() {
 
   return (
     <section
-      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-surface-container-low"
+      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-paper-dark"
       id="defining-work"
       aria-labelledby="defining-work-heading"
     >
       <div className="max-w-[1600px] w-full mx-auto px-8 md:px-24 pt-12 pb-8 flex-shrink-0">
         <FadeIn>
           <div className="flex flex-col md:flex-row justify-between items-baseline gap-4">
-            <h2 id="defining-work-heading" className="text-5xl md:text-7xl font-headline">Defining Work</h2>
-            <p className="font-label text-sm uppercase tracking-widest text-primary font-bold">
+            <h2 id="defining-work-heading" className="text-5xl md:text-7xl font-headline text-ink">Defining Work</h2>
+            <p className="font-label text-sm uppercase tracking-widest text-accent font-bold">
               Selected projects that went beyond the brief
             </p>
           </div>
@@ -74,16 +73,16 @@ export function DefiningWork() {
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
       >
         {projects.map((project) => (
-          <div key={project.index} className="flex-shrink-0 snap-start bg-surface p-8" style={{ width: "85vw" }}>
-            <span className="text-xs font-bold text-primary tracking-widest uppercase mb-3 block">
+          <div key={project.index} className="flex-shrink-0 snap-start bg-paper p-8" style={{ width: "85vw" }}>
+            <span className="text-xs font-bold text-accent tracking-widest uppercase mb-3 block">
               {project.index} — {project.company}
             </span>
-            <h3 className="text-2xl font-headline mb-3 italic">{project.title}</h3>
-            <p className="text-secondary leading-relaxed mb-4 font-body text-sm">{project.description}</p>
-            <div className="border-t border-outline-variant/30 pt-3 mb-5">
-              <p className="text-[10px] uppercase tracking-wider font-bold text-primary">{project.metrics}</p>
+            <h3 className="text-2xl font-headline mb-3 italic text-ink">{project.title}</h3>
+            <p className="text-ink/70 leading-relaxed mb-4 font-body text-sm">{project.description}</p>
+            <div className="border-t border-ink/20 pt-3 mb-5">
+              <p className="text-[10px] uppercase tracking-wider font-bold text-accent">{project.metrics}</p>
             </div>
-            <div className="aspect-video overflow-hidden bg-surface-container-high rounded-sm">
+            <div className="aspect-video overflow-hidden bg-paper-dark rounded-sm">
               {project.imagePlaceholder ? <ProjectImage project={project} /> : (
                 <Image src={project.image} alt={project.altText ?? project.title} width={400} height={225} className="w-full h-full object-cover" />
               )}
@@ -94,24 +93,24 @@ export function DefiningWork() {
       <ScrollDots count={projects.length} active={activeCard} />
 
       {/* Desktop grid */}
-      <div className="hidden md:grid grid-cols-2 gap-px bg-outline-variant/20 max-w-[1600px] w-full mx-auto px-24 flex-1 overflow-y-auto">
+      <div className="hidden md:grid grid-cols-2 gap-px bg-ink/10 max-w-[1600px] w-full mx-auto px-24 flex-1 overflow-y-auto">
         {projects.map((project, i) => (
           <FadeIn key={project.index} delay={i * 0.08}>
-            <motion.div className="group bg-surface p-12 cursor-default" whileHover={{ backgroundColor: "#ffffff" }} transition={{ duration: 0.4 }}>
-              <span className="text-xs font-bold text-primary tracking-widest uppercase mb-4 block">
+            <div className="group bg-paper p-12 cursor-default hover:bg-paper-dark transition-colors duration-300">
+              <span className="text-xs font-bold text-accent tracking-widest uppercase mb-4 block">
                 {project.index} — {project.company}
               </span>
-              <h3 className="text-3xl font-headline mb-4 italic">{project.title}</h3>
-              <p className="text-secondary leading-relaxed mb-6 font-body">{project.description}</p>
-              <div className="border-t border-outline-variant/30 pt-4 mb-8">
-                <p className="text-[11px] uppercase tracking-wider font-bold text-primary">{project.metrics}</p>
+              <h3 className="text-3xl font-headline mb-4 italic text-ink">{project.title}</h3>
+              <p className="text-ink/70 leading-relaxed mb-6 font-body">{project.description}</p>
+              <div className="border-t border-ink/20 pt-4 mb-8">
+                <p className="text-[11px] uppercase tracking-wider font-bold text-accent">{project.metrics}</p>
               </div>
-              <div className="aspect-video overflow-hidden bg-surface-container-high rounded-sm">
+              <div className="aspect-video overflow-hidden bg-paper-dark rounded-sm">
                 {project.imagePlaceholder ? <ProjectImage project={project} /> : (
                   <Image src={project.image} alt={project.altText ?? project.title} width={800} height={450} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 )}
               </div>
-            </motion.div>
+            </div>
           </FadeIn>
         ))}
       </div>

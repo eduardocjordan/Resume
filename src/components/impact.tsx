@@ -12,7 +12,7 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
         <span
           key={i}
           className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#d4622a" : "rgba(255,255,255,0.25)" }}
+          style={{ backgroundColor: i === active ? "#C25028" : "rgba(245,240,232,0.25)" }}
         />
       ))}
     </div>
@@ -39,7 +39,7 @@ export function Impact() {
 
   return (
     <section
-      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-on-background text-white relative"
+      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-ink text-paper relative"
       id="impact"
       aria-labelledby="impact-heading"
     >
@@ -47,13 +47,13 @@ export function Impact() {
         <FadeIn>
           <div className="flex flex-col md:flex-row items-end gap-6 md:gap-12">
             <div className="md:w-1/2">
-              <h2 id="impact-heading" className="text-5xl md:text-8xl font-headline leading-tight">
+              <h2 id="impact-heading" className="text-5xl md:text-8xl font-headline leading-tight text-paper">
                 Results that <br />
-                <span className="italic text-primary">hold up.</span>
+                <span className="italic text-accent">hold up.</span>
               </h2>
             </div>
             <div className="hidden md:block md:w-1/2">
-              <p className="text-xl text-secondary-fixed opacity-70 leading-relaxed font-light">
+              <p className="text-xl text-paper/70 leading-relaxed font-light">
                 Numbers from real engagements, not projections. Each one traces back to a
                 strategic decision, a team, and a market.
               </p>
@@ -70,10 +70,10 @@ export function Impact() {
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
       >
         {impactMetrics.map((metric, i) => (
-          <div key={i} className="flex-shrink-0 snap-start p-6 bg-white/5 border border-white/10" style={{ width: "80vw" }}>
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary mb-4">{metric.company}</p>
-            <div className="text-5xl font-headline mb-4 text-primary">{metric.stat}</div>
-            <p className="text-sm font-bold text-white uppercase tracking-wide">{metric.label}</p>
+          <div key={i} className="flex-shrink-0 snap-start p-6 bg-paper/5 border border-paper/10" style={{ width: "80vw" }}>
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-4">{metric.company}</p>
+            <div className="text-5xl font-headline mb-4 text-accent">{metric.stat}</div>
+            <p className="text-sm font-bold text-paper uppercase tracking-wide">{metric.label}</p>
           </div>
         ))}
       </div>
@@ -84,13 +84,13 @@ export function Impact() {
         {impactMetrics.map((metric, i) => (
           <FadeIn key={i} delay={i * 0.07}>
             <motion.div
-              className="p-6 bg-white/5 border border-white/10 backdrop-blur-3xl"
-              whileHover={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+              className="p-6 bg-paper/5 border border-paper/10 backdrop-blur-3xl"
+              whileHover={{ backgroundColor: "rgba(245,240,232,0.10)" }}
               transition={{ duration: 0.3 }}
             >
-              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary mb-4">{metric.company}</p>
-              <div className="text-5xl font-headline mb-4 text-primary">{metric.stat}</div>
-              <p className="text-sm font-bold text-white uppercase tracking-wide">{metric.label}</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-4">{metric.company}</p>
+              <div className="text-5xl font-headline mb-4 text-accent">{metric.stat}</div>
+              <p className="text-sm font-bold text-paper uppercase tracking-wide">{metric.label}</p>
             </motion.div>
           </FadeIn>
         ))}

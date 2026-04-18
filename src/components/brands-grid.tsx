@@ -6,10 +6,10 @@ import { brands } from "@/lib/data";
 
 export function BrandsGrid() {
   return (
-    <section className="hidden md:block px-8 md:px-24 py-16 md:py-32 bg-surface" id="brands" aria-labelledby="brands-heading">
+    <section className="hidden md:block px-8 md:px-24 py-16 md:py-32 bg-paper" id="brands" aria-labelledby="brands-heading">
       <div className="max-w-[1200px] mx-auto text-center">
         <FadeIn>
-          <h2 id="brands-heading" className="text-5xl md:text-6xl font-headline italic mb-12 md:mb-20">
+          <h2 id="brands-heading" className="text-5xl md:text-6xl font-headline italic mb-12 md:mb-20 text-ink">
             Brands I&rsquo;ve helped grow
           </h2>
         </FadeIn>

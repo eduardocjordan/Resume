@@ -18,12 +18,15 @@ export function NavBar() {
   const [menuOpen, setMenuOpen]           = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [ctaVisible, setCtaVisible]       = useState(false);
+  const [isDark, setIsDark]               = useState(false);
 
   const { scrollY } = useScroll();
-  // Logo: fades in 250→350px, out on scroll back (useTransform is bidirectional)
   const logoOpacity = useTransform(scrollY, [250, 350], [0, 1]);
-  // CTA: fades in slightly after logo
   const ctaOpacity  = useTransform(scrollY, [300, 400], [0, 1]);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains("dark"));
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -64,30 +67,37 @@ export function NavBar() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  const toggleDark = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
+
   const handleLinkClick = () => setMenuOpen(false);
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-shadow duration-300 bg-[#f9f9f7]/90 backdrop-blur-xl border-b border-outline-variant/20 ${
+      className={`fixed top-0 w-full z-50 transition-shadow duration-300 bg-paper/90 backdrop-blur-xl border-b border-ink/10 ${
         scrolled ? "shadow-sm" : ""
       }`}
     >
       <div className="flex items-center px-8 py-5 max-w-[1920px] mx-auto gap-8">
 
-        {/* Logo — hidden on load, fades in at 300px */}
+        {/* Logo — fades in at 300px scroll */}
         <motion.a
           href="#hero"
           className={`font-headline italic text-2xl font-bold group flex-shrink-0 ${ctaVisible ? "" : "pointer-events-none"}`}
           style={{ opacity: logoOpacity }}
           aria-label="Back to top"
         >
-          <span className="text-on-surface group-hover:opacity-50 transition-opacity duration-300">
+          <span className="text-ink group-hover:opacity-50 transition-opacity duration-300">
             Eduardo
           </span>
-          <span className="text-primary"> Castro</span>
+          <span className="text-accent"> Castro</span>
         </motion.a>
 
-        {/* Desktop nav links — always visible, centered */}
+        {/* Desktop nav links */}
         <div className="hidden md:flex flex-1 justify-center items-center gap-10">
           {links.map((link) => (
             <a
@@ -95,8 +105,8 @@ export function NavBar() {
               href={link.href}
               className={`font-label tracking-tight text-sm uppercase font-semibold transition-all duration-300 ${
                 activeSection === link.section
-                  ? "text-primary opacity-100"
-                  : "text-on-surface opacity-70 hover:opacity-100 hover:text-primary"
+                  ? "text-accent opacity-100"
+                  : "text-ink opacity-70 hover:opacity-100 hover:text-accent"
               }`}
             >
               {link.label}
@@ -104,9 +114,19 @@ export function NavBar() {
           ))}
         </div>
 
-        {/* Right side: CTA + hamburger */}
+        {/* Right side: dot toggle + CTA + hamburger */}
         <div className="ml-auto flex items-center gap-3">
-          {/* CTA — hidden on load, fades in at 300px */}
+
+          {/* Dark mode dot */}
+          <button
+            onClick={toggleDark}
+            aria-label="Toggle dark mode"
+            className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-transform duration-200 hover:scale-150 flex-shrink-0 ${
+              isDark ? "bg-paper" : "bg-accent"
+            }`}
+          />
+
+          {/* CTA — fades in at 300px scroll */}
           <motion.a
             href={hero.cv}
             download
@@ -121,16 +141,16 @@ export function NavBar() {
             Download Resume
           </motion.a>
 
-          {/* Hamburger — mobile only, always visible */}
+          {/* Hamburger — mobile only */}
           <button
             className="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9 p-1"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
-            <span className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block h-[2px] w-full bg-on-surface transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-[2px] w-full bg-on-surface transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <span className={`block h-[2px] w-full bg-ink transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block h-[2px] w-full bg-ink transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-[2px] w-full bg-ink transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </div>
       </div>
@@ -143,7 +163,7 @@ export function NavBar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden bg-[#f9f9f7]/95 backdrop-blur-xl border-t border-outline-variant/20"
+            className="md:hidden overflow-hidden bg-paper/95 backdrop-blur-xl border-t border-ink/10"
           >
             <div className="flex flex-col px-8 py-6 space-y-5">
               {links.map((link) => (
@@ -152,7 +172,7 @@ export function NavBar() {
                   href={link.href}
                   onClick={handleLinkClick}
                   className={`font-label text-sm uppercase font-semibold tracking-widest transition-colors duration-200 ${
-                    activeSection === link.section ? "text-primary" : "text-on-surface"
+                    activeSection === link.section ? "text-accent" : "text-ink"
                   }`}
                 >
                   {link.label}

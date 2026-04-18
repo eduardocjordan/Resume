@@ -15,7 +15,7 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
         <span
           key={i}
           className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#d4622a" : "#e2e3e1" }}
+          style={{ backgroundColor: i === active ? "#C25028" : "#EDE8E0" }}
         />
       ))}
     </div>
@@ -47,7 +47,7 @@ export function Credentials() {
   return (
     <section
       ref={sectionRef}
-      className="h-[calc(100dvh-120px)] flex flex-col overflow-hidden md:h-auto md:overflow-visible md:block bg-surface"
+      className="h-[calc(100dvh-120px)] flex flex-col overflow-hidden md:h-auto md:overflow-visible md:block bg-paper"
       id="credentials"
       aria-labelledby="credentials-heading"
     >
@@ -55,7 +55,7 @@ export function Credentials() {
         <FadeIn>
           <h2
             id="credentials-heading"
-            className="text-5xl md:text-7xl font-headline italic"
+            className="text-5xl md:text-7xl font-headline italic text-ink"
           >
             Credentials
           </h2>
@@ -73,7 +73,7 @@ export function Credentials() {
           {/* Slide 1 — Education */}
           <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Education &amp; Certifications</p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Education &amp; Certifications</p>
               <ul className="space-y-7">
                 {credentials.education.map((edu) => (
                   <li key={edu.degree} className="flex items-start gap-4">
@@ -82,8 +82,8 @@ export function Credentials() {
                         style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
                     )}
                     <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">{edu.degree}</h4>
-                      <p className="text-xs text-tertiary mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink leading-snug">{edu.degree}</h4>
+                      <p className="text-xs text-ink/50 mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
                     </div>
                   </li>
                 ))}
@@ -95,26 +95,26 @@ export function Credentials() {
           <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
               <div className="mb-10">
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Honors &amp; Awards</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Honors &amp; Awards</p>
                 <ul className="space-y-8">
                   {credentials.awards.map((award) => (
                     <li key={award.name} className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-primary">{award.icon}</span>
+                      <span className="material-symbols-outlined text-accent">{award.icon}</span>
                       <div>
-                        <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">{award.name}</h4>
-                        <p className="text-xs text-tertiary mt-1">{award.org}</p>
+                        <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink">{award.name}</h4>
+                        <p className="text-xs text-ink/50 mt-1">{award.org}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Languages</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Languages</p>
                 <ul className="space-y-4">
                   {credentials.languages.map((lang, i) => (
-                    <li key={lang.lang} className={`flex justify-between items-center py-3 ${i < credentials.languages.length - 1 ? "border-b border-outline-variant/30" : ""}`}>
-                      <span className="text-sm font-bold text-on-surface">{lang.lang}</span>
-                      <span className="text-[10px] uppercase font-bold text-tertiary">{lang.level}</span>
+                    <li key={lang.lang} className={`flex justify-between items-center py-3 ${i < credentials.languages.length - 1 ? "border-b border-ink/20" : ""}`}>
+                      <span className="text-sm font-bold text-ink">{lang.lang}</span>
+                      <span className="text-[10px] uppercase font-bold text-ink/50">{lang.level}</span>
                     </li>
                   ))}
                 </ul>
@@ -125,10 +125,10 @@ export function Credentials() {
           {/* Slide 3 — Tools */}
           <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Key Tools</p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Key Tools</p>
               <div className="flex flex-wrap gap-3">
                 {credentials.tools.map((tool) => (
-                  <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
+                  <span key={tool} className="px-4 py-2 bg-paper-dark text-xs uppercase font-bold border border-ink/20 rounded-sm text-ink">{tool}</span>
                 ))}
               </div>
             </div>
@@ -146,7 +146,7 @@ export function Credentials() {
               exit={{ opacity: 0 }}
               transition={{ duration: 2, ease: "easeInOut" }}
             >
-              <span className="material-symbols-outlined text-primary text-4xl">chevron_right</span>
+              <span className="material-symbols-outlined text-accent text-4xl">chevron_right</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -160,7 +160,7 @@ export function Credentials() {
         {/* Education & Certifications */}
         <FadeIn>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Education &amp; Certifications</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Education &amp; Certifications</p>
             <ul className="space-y-7">
               {credentials.education.map((edu) => (
                 <li key={edu.degree} className="flex items-start gap-4">
@@ -169,8 +169,8 @@ export function Credentials() {
                       style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
                   )}
                   <div>
-                    <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface leading-snug">{edu.degree}</h4>
-                    <p className="text-xs text-tertiary mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
+                    <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink leading-snug">{edu.degree}</h4>
+                    <p className="text-xs text-ink/50 mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
                   </div>
                 </li>
               ))}
@@ -182,26 +182,26 @@ export function Credentials() {
         <FadeIn>
           <div className="grid grid-cols-2 gap-16">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Honors &amp; Awards</p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Honors &amp; Awards</p>
               <ul className="space-y-8">
                 {credentials.awards.map((award) => (
                   <li key={award.name} className="flex items-start gap-4">
-                    <span className="material-symbols-outlined text-primary">{award.icon}</span>
+                    <span className="material-symbols-outlined text-accent">{award.icon}</span>
                     <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-on-surface">{award.name}</h4>
-                      <p className="text-xs text-tertiary mt-1">{award.org}</p>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink">{award.name}</h4>
+                      <p className="text-xs text-ink/50 mt-1">{award.org}</p>
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Languages</p>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Languages</p>
               <ul className="space-y-4">
                 {credentials.languages.map((lang, i) => (
-                  <li key={lang.lang} className={`flex justify-between items-center py-3 ${i < credentials.languages.length - 1 ? "border-b border-outline-variant/30" : ""}`}>
-                    <span className="text-sm font-bold text-on-surface">{lang.lang}</span>
-                    <span className="text-[10px] uppercase font-bold text-tertiary">{lang.level}</span>
+                  <li key={lang.lang} className={`flex justify-between items-center py-3 ${i < credentials.languages.length - 1 ? "border-b border-ink/20" : ""}`}>
+                    <span className="text-sm font-bold text-ink">{lang.lang}</span>
+                    <span className="text-[10px] uppercase font-bold text-ink/50">{lang.level}</span>
                   </li>
                 ))}
               </ul>
@@ -212,10 +212,10 @@ export function Credentials() {
         {/* Key Tools */}
         <FadeIn>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8">Key Tools</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Key Tools</p>
             <div className="flex flex-wrap gap-3">
               {credentials.tools.map((tool) => (
-                <span key={tool} className="px-4 py-2 bg-surface-container-high text-xs uppercase font-bold border border-outline-variant/30 rounded-sm text-on-surface">{tool}</span>
+                <span key={tool} className="px-4 py-2 bg-paper-dark text-xs uppercase font-bold border border-ink/20 rounded-sm text-ink">{tool}</span>
               ))}
             </div>
           </div>
