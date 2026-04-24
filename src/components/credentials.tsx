@@ -76,15 +76,22 @@ export function Credentials() {
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Education &amp; Certifications</p>
               <ul className="space-y-7">
                 {credentials.education.map((edu) => (
-                  <li key={edu.degree} className="flex items-start gap-4">
-                    {edu.logo && (
-                      <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
-                        style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
-                    )}
-                    <div>
-                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink leading-snug">{edu.degree}</h4>
-                      <p className="text-xs text-ink/50 mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
-                    </div>
+                  <li key={edu.degree}>
+                    <a
+                      href={edu.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-4 opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                      {edu.logo && (
+                        <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
+                          style={{ maxHeight: "24px", width: "auto", objectFit: "contain", flexShrink: 0, marginTop: "2px" }} />
+                      )}
+                      <div>
+                        <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink leading-snug">{edu.degree}</h4>
+                        <p className="text-xs text-ink/50 mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
+                      </div>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -163,15 +170,22 @@ export function Credentials() {
             <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Education &amp; Certifications</p>
             <ul className="space-y-7">
               {credentials.education.map((edu) => (
-                <li key={edu.degree} className="flex items-start gap-4">
-                  {edu.logo && (
-                    <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
-                      style={{ maxHeight: "24px", width: "auto", objectFit: "contain", opacity: 0.7, flexShrink: 0, marginTop: "2px" }} />
-                  )}
-                  <div>
-                    <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink leading-snug">{edu.degree}</h4>
-                    <p className="text-xs text-ink/50 mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
-                  </div>
+                <li key={edu.degree}>
+                  <a
+                    href={edu.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 opacity-70 hover:opacity-100 transition-opacity"
+                  >
+                    {edu.logo && (
+                      <Image src={edu.logo} alt={`${edu.institution} logo`} width={80} height={24}
+                        style={{ maxHeight: "24px", width: "auto", objectFit: "contain", flexShrink: 0, marginTop: "2px" }} />
+                    )}
+                    <div>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink leading-snug">{edu.degree}</h4>
+                      <p className="text-xs text-ink/50 mt-0.5">{edu.institution}{edu.year ? ` · ${edu.year}` : ""}</p>
+                    </div>
+                  </a>
                 </li>
               ))}
             </ul>

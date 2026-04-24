@@ -11,7 +11,7 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
         <span
           key={i}
           className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#C25028" : "rgba(245,240,232,0.25)" }}
+          style={{ backgroundColor: i === active ? "#d4622a" : "rgba(245,240,232,0.25)" }}
         />
       ))}
     </div>
@@ -52,20 +52,26 @@ export function HowIWork() {
         </FadeIn>
       </div>
 
-      {/* Mobile carousel */}
+      {/*
+       * Single render: flex carousel on mobile, CSS grid on desktop.
+       * overflow-x-auto + snap on mobile; overflow-visible + 2-col grid on desktop.
+       */}
       <div
         ref={scrollRef}
         onScroll={onScroll}
-        className="md:hidden flex overflow-x-auto gap-4 px-8 snap-x snap-mandatory flex-shrink-0 relative z-10"
-        style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+        className="flex md:grid md:grid-cols-2 overflow-x-auto md:overflow-visible gap-4 md:gap-x-20 md:gap-y-24 px-8 md:px-24 snap-x snap-mandatory md:snap-none flex-shrink-0 md:flex-1 md:content-center max-w-[1400px] w-full mx-auto relative z-10"
+        style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" } as React.CSSProperties}
       >
-        {stories.map((story) => (
-          <div key={story.title} className="flex-shrink-0 snap-start p-8 bg-paper/5 border border-paper/10" style={{ width: "85vw" }}>
-            <h3 className="text-xl font-headline italic mb-4 text-paper">{story.title}</h3>
-            <p className="text-paper/70 leading-relaxed font-body text-sm font-light">{story.body}</p>
-          </div>
+        {stories.map((story, i) => (
+          <FadeIn key={story.title} delay={i * 0.1}>
+            <div className="flex-shrink-0 md:flex-shrink w-[85vw] md:w-auto snap-start md:snap-align-none p-8 md:p-0 bg-paper/5 md:bg-transparent border border-paper/10 md:border-0">
+              <h3 className="text-xl md:text-3xl font-headline italic mb-4 md:mb-6 text-paper">{story.title}</h3>
+              <p className="text-paper/70 leading-relaxed font-body text-sm font-light">{story.body}</p>
+            </div>
+          </FadeIn>
         ))}
       </div>
+
       <ScrollDots count={stories.length} active={activeCard} />
 
       {/* Mobile blockquote */}
@@ -73,19 +79,6 @@ export function HowIWork() {
         <blockquote className="text-xl font-headline italic leading-tight text-paper/80 border-t border-paper/10 pt-4">
           &ldquo;The methodology itself became an asset the company didn&rsquo;t have before I arrived.&rdquo;
         </blockquote>
-      </div>
-
-      {/* Desktop grid */}
-      <div className="hidden md:grid grid-cols-2 gap-x-20 gap-y-24 max-w-[1400px] w-full mx-auto px-24 flex-1 content-center relative z-10">
-        {stories.map((story, i) => (
-          <FadeIn key={story.title} delay={i * 0.1}>
-            {i === 2 && <div className="col-span-2 w-full h-px bg-paper/10 -my-4" />}
-            <div>
-              <h3 className="text-3xl font-headline italic mb-6 text-paper">{story.title}</h3>
-              <p className="text-paper/70 leading-relaxed font-body text-sm font-light">{story.body}</p>
-            </div>
-          </FadeIn>
-        ))}
       </div>
 
       {/* Desktop blockquote */}
