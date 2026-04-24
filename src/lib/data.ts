@@ -165,8 +165,7 @@ export const experience: Role[] = [
     tags: ["P&L Management", "NPD", "Go-to-Market"],
   },
   {
-    logo: null,
-    logoText: "J&J",
+    logo: "/assets/JohnsonJohnson-Logo.svg",
     dates: "Mar 2017 — Apr 2020",
     company: "Johnson & Johnson",
     industry: "Health & Beauty CPG",
@@ -182,8 +181,7 @@ export const experience: Role[] = [
     tags: ["Multichannel Strategy", "LATAM", "Shopper Marketing"],
   },
   {
-    logo: null,
-    logoText: "PepsiCo",
+    logo: "/assets/PepsiCo-Logo.png",
     dates: "Nov 2012 — Mar 2017",
     company: "PepsiCo",
     industry: "Food & Beverage FMCG",
@@ -239,11 +237,11 @@ export const stories: Story[] = [
 
 export const credentials = {
   education: [
-    { degree: "BSc — Computer Engineering & IT Project Management", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg" },
-    { degree: "Project Management Professional® (PMP®)", institution: "Project Management Institute", year: "Oct 2016", logo: "/assets/PMI-SQ.jpeg" },
-    { degree: "Certified Scrum Product Owner℠ (CSPO)", institution: "Scrum Inc.", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg" },
-    { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "Aug 2023", logo: "/assets/KelloggSchool-Logo.svg" },
-    { degree: "Data Analysis", institution: "Wharton Executive Education", year: "Aug 2022", logo: "/assets/WhartonSchool-logo.jpeg" },
+    { degree: "BSc — Computer Engineering & IT Project Management", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg", url: "https://tec.mx" },
+    { degree: "Project Management Professional® (PMP®)", institution: "Project Management Institute", year: "Oct 2016", logo: "/assets/PMI-SQ.jpeg", url: "https://pmi.org" },
+    { degree: "Certified Scrum Product Owner℠ (CSPO)", institution: "Scrum Inc.", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg", url: "https://scruminc.com" },
+    { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "Aug 2023", logo: "/assets/KelloggSchool-Logo.svg", url: "https://kellogg.northwestern.edu" },
+    { degree: "Data Analysis", institution: "Wharton Executive Education", year: "Aug 2022", logo: "/assets/WhartonSchool-logo.jpeg", url: "https://executiveeducation.wharton.upenn.edu" },
   ],
   awards: [
     { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos® Rainbow initiative" },

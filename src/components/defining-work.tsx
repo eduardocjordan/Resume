@@ -12,22 +12,11 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
         <span
           key={i}
           className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#C25028" : "#EDE8E0" }}
+          style={{ backgroundColor: i === active ? "#d4622a" : "#f4f4f2" }}
         />
       ))}
     </div>
   );
-}
-
-function ProjectImage({ project }: { project: typeof projects[number] }) {
-  if (project.imagePlaceholder) {
-    return (
-      <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: project.imagePlaceholder.bg }}>
-        <span className="text-xs font-label font-bold uppercase tracking-widest text-ink/40">{project.imagePlaceholder.label}</span>
-      </div>
-    );
-  }
-  return null;
 }
 
 export function DefiningWork() {
@@ -65,55 +54,42 @@ export function DefiningWork() {
         </FadeIn>
       </div>
 
-      {/* Mobile carousel */}
+      {/*
+       * Single render: flex carousel on mobile, CSS grid on desktop.
+       * Each project card adapts its layout via responsive classes.
+       */}
       <div
         ref={scrollRef}
         onScroll={onScroll}
-        className="md:hidden flex overflow-x-auto gap-4 px-8 snap-x snap-mandatory flex-shrink-0"
-        style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+        className="flex md:grid md:grid-cols-2 overflow-x-auto md:overflow-visible gap-4 md:gap-px px-8 md:px-24 snap-x snap-mandatory md:snap-none flex-shrink-0 md:flex-1 md:overflow-y-auto bg-transparent md:bg-ink/10"
+        style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" } as React.CSSProperties}
       >
-        {projects.map((project) => (
-          <div key={project.index} className="flex-shrink-0 snap-start bg-paper p-8" style={{ width: "85vw" }}>
-            <span className="text-xs font-bold text-accent tracking-widest uppercase mb-3 block">
-              {project.index} — {project.company}
-            </span>
-            <h3 className="text-2xl font-headline mb-3 italic text-ink">{project.title}</h3>
-            <p className="text-ink/70 leading-relaxed mb-4 font-body text-sm">{project.description}</p>
-            <div className="border-t border-ink/20 pt-3 mb-5">
-              <p className="text-[10px] uppercase tracking-wider font-bold text-accent">{project.metrics}</p>
-            </div>
-            <div className="aspect-video overflow-hidden bg-paper-dark rounded-sm">
-              {project.imagePlaceholder ? <ProjectImage project={project} /> : (
-                <Image src={project.image} alt={project.altText ?? project.title} width={400} height={225} className="w-full h-full object-cover" />
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-      <ScrollDots count={projects.length} active={activeCard} />
-
-      {/* Desktop grid */}
-      <div className="hidden md:grid grid-cols-2 gap-px bg-ink/10 max-w-[1600px] w-full mx-auto px-24 flex-1 overflow-y-auto">
         {projects.map((project, i) => (
           <FadeIn key={project.index} delay={i * 0.08}>
-            <div className="group bg-paper p-12 cursor-default hover:bg-paper-dark transition-colors duration-300">
-              <span className="text-xs font-bold text-accent tracking-widest uppercase mb-4 block">
+            <div className="group flex-shrink-0 md:flex-shrink w-[85vw] md:w-auto snap-start md:snap-align-none bg-paper p-8 md:p-12 cursor-default md:hover:bg-paper-dark transition-colors duration-300">
+              <span className="text-xs font-bold text-accent tracking-widest uppercase mb-3 md:mb-4 block">
                 {project.index} — {project.company}
               </span>
-              <h3 className="text-3xl font-headline mb-4 italic text-ink">{project.title}</h3>
-              <p className="text-ink/70 leading-relaxed mb-6 font-body">{project.description}</p>
-              <div className="border-t border-ink/20 pt-4 mb-8">
-                <p className="text-[11px] uppercase tracking-wider font-bold text-accent">{project.metrics}</p>
+              <h3 className="text-2xl md:text-3xl font-headline mb-3 md:mb-4 italic text-ink">{project.title}</h3>
+              <p className="text-ink/70 leading-relaxed mb-4 md:mb-6 font-body text-sm">{project.description}</p>
+              <div className="border-t border-ink/20 pt-3 md:pt-4 mb-5 md:mb-8">
+                <p className="text-[10px] md:text-[11px] uppercase tracking-wider font-bold text-accent">{project.metrics}</p>
               </div>
               <div className="aspect-video overflow-hidden bg-paper-dark rounded-sm">
-                {project.imagePlaceholder ? <ProjectImage project={project} /> : (
-                  <Image src={project.image} alt={project.altText ?? project.title} width={800} height={450} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                )}
+                <Image
+                  src={project.image}
+                  alt={project.altText ?? project.title}
+                  width={800}
+                  height={450}
+                  className="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
             </div>
           </FadeIn>
         ))}
       </div>
+
+      <ScrollDots count={projects.length} active={activeCard} />
     </section>
   );
 }
