@@ -4,21 +4,17 @@
 
 @layer base {
   :root {
-    --ink:        26, 28, 27;
-    --paper:      250, 250, 248;
-    --accent:     212, 98, 42;
-    --accent-soft:253, 240, 234;
-    --rule:       232, 230, 225;
-    --ink-muted:  90, 90, 90;
+    --ink:        26 28 27;      /* #1a1c1b */
+    --paper:      249 249 247;   /* #f9f9f7 */
+    --paper-dark: 244 244 242;   /* #f4f4f2 */
+    --accent:     212 98 42;     /* #d4622a */
   }
 
   .dark {
-    --ink:        250, 250, 248;
-    --paper:      26, 28, 27;
-    --accent:     212, 98, 42;
-    --accent-soft:212, 98, 42, 0.08;
-    --rule:       255, 255, 255, 0.1;
-    --ink-muted:  160, 160, 160;
+    --ink:        249 249 247;   /* inverted */
+    --paper:      26 28 27;      /* inverted */
+    --paper-dark: 35 37 36;      /* slightly lighter than dark paper */
+    --accent:     212 98 42;     /* unchanged */
   }
 
   html {
