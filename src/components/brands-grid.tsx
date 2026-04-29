@@ -79,9 +79,12 @@ export function BrandsGrid() {
         frame = requestAnimationFrame(tick);
       };
 
-      // Double-RAF: let browser compute layout before starting
+      // Double-RAF: let browser compute layout before starting.
+      // half = (offsetWidth + gapWidth) / 2 because flex gap adds one extra gap
+      // between the two halves that offsetWidth/2 alone doesn't account for.
       frame = requestAnimationFrame(() => {
-        half = innerEl.offsetWidth / 2;
+        const gapPx = parseFloat(getComputedStyle(innerEl).columnGap) || 16;
+        half = (innerEl.offsetWidth + gapPx) / 2;
         if (direction === "right") pos = -half;
         frame = requestAnimationFrame(tick);
       });
