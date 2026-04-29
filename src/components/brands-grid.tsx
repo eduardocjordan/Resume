@@ -37,54 +37,79 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
+const SPEED = 0.48; // px per frame (~20% slower than original 0.6)
+
 export function BrandsGrid() {
   const doubled1 = useMemo(() => { const s = shuffle(brands); return [...s, ...s]; }, []);
   const doubled2 = useMemo(() => { const s = shuffle(brands); return [...s, ...s]; }, []);
 
-  const row1Ref = useRef<HTMLDivElement>(null);
-  const row2Ref = useRef<HTMLDivElement>(null);
+  const inner1Ref = useRef<HTMLDivElement>(null);
+  const inner2Ref = useRef<HTMLDivElement>(null);
+  const wrap1Ref  = useRef<HTMLDivElement>(null);
+  const wrap2Ref  = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const setupRow = (el: HTMLDivElement, dir: 1 | -1): (() => void) => {
-      if (dir === -1) el.scrollLeft = el.scrollWidth / 2;
-
+    /*
+     * CSS-transform approach: translate the inner flex row.
+     * Row 1 scrolls left  (pos decreases from 0 to -half, resets to 0).
+     * Row 2 scrolls right (pos increases from -half to 0, resets to -half).
+     * Uses a double-RAF start so layout is computed before we read offsetWidth.
+     */
+    const setupRow = (
+      innerEl: HTMLDivElement,
+      wrapEl: HTMLDivElement,
+      direction: "left" | "right",
+    ): (() => void) => {
+      let pos = 0;
+      let half = 0;
       let paused = false;
       let frame: number;
 
       const tick = () => {
         if (!paused) {
-          el.scrollLeft += 0.6 * dir;
-          const mid = el.scrollWidth / 2;
-          if (dir === 1 && el.scrollLeft >= mid) el.scrollLeft -= mid;
-          if (dir === -1 && el.scrollLeft <= 0)  el.scrollLeft += mid;
+          if (direction === "left") {
+            pos -= SPEED;
+            if (pos <= -half) pos += half;
+          } else {
+            pos += SPEED;
+            if (pos >= 0) pos -= half;
+          }
+          innerEl.style.transform = `translateX(${pos}px)`;
         }
         frame = requestAnimationFrame(tick);
       };
-      frame = requestAnimationFrame(tick);
+
+      // Double-RAF: let browser compute layout before starting
+      frame = requestAnimationFrame(() => {
+        half = innerEl.offsetWidth / 2;
+        if (direction === "right") pos = -half;
+        frame = requestAnimationFrame(tick);
+      });
 
       const pause  = () => { paused = true; };
       const resume = () => { paused = false; };
-      el.addEventListener("mouseenter",  pause);
-      el.addEventListener("mouseleave",  resume);
-      el.addEventListener("touchstart",  pause,  { passive: true });
-      el.addEventListener("touchend",    resume, { passive: true });
+      wrapEl.addEventListener("mouseenter",  pause);
+      wrapEl.addEventListener("mouseleave",  resume);
+      wrapEl.addEventListener("touchstart",  pause,  { passive: true });
+      wrapEl.addEventListener("touchend",    resume, { passive: true });
 
       return () => {
         cancelAnimationFrame(frame);
-        el.removeEventListener("mouseenter",  pause);
-        el.removeEventListener("mouseleave",  resume);
-        el.removeEventListener("touchstart",  pause);
-        el.removeEventListener("touchend",    resume);
+        wrapEl.removeEventListener("mouseenter",  pause);
+        wrapEl.removeEventListener("mouseleave",  resume);
+        wrapEl.removeEventListener("touchstart",  pause);
+        wrapEl.removeEventListener("touchend",    resume);
       };
     };
 
     const cleanups: (() => void)[] = [];
-    if (row1Ref.current) cleanups.push(setupRow(row1Ref.current,  1));
-    if (row2Ref.current) cleanups.push(setupRow(row2Ref.current, -1));
+    if (inner1Ref.current && wrap1Ref.current)
+      cleanups.push(setupRow(inner1Ref.current, wrap1Ref.current, "left"));
+    if (inner2Ref.current && wrap2Ref.current)
+      cleanups.push(setupRow(inner2Ref.current, wrap2Ref.current, "right"));
+
     return () => cleanups.forEach((fn) => fn());
   }, []);
-
-  const rowStyle: React.CSSProperties = { scrollbarWidth: "none", WebkitOverflowScrolling: "touch" };
 
   return (
     <section
@@ -104,8 +129,8 @@ export function BrandsGrid() {
 
         <div className="space-y-4 md:space-y-6">
           {/* Row 1 — scrolls left */}
-          <div ref={row1Ref} className="overflow-x-auto" style={rowStyle}>
-            <div className="flex gap-4 md:gap-6">
+          <div ref={wrap1Ref} className="overflow-hidden">
+            <div ref={inner1Ref} className="flex gap-4 md:gap-6" style={{ willChange: "transform" }}>
               {doubled1.map((brand, i) => (
                 <BrandCard key={`r1-${brand.name}-${i}`} brand={brand} />
               ))}
@@ -113,8 +138,8 @@ export function BrandsGrid() {
           </div>
 
           {/* Row 2 — scrolls right */}
-          <div ref={row2Ref} className="overflow-x-auto" style={rowStyle}>
-            <div className="flex gap-4 md:gap-6">
+          <div ref={wrap2Ref} className="overflow-hidden">
+            <div ref={inner2Ref} className="flex gap-4 md:gap-6" style={{ willChange: "transform" }}>
               {doubled2.map((brand, i) => (
                 <BrandCard key={`r2-${brand.name}-${i}`} brand={brand} />
               ))}

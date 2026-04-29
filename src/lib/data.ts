@@ -209,7 +209,7 @@ export const brands: Brand[] = [
   { name: "Cheetos",        logo: "/assets/CHEETOS-logo.png" },
   { name: "Bía Foods",      logo: "/assets/Bia-Foods-Logo.svg" },
   { name: "Tostitos",       logo: "/assets/Tostitos-Logo.svg" },
-  { name: "Lubriderm",      logo: "/assets/LURBIDERM-SQ.jpeg" },
+  { name: "Lubriderm",      logo: "/assets/LUBRIDERM-Logo.png" },
   { name: "Aveeno",         logo: "/assets/Aveeno-logo.svg" },
   { name: "CBC",            logo: "/assets/CBC-logo.png" },
 ];
