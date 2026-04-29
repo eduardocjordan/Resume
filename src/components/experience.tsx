@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FadeIn } from "./fade-in";
@@ -17,33 +17,12 @@ function TimelineEntry({
   open: boolean;
   onToggle: () => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const onToggleRef = useRef(onToggle);
-  const openRef = useRef(open);
-
-  useEffect(() => { onToggleRef.current = onToggle; }, [onToggle]);
-  useEffect(() => { openRef.current = open; }, [open]);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && window.innerWidth < 768 && !openRef.current) {
-          onToggleRef.current();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
   const logoSrc = role.logo || role.logoExternal || null;
 
   return (
     <FadeIn delay={index * 0.08}>
-      <div ref={ref} className="flex gap-0">
+      <div className="flex gap-0">
         {/* Left: logo column */}
         <div className="w-20 md:w-24 flex-shrink-0 flex flex-col items-center pt-1">
           <div className="w-16 h-12 flex items-center justify-center">

@@ -90,7 +90,7 @@ export function BrandsGrid() {
 
         <div
           ref={scrollRef}
-          className="overflow-x-hidden"
+          className="overflow-x-auto"
           style={{ scrollbarWidth: "none" } as React.CSSProperties}
         >
           <div
