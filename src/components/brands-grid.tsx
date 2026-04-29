@@ -10,8 +10,8 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
-// px per frame — ~double the previous 25 s CSS animation
-const SPEED = 2.5;
+// px per frame — gentle pace matching the previous 25 s CSS animation feel
+const SPEED = 0.8;
 
 function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   return (
@@ -104,7 +104,7 @@ function MarqueeRow({
     <div
       ref={wrapRef}
       className="overflow-hidden cursor-grab active:cursor-grabbing"
-      style={{ touchAction: "pan-y" }}
+      style={{ touchAction: "none" }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={stopDrag}
