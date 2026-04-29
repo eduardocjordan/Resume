@@ -31,7 +31,7 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
       <motion.div
         variants={{ rest: { opacity: 0 }, hovered: { opacity: 1 } }}
         transition={{ duration: 0.2 }}
-        className="absolute inset-0 flex items-center justify-center bg-white/80"
+        className="absolute inset-0 flex items-center justify-center bg-paper"
         aria-hidden="true"
       >
         <span className="text-sm font-medium text-ink select-none">{brand.name}</span>
