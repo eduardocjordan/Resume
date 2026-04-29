@@ -98,24 +98,28 @@ export function Credentials() {
             </div>
           </div>
 
-          {/* Slide 2 — Honors + Languages */}
+          {/* Slide 2 — Honors */}
+          <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
+            <div className="max-w-[1200px] mx-auto">
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Honors &amp; Awards</p>
+              <ul className="space-y-8">
+                {credentials.awards.map((award) => (
+                  <li key={award.name} className="flex items-start gap-4">
+                    <span className="material-symbols-outlined text-accent">{award.icon}</span>
+                    <div>
+                      <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink">{award.name}</h4>
+                      <p className="text-xs text-ink/50 mt-1">{award.org}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Slide 3 — Languages + Tools */}
           <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
             <div className="max-w-[1200px] mx-auto">
               <div className="mb-10">
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Honors &amp; Awards</p>
-                <ul className="space-y-8">
-                  {credentials.awards.map((award) => (
-                    <li key={award.name} className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-accent">{award.icon}</span>
-                      <div>
-                        <h4 className="text-sm font-bold font-label uppercase tracking-wider text-ink">{award.name}</h4>
-                        <p className="text-xs text-ink/50 mt-1">{award.org}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Languages</p>
                 <ul className="space-y-4">
                   {credentials.languages.map((lang, i) => (
@@ -126,17 +130,13 @@ export function Credentials() {
                   ))}
                 </ul>
               </div>
-            </div>
-          </div>
-
-          {/* Slide 3 — Tools */}
-          <div className="flex-shrink-0 w-full snap-start px-8 pt-4">
-            <div className="max-w-[1200px] mx-auto">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Key Tools</p>
-              <div className="flex flex-wrap gap-3">
-                {credentials.tools.map((tool) => (
-                  <span key={tool} className="px-4 py-2 bg-paper-dark text-xs uppercase font-bold border border-ink/20 rounded-sm text-ink">{tool}</span>
-                ))}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Key Tools</p>
+                <div className="flex flex-wrap gap-3">
+                  {credentials.tools.map((tool) => (
+                    <span key={tool} className="px-4 py-2 bg-paper-dark text-xs uppercase font-bold border border-ink/20 rounded-sm text-ink">{tool}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
