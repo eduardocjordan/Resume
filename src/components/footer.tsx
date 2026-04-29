@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="bg-ink w-full py-10 md:py-8 px-8 text-paper/40">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-[1600px] mx-auto">
-        <div className="flex gap-8 md:gap-12 font-label text-[10px] tracking-widest uppercase flex-wrap justify-center">
+        <div className="flex gap-8 md:gap-12 font-label text-[10px] tracking-center uppercase flex-wrap justify-center">
           <a
             href="https://www.linkedin.com/in/eduardocaj"
             target="_blank"
