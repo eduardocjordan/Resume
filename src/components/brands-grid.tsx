@@ -10,8 +10,8 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
-// px per frame — gentle pace matching the previous 25 s CSS animation feel
-const SPEED = 0.8;
+// px per frame — deliberate, runway pace
+const SPEED = 0.3;
 
 function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   return (
