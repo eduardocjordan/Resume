@@ -1,3 +1,5 @@
+import { Loader } from "@/components/loader";
+import { CookieBanner } from "@/components/cookie-banner";
 import { NavBar } from "@/components/nav-bar";
 import { ProgressBar } from "@/components/progress-bar";
 import { Hero } from "@/components/hero";
@@ -13,6 +15,8 @@ import { Footer } from "@/components/footer";
 export default function Home() {
   return (
     <>
+      <Loader />
+      <CookieBanner />
       <ProgressBar />
       <NavBar />
       <main id="main-content">

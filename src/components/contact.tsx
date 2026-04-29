@@ -62,8 +62,6 @@ export function Contact() {
                 <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LinkedIn</a>
                 {" · "}
                 <a href={`mailto:${contact.emailDirect}?subject=Let%27s%20connect`} className="hover:text-accent transition-colors">{contact.emailDirect}</a>
-                {" · "}
-                <a href={`mailto:${contact.emailConsulting}?subject=Keynote%20%26%20Speaking`} className="hover:text-accent transition-colors">{contact.emailConsulting}</a>
               </p>
             </div>
 
