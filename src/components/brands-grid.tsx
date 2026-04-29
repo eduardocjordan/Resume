@@ -62,7 +62,7 @@ function MarqueeRow({
         className="flex"
         style={{
           animationName: "marquee",
-          animationDuration: "45s",
+          animationDuration: "25s",
           animationTimingFunction: "linear",
           animationIterationCount: "infinite",
           animationDirection: direction === "left" ? "normal" : "reverse",
