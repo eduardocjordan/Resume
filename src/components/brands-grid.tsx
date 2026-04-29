@@ -1,15 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { brands } from "@/lib/data";
 
+function shuffle<T>(arr: T[]): T[] {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
 function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   return (
     <motion.div
-      className="relative flex-shrink-0 w-32 md:w-40 flex items-center justify-center cursor-default bg-paper"
+      // mr-4 / md:mr-6 instead of gap: each card's footprint = W + G,
+      // so translateX(-50%) lands exactly at the start of the second set.
+      className="relative flex-shrink-0 w-32 md:w-40 mr-4 md:mr-6 flex items-center justify-center cursor-default bg-paper"
       style={{ height: "100px" }}
       initial="rest"
       whileHover="hovered"
@@ -33,86 +39,48 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   );
 }
 
-function shuffle<T>(arr: T[]): T[] {
-  return [...arr].sort(() => Math.random() - 0.5);
+function MarqueeRow({
+  items,
+  direction,
+}: {
+  items: (typeof brands);
+  direction: "left" | "right";
+}) {
+  const [paused, setPaused] = useState(false);
+  // Double the array for seamless loop
+  const doubled = useMemo(() => [...items, ...items], [items]);
+
+  return (
+    <div
+      className="overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
+    >
+      <div
+        className="flex"
+        style={{
+          animationName: "marquee",
+          animationDuration: "45s",
+          animationTimingFunction: "linear",
+          animationIterationCount: "infinite",
+          animationDirection: direction === "left" ? "normal" : "reverse",
+          animationPlayState: paused ? "paused" : "running",
+          willChange: "transform",
+        }}
+      >
+        {doubled.map((brand, i) => (
+          <BrandCard key={`${brand.name}-${i}`} brand={brand} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-const SPEED = 0.48; // px per frame (~20% slower than original 0.6)
-
 export function BrandsGrid() {
-  const doubled1 = useMemo(() => { const s = shuffle(brands); return [...s, ...s]; }, []);
-  const doubled2 = useMemo(() => { const s = shuffle(brands); return [...s, ...s]; }, []);
-
-  const inner1Ref = useRef<HTMLDivElement>(null);
-  const inner2Ref = useRef<HTMLDivElement>(null);
-  const wrap1Ref  = useRef<HTMLDivElement>(null);
-  const wrap2Ref  = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    /*
-     * CSS-transform approach: translate the inner flex row.
-     * Row 1 scrolls left  (pos decreases from 0 to -half, resets to 0).
-     * Row 2 scrolls right (pos increases from -half to 0, resets to -half).
-     * Uses a double-RAF start so layout is computed before we read offsetWidth.
-     */
-    const setupRow = (
-      innerEl: HTMLDivElement,
-      wrapEl: HTMLDivElement,
-      direction: "left" | "right",
-    ): (() => void) => {
-      let pos = 0;
-      let half = 0;
-      let paused = false;
-      let frame: number;
-
-      const tick = () => {
-        if (!paused) {
-          if (direction === "left") {
-            pos -= SPEED;
-            if (pos <= -half) pos += half;
-          } else {
-            pos += SPEED;
-            if (pos >= 0) pos -= half;
-          }
-          innerEl.style.transform = `translateX(${pos}px)`;
-        }
-        frame = requestAnimationFrame(tick);
-      };
-
-      // Double-RAF: let browser compute layout before starting.
-      // half = (offsetWidth + gapWidth) / 2 because flex gap adds one extra gap
-      // between the two halves that offsetWidth/2 alone doesn't account for.
-      frame = requestAnimationFrame(() => {
-        const gapPx = parseFloat(getComputedStyle(innerEl).columnGap) || 16;
-        half = (innerEl.offsetWidth + gapPx) / 2;
-        if (direction === "right") pos = -half;
-        frame = requestAnimationFrame(tick);
-      });
-
-      const pause  = () => { paused = true; };
-      const resume = () => { paused = false; };
-      wrapEl.addEventListener("mouseenter",  pause);
-      wrapEl.addEventListener("mouseleave",  resume);
-      wrapEl.addEventListener("touchstart",  pause,  { passive: true });
-      wrapEl.addEventListener("touchend",    resume, { passive: true });
-
-      return () => {
-        cancelAnimationFrame(frame);
-        wrapEl.removeEventListener("mouseenter",  pause);
-        wrapEl.removeEventListener("mouseleave",  resume);
-        wrapEl.removeEventListener("touchstart",  pause);
-        wrapEl.removeEventListener("touchend",    resume);
-      };
-    };
-
-    const cleanups: (() => void)[] = [];
-    if (inner1Ref.current && wrap1Ref.current)
-      cleanups.push(setupRow(inner1Ref.current, wrap1Ref.current, "left"));
-    if (inner2Ref.current && wrap2Ref.current)
-      cleanups.push(setupRow(inner2Ref.current, wrap2Ref.current, "right"));
-
-    return () => cleanups.forEach((fn) => fn());
-  }, []);
+  const row1 = useMemo(() => shuffle(brands), []);
+  const row2 = useMemo(() => shuffle(brands), []);
 
   return (
     <section
@@ -131,23 +99,8 @@ export function BrandsGrid() {
         </FadeIn>
 
         <div className="space-y-4 md:space-y-6">
-          {/* Row 1 — scrolls left */}
-          <div ref={wrap1Ref} className="overflow-hidden">
-            <div ref={inner1Ref} className="flex gap-4 md:gap-6" style={{ willChange: "transform" }}>
-              {doubled1.map((brand, i) => (
-                <BrandCard key={`r1-${brand.name}-${i}`} brand={brand} />
-              ))}
-            </div>
-          </div>
-
-          {/* Row 2 — scrolls right */}
-          <div ref={wrap2Ref} className="overflow-hidden">
-            <div ref={inner2Ref} className="flex gap-4 md:gap-6" style={{ willChange: "transform" }}>
-              {doubled2.map((brand, i) => (
-                <BrandCard key={`r2-${brand.name}-${i}`} brand={brand} />
-              ))}
-            </div>
-          </div>
+          <MarqueeRow items={row1} direction="left" />
+          <MarqueeRow items={row2} direction="right" />
         </div>
       </div>
     </section>

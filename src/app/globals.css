@@ -37,3 +37,11 @@
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 }
+
+/* Marquee keyframe — translateX(-50%) lands exactly on card N/2+1 when cards
+   use margin-right (not gap), so each card's footprint = W + G, total = N*(W+G),
+   and -50% = -(N/2)*(W+G) = start of the second identical half. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
