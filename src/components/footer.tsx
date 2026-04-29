@@ -4,7 +4,6 @@ export function Footer() {
   return (
     <footer className="bg-ink w-full py-10 md:py-8 px-8 text-paper/40">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-[1600px] mx-auto">
-        <div className="font-headline text-xl italic text-paper/90">Delete &middot; &copy; {year}</div>
         <div className="flex gap-8 md:gap-12 font-label text-[10px] tracking-widest uppercase flex-wrap justify-center">
           <a
             href="https://www.linkedin.com/in/eduardocaj"
@@ -27,7 +26,7 @@ export function Footer() {
             keynote@casjor.com
           </a>
         </div>
-        <p className="font-headline text-xl tracking-widest uppercase text-paper/90">
+        <p className="font-headline text-xl tracking-widest text-paper/90">
           Mexico City &middot; &copy; {year}
         </p>
       </div>
