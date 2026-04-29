@@ -9,7 +9,7 @@ import { brands } from "@/lib/data";
 function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   return (
     <motion.div
-      className="relative flex items-center justify-center cursor-default bg-paper"
+      className="relative flex-shrink-0 w-32 md:w-40 flex items-center justify-center cursor-default bg-paper"
       style={{ height: "100px" }}
       initial="rest"
       whileHover="hovered"
@@ -19,7 +19,7 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
         alt={`${brand.name} logo`}
         width={140}
         height={56}
-        style={{ height: "56px", width: "auto", objectFit: "contain", maxWidth: "100%" }}
+        style={{ height: "56px", width: "auto", objectFit: "contain", maxWidth: "80%" }}
       />
       <motion.div
         variants={{ rest: { opacity: 0 }, hovered: { opacity: 1 } }}
@@ -33,44 +33,58 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   );
 }
 
-export function BrandsGrid() {
-  const shuffled = useMemo(() => [...brands].sort(() => Math.random() - 0.5), []);
-  const doubled = useMemo(() => [...shuffled, ...shuffled], [shuffled]);
+function shuffle<T>(arr: T[]): T[] {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
 
-  const scrollRef = useRef<HTMLDivElement>(null);
+export function BrandsGrid() {
+  const doubled1 = useMemo(() => { const s = shuffle(brands); return [...s, ...s]; }, []);
+  const doubled2 = useMemo(() => { const s = shuffle(brands); return [...s, ...s]; }, []);
+
+  const row1Ref = useRef<HTMLDivElement>(null);
+  const row2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    let frame: number;
-    let paused = false;
+    const setupRow = (el: HTMLDivElement, dir: 1 | -1): (() => void) => {
+      if (dir === -1) el.scrollLeft = el.scrollWidth / 2;
 
-    const tick = () => {
-      if (!paused) {
-        el.scrollLeft += 0.6;
-        if (el.scrollLeft >= el.scrollWidth / 2) {
-          el.scrollLeft -= el.scrollWidth / 2;
+      let paused = false;
+      let frame: number;
+
+      const tick = () => {
+        if (!paused) {
+          el.scrollLeft += 0.6 * dir;
+          const mid = el.scrollWidth / 2;
+          if (dir === 1 && el.scrollLeft >= mid) el.scrollLeft -= mid;
+          if (dir === -1 && el.scrollLeft <= 0)  el.scrollLeft += mid;
         }
-      }
+        frame = requestAnimationFrame(tick);
+      };
       frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
 
-    const pause = () => { paused = true; };
-    const resume = () => { paused = false; };
-    el.addEventListener("mouseenter", pause);
-    el.addEventListener("mouseleave", resume);
-    el.addEventListener("touchstart", pause, { passive: true });
-    el.addEventListener("touchend", resume, { passive: true });
+      const pause  = () => { paused = true; };
+      const resume = () => { paused = false; };
+      el.addEventListener("mouseenter",  pause);
+      el.addEventListener("mouseleave",  resume);
+      el.addEventListener("touchstart",  pause,  { passive: true });
+      el.addEventListener("touchend",    resume, { passive: true });
 
-    return () => {
-      cancelAnimationFrame(frame);
-      el.removeEventListener("mouseenter", pause);
-      el.removeEventListener("mouseleave", resume);
-      el.removeEventListener("touchstart", pause);
-      el.removeEventListener("touchend", resume);
+      return () => {
+        cancelAnimationFrame(frame);
+        el.removeEventListener("mouseenter",  pause);
+        el.removeEventListener("mouseleave",  resume);
+        el.removeEventListener("touchstart",  pause);
+        el.removeEventListener("touchend",    resume);
+      };
     };
+
+    const cleanups: (() => void)[] = [];
+    if (row1Ref.current) cleanups.push(setupRow(row1Ref.current,  1));
+    if (row2Ref.current) cleanups.push(setupRow(row2Ref.current, -1));
+    return () => cleanups.forEach((fn) => fn());
   }, []);
+
+  const rowStyle: React.CSSProperties = { scrollbarWidth: "none", WebkitOverflowScrolling: "touch" };
 
   return (
     <section
@@ -88,21 +102,23 @@ export function BrandsGrid() {
           </h2>
         </FadeIn>
 
-        <div
-          ref={scrollRef}
-          className="overflow-x-auto"
-          style={{ scrollbarWidth: "none" } as React.CSSProperties}
-        >
-          <div
-            className="grid grid-rows-2 grid-flow-col gap-4 md:gap-6"
-            style={{ gridAutoColumns: "var(--card-w, 8rem)" }}
-          >
-            <style>{`
-              @media (min-width: 768px) { :root { --card-w: 160px; } }
-            `}</style>
-            {doubled.map((brand, i) => (
-              <BrandCard key={`${brand.name}-${i}`} brand={brand} />
-            ))}
+        <div className="space-y-4 md:space-y-6">
+          {/* Row 1 — scrolls left */}
+          <div ref={row1Ref} className="overflow-x-auto" style={rowStyle}>
+            <div className="flex gap-4 md:gap-6">
+              {doubled1.map((brand, i) => (
+                <BrandCard key={`r1-${brand.name}-${i}`} brand={brand} />
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2 — scrolls right */}
+          <div ref={row2Ref} className="overflow-x-auto" style={rowStyle}>
+            <div className="flex gap-4 md:gap-6">
+              {doubled2.map((brand, i) => (
+                <BrandCard key={`r2-${brand.name}-${i}`} brand={brand} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
