@@ -162,9 +162,9 @@ export function Credentials() {
         <ScrollDots count={SLIDES} active={activeSlide} />
       </div>
 
-      {/* Desktop static layout (hidden on mobile) */}
-      <div className="hidden md:block max-w-[1200px] mx-auto px-24 pb-24 space-y-20">
-        {/* Education & Certifications */}
+      {/* Desktop 3-column layout (hidden on mobile) */}
+      <div className="hidden md:grid md:grid-cols-3 gap-x-16 max-w-[1200px] mx-auto px-24 pb-24">
+        {/* Column 1 — Education & Certifications */}
         <FadeIn>
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Education &amp; Certifications</p>
@@ -192,10 +192,10 @@ export function Credentials() {
           </div>
         </FadeIn>
 
-        {/* Honors + Languages */}
+        {/* Column 2 — Honors & Awards + Languages */}
         <FadeIn>
-          <div className="grid grid-cols-2 gap-16">
-            <div>
+          <div>
+            <div className="mb-10">
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Honors &amp; Awards</p>
               <ul className="space-y-8">
                 {credentials.awards.map((award) => (
@@ -223,7 +223,7 @@ export function Credentials() {
           </div>
         </FadeIn>
 
-        {/* Key Tools */}
+        {/* Column 3 — Key Tools */}
         <FadeIn>
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-8">Key Tools</p>
