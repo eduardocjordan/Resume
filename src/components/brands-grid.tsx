@@ -147,7 +147,7 @@ export function BrandsGrid() {
             Brands I&rsquo;ve helped grow
           </h2>
         </FadeIn>
-        <div className="space-y-4 md:space-y-6">
+        <div className="max-w-[920px] mx-auto">
           <MarqueeRow items={row1} direction="left" />
           <MarqueeRow items={row2} direction="right" />
         </div>
