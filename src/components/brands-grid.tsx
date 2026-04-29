@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { brands } from "@/lib/data";
@@ -10,12 +10,13 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
+// px per frame — ~double the previous 25 s CSS animation
+const SPEED = 2.5;
+
 function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   return (
     <motion.div
-      // mr-4 / md:mr-6 instead of gap: each card's footprint = W + G,
-      // so translateX(-50%) lands exactly at the start of the second set.
-      className="relative flex-shrink-0 w-32 md:w-40 mr-4 md:mr-6 flex items-center justify-center cursor-default bg-paper"
+      className="relative flex-shrink-0 w-32 md:w-40 mr-4 md:mr-6 flex items-center justify-center bg-paper"
       style={{ height: "100px" }}
       initial="rest"
       whileHover="hovered"
@@ -46,29 +47,73 @@ function MarqueeRow({
   items: (typeof brands);
   direction: "left" | "right";
 }) {
-  const [paused, setPaused] = useState(false);
-  // Double the array for seamless loop
+  const wrapRef  = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  // All mutable animation state in a single ref — zero re-renders
+  const s = useRef({ pos: 0, half: 0, dragging: false, startX: 0, startPos: 0, frame: 0 });
+
   const doubled = useMemo(() => [...items, ...items], [items]);
+
+  useEffect(() => {
+    const inner = innerRef.current;
+    if (!inner) return;
+
+    const start = () => {
+      // With mr-4/md:mr-6 (margin-right, no CSS gap), each card's footprint is
+      // exactly W + G, so offsetWidth = N*(W+G) and half = N/2*(W+G).
+      // translateX(-half) lands precisely on card N/2+1 — seamless loop.
+      s.current.half = inner.offsetWidth / 2;
+      if (direction === "right") s.current.pos = -s.current.half;
+
+      const tick = () => {
+        if (!s.current.dragging) {
+          s.current.pos += direction === "left" ? -SPEED : SPEED;
+          if (s.current.pos <= -s.current.half) s.current.pos += s.current.half;
+          if (s.current.pos >= 0)               s.current.pos -= s.current.half;
+          inner.style.transform = `translateX(${s.current.pos}px)`;
+        }
+        s.current.frame = requestAnimationFrame(tick);
+      };
+      s.current.frame = requestAnimationFrame(tick);
+    };
+
+    // Double RAF: let browser compute layout before reading offsetWidth
+    requestAnimationFrame(() => requestAnimationFrame(start));
+    return () => cancelAnimationFrame(s.current.frame);
+  }, [direction]);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    s.current.dragging = true;
+    s.current.startX   = e.clientX;
+    s.current.startPos = s.current.pos;
+    wrapRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!s.current.dragging) return;
+    let np = s.current.startPos + (e.clientX - s.current.startX);
+    if (np < -s.current.half) np += s.current.half;
+    if (np > 0)               np -= s.current.half;
+    s.current.pos = np;
+    innerRef.current!.style.transform = `translateX(${np}px)`;
+  };
+
+  const stopDrag = () => { s.current.dragging = false; };
 
   return (
     <div
-      className="overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onTouchStart={() => setPaused(true)}
-      onTouchEnd={() => setPaused(false)}
+      ref={wrapRef}
+      className="overflow-hidden cursor-grab active:cursor-grabbing"
+      style={{ touchAction: "pan-y" }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={stopDrag}
+      onPointerLeave={stopDrag}
     >
       <div
+        ref={innerRef}
         className="flex"
-        style={{
-          animationName: "marquee",
-          animationDuration: "25s",
-          animationTimingFunction: "linear",
-          animationIterationCount: "infinite",
-          animationDirection: direction === "left" ? "normal" : "reverse",
-          animationPlayState: paused ? "paused" : "running",
-          willChange: "transform",
-        }}
+        style={{ willChange: "transform", userSelect: "none" }}
       >
         {doubled.map((brand, i) => (
           <BrandCard key={`${brand.name}-${i}`} brand={brand} />
@@ -79,8 +124,13 @@ function MarqueeRow({
 }
 
 export function BrandsGrid() {
-  const row1 = useMemo(() => shuffle(brands), []);
-  const row2 = useMemo(() => shuffle(brands), []);
+  // Split brands into two non-overlapping halves so no logo appears
+  // in both rows at the same time.
+  const [row1, row2] = useMemo(() => {
+    const s   = shuffle(brands);
+    const mid = Math.ceil(s.length / 2);
+    return [s.slice(0, mid), s.slice(mid)];
+  }, []);
 
   return (
     <section
@@ -97,7 +147,6 @@ export function BrandsGrid() {
             Brands I&rsquo;ve helped grow
           </h2>
         </FadeIn>
-
         <div className="space-y-4 md:space-y-6">
           <MarqueeRow items={row1} direction="left" />
           <MarqueeRow items={row2} direction="right" />
