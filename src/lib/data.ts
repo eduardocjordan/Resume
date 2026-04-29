@@ -4,7 +4,7 @@ export const hero = {
   location: "Mexico City",
   taglines: [
     "Engineer-turned-marketer with <strong>13+ years</strong> in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
-    "The project that defines my career is <strong>Doritos® Rainbow</strong> — PepsiCo®'s first purpose-driven product. Launched the week of the Pulse massacre in Orlando. Sold out in one week instead of eight. 200M+ organic impressions. It's been a Pride flagship ever since.",
+    "The project that defines my career is <strong>Doritos® Rainbow</strong>. PepsiCo's first purpose-driven product. Sold out in one week instead of eight.<br />It's been a Pride flagship ever since.",
     "I build brands that move both culture and market share.",
   ],
   portrait: "/assets/IMG_3827.jpeg",
