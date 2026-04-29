@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <ProgressBar />
       <NavBar />
-      <main id="main-content" className="pt-24">
+      <main id="main-content">
         <Hero />
         <DefiningWork />
         <Impact />

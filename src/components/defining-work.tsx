@@ -65,8 +65,8 @@ export function DefiningWork() {
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" } as React.CSSProperties}
       >
         {projects.map((project, i) => (
-          <FadeIn key={project.index} delay={i * 0.08} className="md:h-full">
-            <div className="group flex-shrink-0 md:flex-shrink w-[85vw] md:w-auto md:h-full md:flex md:flex-col snap-start md:snap-align-none bg-paper p-8 md:p-12 cursor-default md:hover:bg-paper-dark transition-colors duration-300">
+          <FadeIn key={project.index} delay={i * 0.08} className="h-full">
+            <div className="group flex-shrink-0 md:flex-shrink w-[85vw] md:w-auto h-full flex flex-col snap-start md:snap-align-none bg-paper p-8 md:p-12 cursor-default md:hover:bg-paper-dark transition-colors duration-300">
               <span className="text-xs font-bold text-accent tracking-widest uppercase mb-3 md:mb-4 block">
                 {project.index} — {project.company}
               </span>
@@ -75,7 +75,7 @@ export function DefiningWork() {
               <div className="border-t border-ink/20 pt-3 md:pt-4 mb-5 md:mb-8">
                 <p className="text-[10px] md:text-[11px] uppercase tracking-wider font-bold text-accent">{project.metrics}</p>
               </div>
-              <div className="aspect-video md:aspect-auto md:flex-1 overflow-hidden bg-paper-dark rounded-sm">
+              <div className="aspect-video flex-1 min-h-0 overflow-hidden bg-paper-dark rounded-sm">
                 <Image
                   src={project.image}
                   alt={project.altText ?? project.title}

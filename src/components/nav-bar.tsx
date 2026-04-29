@@ -23,13 +23,13 @@ export function NavBar() {
     setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
 
-  // Show nav only after hero scrolls fully out of view
+  // Show nav when 85% of hero has scrolled out of view
   useEffect(() => {
     const heroEl = document.getElementById("hero");
     if (!heroEl) return;
     const obs = new IntersectionObserver(
       ([entry]) => setVisible(!entry.isIntersecting),
-      { threshold: 0 }
+      { threshold: 0.15 }
     );
     obs.observe(heroEl);
     return () => obs.disconnect();

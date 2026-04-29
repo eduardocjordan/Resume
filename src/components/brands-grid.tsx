@@ -10,24 +10,24 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
   return (
     <motion.div
       className="relative flex items-center justify-center cursor-default bg-paper"
-      style={{ height: "80px" }}
+      style={{ height: "100px" }}
       initial="rest"
       whileHover="hovered"
     >
       <Image
         src={brand.logo}
         alt={`${brand.name} logo`}
-        width={120}
-        height={40}
-        style={{ height: "40px", width: "auto", objectFit: "contain", maxWidth: "100%" }}
+        width={140}
+        height={56}
+        style={{ height: "56px", width: "auto", objectFit: "contain", maxWidth: "100%" }}
       />
       <motion.div
         variants={{ rest: { opacity: 0 }, hovered: { opacity: 1 } }}
         transition={{ duration: 0.2 }}
-        className="absolute inset-0 flex items-center justify-center bg-ink/60"
+        className="absolute inset-0 flex items-center justify-center bg-ink/80"
         aria-hidden="true"
       >
-        <span className="text-sm font-medium text-white select-none">{brand.name}</span>
+        <span className="text-sm font-medium text-paper select-none">{brand.name}</span>
       </motion.div>
     </motion.div>
   );
@@ -42,14 +42,34 @@ export function BrandsGrid() {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const handleScroll = () => {
-      const mid = el.scrollWidth / 2;
-      if (el.scrollLeft >= mid) {
-        el.scrollLeft -= mid;
+    let frame: number;
+    let paused = false;
+
+    const tick = () => {
+      if (!paused) {
+        el.scrollLeft += 0.6;
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft -= el.scrollWidth / 2;
+        }
       }
+      frame = requestAnimationFrame(tick);
     };
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
+    frame = requestAnimationFrame(tick);
+
+    const pause = () => { paused = true; };
+    const resume = () => { paused = false; };
+    el.addEventListener("mouseenter", pause);
+    el.addEventListener("mouseleave", resume);
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("touchend", resume, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      el.removeEventListener("mouseenter", pause);
+      el.removeEventListener("mouseleave", resume);
+      el.removeEventListener("touchstart", pause);
+      el.removeEventListener("touchend", resume);
+    };
   }, []);
 
   return (
@@ -68,28 +88,20 @@ export function BrandsGrid() {
           </h2>
         </FadeIn>
 
-        {/* Scroll container: snap on mobile, free-scroll on desktop */}
         <div
           ref={scrollRef}
-          className="overflow-x-auto snap-x snap-mandatory md:snap-none"
-          style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
+          className="overflow-x-hidden"
+          style={{ scrollbarWidth: "none" } as React.CSSProperties}
         >
-          {/*
-           * grid-rows-1 on mobile (single row, w-32 cards)
-           * grid-rows-2 on desktop (two rows, wider cards)
-           * grid-auto-flow: column fills columns left-to-right
-           */}
           <div
-            className="grid grid-rows-1 md:grid-rows-2 grid-flow-col gap-4 md:gap-6"
+            className="grid grid-rows-2 grid-flow-col gap-4 md:gap-6"
             style={{ gridAutoColumns: "var(--card-w, 8rem)" }}
           >
             <style>{`
               @media (min-width: 768px) { :root { --card-w: 160px; } }
             `}</style>
             {doubled.map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="snap-start md:snap-align-none">
-                <BrandCard brand={brand} />
-              </div>
+              <BrandCard key={`${brand.name}-${i}`} brand={brand} />
             ))}
           </div>
         </div>

@@ -5,6 +5,12 @@ import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { impactMetrics } from "@/lib/data";
 
+// Group metrics into pages of 2 for mobile carousel
+const pages: (typeof impactMetrics)[] = [];
+for (let i = 0; i < impactMetrics.length; i += 2) {
+  pages.push(impactMetrics.slice(i, i + 2));
+}
+
 function ScrollDots({ count, active }: { count: number; active: number }) {
   return (
     <div className="flex justify-center gap-2 mt-4 md:hidden">
@@ -21,20 +27,12 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
 
 export function Impact() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeCard, setActiveCard] = useState(0);
+  const [activePage, setActivePage] = useState(0);
 
   const onScroll = () => {
     const el = scrollRef.current;
     if (!el) return;
-    const pl = parseFloat(getComputedStyle(el).paddingLeft) || 0;
-    const children = Array.from(el.children) as HTMLElement[];
-    let closest = 0;
-    let minDist = Infinity;
-    children.forEach((child, i) => {
-      const dist = Math.abs(child.offsetLeft - pl - el.scrollLeft);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    });
-    setActiveCard(closest);
+    setActivePage(Math.round(el.scrollLeft / el.offsetWidth));
   };
 
   return (
@@ -62,22 +60,26 @@ export function Impact() {
         </FadeIn>
       </div>
 
-      {/* Mobile carousel */}
+      {/* Mobile carousel — 2 cards per page */}
       <div
         ref={scrollRef}
         onScroll={onScroll}
-        className="md:hidden flex overflow-x-auto gap-4 px-8 snap-x snap-mandatory flex-shrink-0"
+        className="md:hidden flex overflow-x-auto snap-x snap-mandatory flex-1 min-h-0"
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
       >
-        {impactMetrics.map((metric, i) => (
-          <div key={i} className="flex-shrink-0 snap-start p-6 bg-paper/5 border border-paper/10" style={{ width: "80vw" }}>
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-4">{metric.company}</p>
-            <div className="text-5xl font-headline mb-4 text-accent">{metric.stat}</div>
-            <p className="text-sm font-bold text-paper uppercase tracking-wide">{metric.label}</p>
+        {pages.map((page, pageIndex) => (
+          <div key={pageIndex} className="flex-shrink-0 w-full snap-start flex gap-3 px-8 items-stretch">
+            {page.map((metric, i) => (
+              <div key={i} className="flex-1 p-5 bg-paper/5 border border-paper/10 flex flex-col justify-center">
+                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-3">{metric.company}</p>
+                <div className="text-4xl font-headline mb-3 text-accent">{metric.stat}</div>
+                <p className="text-xs font-bold text-paper uppercase tracking-wide">{metric.label}</p>
+              </div>
+            ))}
           </div>
         ))}
       </div>
-      <ScrollDots count={impactMetrics.length} active={activeCard} />
+      <ScrollDots count={pages.length} active={activePage} />
 
       {/* Desktop grid */}
       <div className="hidden md:grid grid-cols-3 gap-6 max-w-[1600px] w-full mx-auto px-24 flex-1 content-center pb-12 relative z-10">
