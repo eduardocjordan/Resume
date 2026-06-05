@@ -68,6 +68,10 @@ export function Hero() {
               download
               data-gtm-event="resume_download"
               data-gtm-location="hero"
+              onClick={() => {
+                (window as any).dataLayer = (window as any).dataLayer || [];
+                (window as any).dataLayer.push({ event: "resume_download", location: "hero" });
+              }}
               className="editorial-gradient text-white px-8 py-4 rounded-sm font-label text-sm font-bold tracking-widest uppercase flex items-center gap-2"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -83,6 +87,10 @@ export function Hero() {
               data-gtm-event="social_click"
               data-gtm-location="hero"
               data-gtm-platform="linkedin"
+              onClick={() => {
+                (window as any).dataLayer = (window as any).dataLayer || [];
+                (window as any).dataLayer.push({ event: "social_click", location: "hero", platform: "linkedin" });
+              }}
               className="bg-paper border border-ink/20 text-ink px-8 py-4 rounded-sm font-label text-sm font-bold tracking-widest uppercase flex items-center gap-2 hover:bg-paper-dark transition-colors"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}

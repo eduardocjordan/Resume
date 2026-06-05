@@ -64,7 +64,7 @@ export function NavBar() {
         if (rounded >= m && !hit[m]) {
           hit[m] = true;
           (window as any).dataLayer = (window as any).dataLayer || [];
-          (window as any).dataLayer.push({ event: "scroll_depth", percent: m });
+          (window as any).dataLayer.push({ event: "scroll_depth", percent_scrolled: m });
         }
       });
       (window as any).__scrollHit = hit;
@@ -133,6 +133,10 @@ export function NavBar() {
                 download
                 data-gtm-event="resume_download"
                 data-gtm-location="nav"
+                onClick={() => {
+                  (window as any).dataLayer = (window as any).dataLayer || [];
+                  (window as any).dataLayer.push({ event: "resume_download", location: "nav" });
+                }}
                 className="hidden md:inline-flex items-center gap-1.5 editorial-gradient text-white px-4 py-2 rounded-sm font-label text-xs font-semibold tracking-wide"
               >
                 <span className="material-symbols-outlined" style={{ fontSize: "14px" }}>download</span>
@@ -180,7 +184,11 @@ export function NavBar() {
                     download
                     data-gtm-event="resume_download"
                     data-gtm-location="nav_mobile"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => {
+                      (window as any).dataLayer = (window as any).dataLayer || [];
+                      (window as any).dataLayer.push({ event: "resume_download", location: "nav_mobile" });
+                      setMenuOpen(false);
+                    }}
                     className="editorial-gradient text-white px-4 py-3 rounded-sm font-label text-sm font-semibold tracking-wide text-center"
                   >
                     Download Resume
