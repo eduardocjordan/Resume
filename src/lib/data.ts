@@ -96,7 +96,7 @@ export const impactMetrics: ImpactMetric[] = [
     company: "apex Consulting",
     stat: "-20%",
     label: "CPC Reduction",
-    description: "A/B testing and SEO strategy for a FinTech client's social media acquisition campaigns.",
+    description: "A/B testing across paid social channels for a FinTech client's acquisition campaigns.",
   },
   {
     company: "Grupo Mariposa",
@@ -108,7 +108,7 @@ export const impactMetrics: ImpactMetric[] = [
     company: "Johnson & Johnson",
     stat: "+11%",
     label: "YoY B2B Revenue",
-    description: "Launched Neutrogena®'s Sun Care category in Mexico after mapping a regulatory stall.",
+    description: "Innovation launches and shopper marketing programs across Mexico, Central America, and the Andean region.",
   },
   {
     company: "PepsiCo®",
@@ -138,7 +138,7 @@ export const experience: Role[] = [
     dates: "Mar 2024 — Present",
     company: "apex Consulting",
     industry: "Marketing Consulting",
-    title: "Marketing Consultant",
+    title: "Marketing Director",
     description:
       "Leading end-to-end marketing strategy and execution for FMCG and consumer-facing brands across Mexico and the US, managing a team of 6.",
     bullets: [
@@ -171,7 +171,7 @@ export const experience: Role[] = [
     industry: "Health & Beauty CPG",
     title: "Senior Regional Marketing Manager, LATAM",
     description:
-      "Managed brand growth for Neutrogena®, Listerine®, Johnson's® Baby, and Tylenol across Mexico, Central America, the Caribbean, and Andean region.",
+      "Managed brand growth for Neutrogena®, Listerine®, Johnson's® Baby, Lubriderm®, and Tylenol across Mexico, Central America, the Caribbean, and Andean region.",
     bullets: [
       { bold: "James E. Burke Award", rest: " — J&J's global recognition for creative leadership" },
       { bold: "+11% YoY revenue", rest: " through innovation launches and shopper marketing" },
@@ -237,11 +237,12 @@ export const stories: Story[] = [
 
 export const credentials = {
   education: [
-    { degree: "BSc — Computer Engineering & IT Project Management", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg", url: "https://tec.mx" },
+    { degree: "Bachelor of Engineering in Information and Communications Technology", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg", url: "https://tec.mx" },
+    { degree: "Leadership Diploma", institution: "Tecnológico de Monterrey", year: "", logo: "/assets/ITESMSchool-Logo.svg", url: "https://tec.mx" },
     { degree: "Project Management Professional® (PMP®)", institution: "Project Management Institute", year: "Oct 2016", logo: "/assets/PMI-SQ.jpeg", url: "https://pmi.org" },
-    { degree: "Certified Scrum Product Owner℠ (CSPO)", institution: "Scrum Inc.", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg", url: "https://scruminc.com" },
+    { degree: "Certified Scrum Product Owner℠ (CSPO)", institution: "Scrum Alliance", year: "Oct 2022", logo: "/assets/SCRUM-logo.jpeg", url: "https://scruminc.com" },
     { degree: "Strategic Marketing", institution: "Kellogg School of Management", year: "Aug 2023", logo: "/assets/KelloggSchool-Logo.svg", url: "https://kellogg.northwestern.edu" },
-    { degree: "Data Analysis", institution: "Wharton Executive Education", year: "Aug 2022", logo: "/assets/WhartonSchool-logo.jpeg", url: "https://executiveeducation.wharton.upenn.edu" },
+    { degree: "Marketing Data Analysis", institution: "Wharton Executive Education", year: "Aug 2022", logo: "/assets/WhartonSchool-logo.jpeg", url: "https://executiveeducation.wharton.upenn.edu" },
   ],
   awards: [
     { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos® Rainbow initiative" },
@@ -255,8 +256,8 @@ export const credentials = {
     { lang: "Portuguese", level: "Professional Working" },
   ],
   tools: [
-    "Nielsen", "Euromonitor", "Google Analytics", "Meta Business Suite",
-    "SEMrush", "Tableau", "HubSpot", "Shopify", "Kantar",
+    "Nielsen", "Euromonitor", "Google Analytics", "Google Ads", "Meta Business Suite",
+    "SEMrush", "HubSpot", "Tableau", "Shopify", "Kantar", "Power BI", "Microsoft Office Suite",
   ],
 };
 
