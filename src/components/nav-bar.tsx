@@ -64,7 +64,7 @@ export function NavBar() {
         if (rounded >= m && !hit[m]) {
           hit[m] = true;
           (window as any).dataLayer = (window as any).dataLayer || [];
-          (window as any).dataLayer.push({ event: "scroll_depth", percent: m });
+          (window as any).dataLayer.push({ event: "scroll_depth", percent_scrolled: m });
         }
       });
       (window as any).__scrollHit = hit;
