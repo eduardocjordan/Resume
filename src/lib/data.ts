@@ -35,7 +35,7 @@ export const projects: Project[] = [
     company: "PepsiCo®",
     title: "Doritos® Rainbow",
     description:
-      "PepsiCo®'s first purpose-driven product. Launched the week of the Pulse massacre in Orlando. 100% of profits donated to LGBT+ ally NGOs. Sold out in one week instead of eight.",
+      "PepsiCo®'s first purpose-driven product. 100% of profits donated to LGBT+ ally NGOs. Sold out in one week instead of eight.",
     metrics: "200M+ organic impressions · +2.3% brand SOM · President's Outliers Award",
     image: "/assets/20160812_102324-1.jpeg",
     altText: "Doritos Rainbow — PepsiCo's first purpose-driven product, launched 2016",
@@ -137,7 +137,7 @@ export const experience: Role[] = [
     logoText: "aC\n&Co.",
     dates: "Mar 2024 — Present",
     company: "apex Consulting",
-    industry: "Marketing Consulting",
+    industry: "Advertisement Services",
     title: "Marketing Director",
     description:
       "Leading end-to-end marketing strategy and execution for FMCG and consumer-facing brands across Mexico and the US, managing a team of 6.",
@@ -153,7 +153,7 @@ export const experience: Role[] = [
     dates: "Apr 2020 — Feb 2024",
     company: "Grupo Mariposa",
     industry: "Food & Beverage FMCG",
-    title: "Marketing Director — Head of Marketing & Product Development",
+    title: "Business Unit Manager, US",
     description:
       "Built a brand and a full innovation pipeline from scratch. Managed a US$750K P&L and led 360° campaigns across Google, Meta, and TikTok.",
     bullets: [
@@ -251,8 +251,8 @@ export const credentials = {
     { icon: "emoji_events", name: "HRC Best Place to Work", org: "J&J Mexico · LGBTQ+ Equity" },
   ],
   languages: [
-    { lang: "English", level: "Native / Bilingual" },
-    { lang: "Spanish", level: "Native / Bilingual" },
+    { lang: "English", level: "Native / Fluent" },
+    { lang: "Spanish", level: "Native / Fluent" },
     { lang: "Portuguese", level: "Professional Working" },
   ],
   tools: [
