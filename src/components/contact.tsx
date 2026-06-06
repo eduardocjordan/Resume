@@ -59,9 +59,25 @@ export function Contact() {
             {/* Mobile: plain text */}
             <div className="md:hidden text-center">
               <p className="text-sm text-ink/60 leading-loose">
-                <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LinkedIn</a>
+                <a
+                  href={contact.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent transition-colors"
+                  onClick={() => {
+                    (window as any).dataLayer = (window as any).dataLayer || [];
+                    (window as any).dataLayer.push({ event: "linkedin_click", click_location: "contact" });
+                  }}
+                >LinkedIn</a>
                 {" · "}
-                <a href={`mailto:${contact.emailDirect}?subject=Let%27s%20connect`} className="hover:text-accent transition-colors">{contact.emailDirect}</a>
+                <a
+                  href={`mailto:${contact.emailDirect}?subject=Let%27s%20connect`}
+                  className="hover:text-accent transition-colors"
+                  onClick={() => {
+                    (window as any).dataLayer = (window as any).dataLayer || [];
+                    (window as any).dataLayer.push({ event: "email_click", click_location: "contact" });
+                  }}
+                >{contact.emailDirect}</a>
               </p>
             </div>
 
