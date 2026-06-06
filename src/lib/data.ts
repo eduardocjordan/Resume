@@ -10,8 +10,8 @@ export const hero = {
   portrait: "/assets/IMG_3827.jpeg",
   stats: [
     { value: "13", suffix: "+", label: "Years FMCG" },
-    { value: "200", suffix: "M", label: "Impressions" },
-    { value: "35", suffix: "%", label: "Revenue Growth" },
+    { value: "12", suffix: "+", label: "Brands" },
+    { value: "200", suffix: "M", label: "Organic Impressions" },
   ],
   cv: "/downloads/CV Eduardo Castro.pdf",
   linkedin: "https://www.linkedin.com/in/eduardocaj",
@@ -248,7 +248,6 @@ export const credentials = {
     { icon: "stars", name: "President's Outliers Award", org: "PepsiCo · Doritos® Rainbow initiative" },
     { icon: "workspace_premium", name: "Circle of Champions", org: "PepsiCo · Top 0.1% worldwide" },
     { icon: "verified", name: "James E. Burke Award", org: "Johnson & Johnson · Creative Leadership" },
-    { icon: "emoji_events", name: "HRC Best Place to Work", org: "J&J Mexico · LGBTQ+ Equity" },
   ],
   languages: [
     { lang: "English", level: "Native / Fluent" },
