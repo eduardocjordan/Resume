@@ -135,7 +135,7 @@ export function NavBar() {
                 data-gtm-location="nav"
                 onClick={() => {
                   (window as any).dataLayer = (window as any).dataLayer || [];
-                  (window as any).dataLayer.push({ event: "resume_download", location: "nav" });
+                  (window as any).dataLayer.push({ event: "resume_download", click_location: "nav" });
                 }}
                 className="hidden md:inline-flex items-center gap-1.5 editorial-gradient text-white px-4 py-2 rounded-sm font-label text-xs font-semibold tracking-wide"
               >
@@ -186,7 +186,7 @@ export function NavBar() {
                     data-gtm-location="nav_mobile"
                     onClick={() => {
                       (window as any).dataLayer = (window as any).dataLayer || [];
-                      (window as any).dataLayer.push({ event: "resume_download", location: "nav_mobile" });
+                      (window as any).dataLayer.push({ event: "resume_download", click_location: "nav_mobile" });
                       setMenuOpen(false);
                     }}
                     className="editorial-gradient text-white px-4 py-3 rounded-sm font-label text-sm font-semibold tracking-wide text-center"

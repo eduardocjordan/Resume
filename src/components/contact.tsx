@@ -78,7 +78,7 @@ export function Contact() {
                   data-gtm-location={link.gtmLocation}
                   onClick={() => {
                     (window as any).dataLayer = (window as any).dataLayer || [];
-                    (window as any).dataLayer.push({ event: link.gtmEvent, location: link.gtmLocation });
+                    (window as any).dataLayer.push({ event: link.gtmEvent, click_location: link.gtmLocation });
                   }}
                   className="flex items-center gap-6 p-8 bg-paper shadow-sm border-l-4 border-accent/40"
                   whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
