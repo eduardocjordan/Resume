@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Council Verdict — CV Tailoring Protocol v10</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f8f8f6;
+    color: #1a1a1a;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 32px 20px 64px;
+  }
+  .container { max-width: 820px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .header-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .header-meta {
+    font-size: 13px;
+    color: #666;
+  }
+
+  /* Verdict sections */
+  .verdict { margin-bottom: 40px; }
+  .verdict h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /* Agreement/Disagreement grid */
+  .signal-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 0; }
+  .signal {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .signal-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .signal.agree .signal-label { color: #2a7a2a; }
+  .signal.clash .signal-label { color: #b05000; }
+  .signal.blind .signal-label { color: #5a3a9a; }
+  .signal p { font-size: 14px; color: #333; }
+
+  /* Recommendation box */
+  .rec-box {
+    background: #1a1a1a;
+    color: #f0f0ee;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .rec-box h3 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 12px;
+  }
+  .rec-box p { font-size: 15px; line-height: 1.65; margin-bottom: 12px; }
+  .rec-box p:last-child { margin-bottom: 0; }
+  .rec-box ul { padding-left: 20px; margin-top: 10px; }
+  .rec-box li { margin-bottom: 8px; font-size: 14px; line-height: 1.5; }
+
+  /* One thing */
+  .one-thing {
+    background: #fff8e8;
+    border: 1px solid #e8c84a;
+    border-radius: 6px;
+    padding: 20px 24px;
+  }
+  .one-thing h3 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a07000;
+    margin-bottom: 10px;
+  }
+  .one-thing p { font-size: 15px; color: #333; }
+
+  /* Advisor positions */
+  .advisor-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .advisor-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+  }
+  .advisor-name {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  .advisor-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .tag-red { background: #ffe5e5; color: #c02020; }
+  .tag-orange { background: #fff0e0; color: #b06000; }
+  .tag-green { background: #e5f5e5; color: #2a7a2a; }
+  .advisor-note { font-size: 11px; color: #888; margin-top: 6px; line-height: 1.4; }
+
+  /* Collapsible */
+  details { margin-bottom: 10px; }
+  summary {
+    cursor: pointer;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▶";
+    font-size: 10px;
+    color: #aaa;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary:hover { background: #f5f5f3; }
+  .detail-body {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.65;
+  }
+  .detail-body p { margin-bottom: 10px; }
+  .detail-body p:last-child { margin-bottom: 0; }
+  .detail-body strong { color: #1a1a1a; }
+
+  /* Peer review */
+  .review-item {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+  }
+  .review-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .review-q { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #888; margin-bottom: 4px; }
+  .review-a { font-size: 14px; color: #333; }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    .advisor-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-label">LLM Council — Verdict</div>
+    <h1>CV Tailoring Protocol v10</h1>
+    <div class="header-meta">Session date: 2026-06-10 &nbsp;·&nbsp; 5 advisors &nbsp;·&nbsp; 5 peer reviewers &nbsp;·&nbsp; Chairman synthesis on Opus</div>
+  </div>
+
+  <!-- Question -->
+  <div class="verdict">
+    <h2>The Question</h2>
+    <div class="signal">
+      <p>Is the CV Tailoring Protocol v10 well-designed to achieve its stated goal — maximizing the probability of being selected for an initial interview by clearing two filters (ATS ranking + headhunter top 5)? Where are the failure modes, blind spots, over-engineering risks, and missed opportunities?</p>
+    </div>
+  </div>
+
+  <!-- Advisor alignment map -->
+  <div class="verdict">
+    <h2>Advisor Positions at a Glance</h2>
+    <div class="advisor-grid">
+      <div class="advisor-card">
+        <div class="advisor-name">Contrarian</div>
+        <span class="advisor-tag tag-red">Structural flaw</span>
+        <div class="advisor-note">ATS/headhunter filters in tension; differentiation is the real lever</div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-name">First Principles</div>
+        <span class="advisor-tag tag-red">Wrong channel</span>
+        <div class="advisor-note">Protocol calibrated for job-board funnel that doesn't describe director-level search</div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-name">Expansionist</div>
+        <span class="advisor-tag tag-green">Extend it</span>
+        <div class="advisor-note">Scale into a signal-generating pipeline; cover letter should be mandatory</div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-name">Outsider</div>
+        <span class="advisor-tag tag-orange">No feedback loop</span>
+        <div class="advisor-note">80% threshold has no sourced basis; no mechanism to know if it works</div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-name">Executor</div>
+        <span class="advisor-tag tag-orange">Fix execution</span>
+        <div class="advisor-note">Step 1 is a throughput bottleneck; needs triage tier; probabilities are theater</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Where the council agrees -->
+  <div class="verdict">
+    <h2>Where the Council Agrees</h2>
+    <div class="signal-grid">
+      <div class="signal agree">
+        <div class="signal-label">High confidence · Advisors A, C, D</div>
+        <p><strong>The ATS frequency engine is the weakest load-bearing component.</strong> Modern platforms (Workday, Greenhouse, Lever) use semantic matching, not literal string counts. Verbatim frequency optimization is at best inert and at worst counterproductive. For director-level roles filled through retained search, it's additionally misdirected — headhunters don't feed their shortlists through ATS parsers.</p>
+      </div>
+      <div class="signal agree">
+        <div class="signal-label">High confidence · Advisors B, C, D</div>
+        <p><strong>Step 2's three probability estimates are theater.</strong> No one can reliably distinguish 68% from 72% ATS clearance probability. Three figures with no defined inputs create false precision and slow the Go/No-Go decision without improving it. This is unanimous: replace with binary proceed/don't-proceed.</p>
+      </div>
+      <div class="signal agree">
+        <div class="signal-label">High confidence · Advisors A, C (implied by D)</div>
+        <p><strong>The two filters pull in opposite directions; the protocol treats them as parallel.</strong> What scores well on a keyword parser reads as templated and hollow to a senior recruiter. A CV that visibly conforms to the spec signals a candidate who <em>fits</em> rather than one who <em>exceeds</em>. The protocol has no mechanism to manage this trade-off.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Where the council clashes -->
+  <div class="verdict">
+    <h2>Where the Council Clashes</h2>
+    <div class="signal-grid">
+      <div class="signal clash">
+        <div class="signal-label">Genuine disagreement · A+C vs. B+E</div>
+        <p><strong>Scrap-and-rebuild vs. fix-and-extend.</strong> A and C argue the protocol answers the wrong question — the lever at this seniority is differentiation and proactive channel activation, not application compliance. B and E accept the protocol's frame and work inside it: B wants triage tiers and time budgets; E wants it scaled into a signal-generating pipeline. Both positions are internally valid. They're answering different questions: A/C ask <em>"is this the right instrument?"</em> B/E ask <em>"given the instrument, how do we make it useful?"</em> You cannot scale or operationalize a process whose foundation is unproven.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blind spots -->
+  <div class="verdict">
+    <h2>Blind Spots the Council Caught</h2>
+    <div class="signal-grid">
+      <div class="signal blind">
+        <div class="signal-label">Emerged in peer review · Reviewers 1, 3, 4</div>
+        <p><strong>The success metric is undefined.</strong> "Cleared filter 1, landed in top 5" are intermediate outputs, not outcomes. No reviewer found a baseline interview rate to compare against. Without it, the protocol cannot be shown to add value, subtract it, or be neutral noise. Every advisor optimized a process whose effectiveness is undefined.</p>
+      </div>
+      <div class="signal blind">
+        <div class="signal-label">Emerged in peer review · Reviewers 3, 4</div>
+        <p><strong>The base CV was never examined.</strong> Every advisor critiqued the transformation and ignored the input. A tailoring protocol applied to a weak source document produces a polished version of the wrong thing. The protocol's effectiveness is entirely contingent on source material quality — and that precondition is upstream of every step.</p>
+      </div>
+      <div class="signal blind">
+        <div class="signal-label">Emerged in peer review · Reviewers 2, 5</div>
+        <p><strong>Channel provenance is missing as a gating step.</strong> How did the JD arrive — cold application, referral, or headhunter outreach? If through the latter two, most of the protocol is irrelevant to that specific application. This should be Step 0. It also raises the proactive posture question: at director level, the highest-leverage activity may be targeted outreach, not reactive application optimization.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommendation -->
+  <div class="verdict">
+    <h2>The Recommendation</h2>
+    <div class="rec-box">
+      <h3>Chairman's verdict</h3>
+      <p>The protocol is <strong>well-engineered and poorly aimed.</strong> Do not scale it. Do not refine its mechanics. Re-scope it first, on the terms the First Principles Thinker and the Contrarian set and the reviewers sharpened.</p>
+      <p>Demote the protocol from a universal workflow to a <strong>conditional, channel-gated tool:</strong></p>
+      <ul>
+        <li><strong>Add channel provenance as the real Step 0.</strong> Referral/retained-search arrivals bypass most of the protocol. Cold job-board applications get the full run.</li>
+        <li><strong>Gut the ATS frequency engine to a coverage sanity-check.</strong> Verify the CV won't get auto-rejected; stop trying to game ranking you mostly aren't subject to and that semantic parsers may penalize.</li>
+        <li><strong>Replace Step 2's three probabilities with a binary Go/No-Go.</strong> Unanimous council finding.</li>
+        <li><strong>Add a feedback loop with a defined baseline.</strong> Track response rates per channel so the protocol can self-correct and actually prove it works.</li>
+        <li><strong>Audit the base CV before any tailoring.</strong> This is upstream of everything else.</li>
+      </ul>
+      <p style="margin-top:14px; font-size:13px; color:#aaa;">The Expansionist's instinct — that running this across many JDs generates market-positioning intelligence — is genuinely valuable. Keep the idea; execute it only after the foundation is fixed. The decisive insight came not from advisors but from reviewers: missing baseline, unexamined base CV, missing channel gate.</p>
+    </div>
+  </div>
+
+  <!-- One thing -->
+  <div class="verdict">
+    <h2>The One Thing to Do First</h2>
+    <div class="one-thing">
+      <h3>Single concrete next step</h3>
+      <p>Before touching the protocol, audit the base CV against actual sourcing reality: take the last 5–10 director-level roles genuinely pursued and label how each arrived — referral, headhunter outreach, or cold application. If the majority did not come through cold application, the ATS-centric protocol is solving a minority of the real pipeline, and that fact must reshape it before anything else is built.</p>
+    </div>
+  </div>
+
+  <!-- Collapsible: Advisor responses -->
+  <div class="verdict">
+    <h2>Full Advisor Responses</h2>
+
+    <details>
+      <summary>The Contrarian</summary>
+      <div class="detail-body">
+        <p><strong>Failure mode 1 — The ATS assumption is outdated.</strong> Modern enterprise ATS platforms increasingly use semantic matching and embeddings, not literal string frequency counts. Optimizing for verbatim keyword frequency can produce unnatural prose that semantic models score lower than fluent, contextually rich text. The "CV Target Frequency" mechanic could be actively counterproductive against the systems it claims to game.</p>
+        <p><strong>Failure mode 2 — The two filters are adversarial, not parallel.</strong> What reads as keyword-optimized to a parser reads as templated and hollow to a senior recruiter. A director-level candidate with an obviously tailored-to-the-JD document loses credibility — it signals someone who fits the spec rather than someone who exceeds it. The protocol has no mechanism for managing this tension.</p>
+        <p><strong>Failure mode 3 — Step 2's Go/No-Go is structurally weak.</strong> Three probability estimates without defined inputs produce false confidence rather than real decision support.</p>
+        <p>The deeper structural problem: this protocol is built around Eduardo's CV being a liability that needs defensive optimization. For a director-level independent consultant, the actual lever is differentiation, not compliance. The protocol never asks whether this role is winnable on distinctive merit.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The First Principles Thinker</summary>
+      <div class="detail-body">
+        <p>The protocol is solving the wrong problem. Coverage is not the actual bottleneck for a director-level FMCG/CPG consultant at this career stage.</p>
+        <p>The first principles question: who actually controls access to this role, and how do they evaluate candidates? If the answer is "a retained headhunter," ATS optimization is mostly theatrical. The headhunter never feeds their shortlist candidates through an ATS screener.</p>
+        <p>The structural failure: the protocol is calibrated for a job board application funnel (ATS → recruiter screen → hiring manager). That is not the dominant access path at director level in Latin American FMCG consulting markets. The protocol is a precise answer to a question Eduardo may not actually be facing.</p>
+        <p>Rebuild from: what is the actual sourcing channel for this specific role? That determines everything else.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The Expansionist</summary>
+      <div class="detail-body">
+        <p>The protocol is optimized for a single match. The highest-probability version isn't one tailored CV landing one interview — it's a systematic pipeline where the protocol runs on 8–12 well-targeted JDs concurrently, generating a data layer: which keywords cluster across roles, which positioning framing resonates, which sectors are actively hiring at this level.</p>
+        <p>What's being undervalued: Step 2's Go/No-Go scoring is strategic intelligence. Running this across multiple JDs, patterns emerge — which competencies are consistently underrepresented in Eduardo's CV versus what the market is asking for. That's a capability development signal, not just a tailoring problem.</p>
+        <p>The bigger opportunity: a Market Positioning Report as a byproduct. After 6–8 applications, the keyword frequency data across all JDs tells you how senior FMCG/CPG marketing is being framed right now. That's Apex Consulting IP.</p>
+        <p>The cover letter being "optional" undersells it. At director level, the cover letter is where narrative differentiation actually happens, because ATS parity is table stakes among finalists.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The Outsider</summary>
+      <div class="detail-body">
+        <p>The routing table classifies keywords into four categories, but ATS systems do not parse human meaning — they match strings. "Consumer insights" and "consumer understanding" are not synonyms to a machine. Classification precision does not translate to ranking precision. That is not established.</p>
+        <p>The 80% keyword coverage threshold is stated as a hard standard with no sourced basis. Stated as a principle, it functions as authority. It is actually a guess dressed as a rule.</p>
+        <p>The "subsection lock" principle prevents moving content across sections. For someone who has operated across functions, this constraint may actively harm relevance by siloing experience a headhunter would want to see connected.</p>
+        <p>The biggest blind spot: there is no feedback loop. Without outcome tracking across multiple applications, the protocol cannot self-correct. It is optimized for internal coherence, not demonstrated results.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The Executor</summary>
+      <div class="detail-body">
+        <p>The protocol is operationally sound on the mechanics but has one execution failure mode that will kill throughput: Step 1 is doing too much work for the wrong unit of analysis. Verbatim keyword extraction classified into 4 groups with tier assignment and CV Target Frequency calculation — for a single job application — will take 45–90 minutes to do correctly. If running 8–12 applications in parallel, this step becomes a bottleneck that either gets skipped or done sloppily.</p>
+        <p>Step 3 sourcing order assumes a bullet repository exists and is maintained. If it isn't — and it won't be, initially — every application requires fresh drafting under deadline.</p>
+        <p>Step 2's three probability estimates are theater. Binary output — proceed or don't — is faster and equally accurate.</p>
+        <p>What's missing operationally: a time-per-step estimate and a minimum viable version for lower-priority applications. The protocol needs a triage layer. Without it, either the protocol gets abandoned after the second use, or fewer roles get applied to than should be.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Collapsible: Peer reviews -->
+  <div class="verdict">
+    <h2>Peer Review Highlights</h2>
+    <details>
+      <summary>All 5 peer reviews — anonymization key: A = First Principles · B = Executor · C = Contrarian · D = Outsider · E = Expansionist</summary>
+      <div class="detail-body">
+
+        <div class="review-item">
+          <div class="review-q">Reviewer 1</div>
+          <div class="review-a">
+            <p><strong>Strongest: A.</strong> Identifies the foundational error before engaging the protocol's mechanics.</p>
+            <p><strong>Biggest blind spot: E.</strong> Praises pipeline potential without engaging whether the protocol works in the first place.</p>
+            <p><strong>All missed:</strong> No response questioned the protocol's definition of success. None asked: what is the empirical baseline interview rate for this candidate without the protocol?</p>
+          </div>
+        </div>
+
+        <div class="review-item">
+          <div class="review-q">Reviewer 2</div>
+          <div class="review-a">
+            <p><strong>Strongest: A.</strong> Director-level FMCG in LatAm is sourced through retained search, not ATS ranking. A is the only response that attacks this premise.</p>
+            <p><strong>Biggest blind spot: E.</strong> Accepts ATS-centric logic, then proposes expanding it.</p>
+            <p><strong>All missed:</strong> None questioned whether applying to posted JDs is the right activity at all. The highest-leverage move at this seniority is typically proactive outreach and relationship activation.</p>
+          </div>
+        </div>
+
+        <div class="review-item">
+          <div class="review-q">Reviewer 3</div>
+          <div class="review-a">
+            <p><strong>Strongest: A.</strong> Questions whether the protocol's terms are the right ones.</p>
+            <p><strong>Biggest blind spot: E.</strong> Recommends a Market Positioning Report as byproduct of an unvalidated base process.</p>
+            <p><strong>All missed:</strong> None asked about the CV itself. A tailoring protocol applied to a poorly constructed base document produces a polished version of the wrong thing.</p>
+          </div>
+        </div>
+
+        <div class="review-item">
+          <div class="review-q">Reviewer 4</div>
+          <div class="review-a">
+            <p><strong>Strongest: A.</strong> Attacks the protocol's assumptions before critiquing its mechanics.</p>
+            <p><strong>Biggest blind spot: E.</strong> Never asks whether the protocol works for one application before scaling it.</p>
+            <p><strong>All missed:</strong> Does Eduardo's actual CV have problems that no tailoring protocol can fix? A weak base document makes the entire protocol downstream noise.</p>
+          </div>
+        </div>
+
+        <div class="review-item">
+          <div class="review-q">Reviewer 5</div>
+          <div class="review-a">
+            <p><strong>Strongest: A.</strong> Rejects the foundational premise rather than critiquing execution.</p>
+            <p><strong>Biggest blind spot: E.</strong> Treats the protocol as a floor without establishing the foundation is sound.</p>
+            <p><strong>All missed:</strong> Channel provenance is missing as a gating step. How the JD arrived determines whether the protocol applies to that specific application at all.</p>
+          </div>
+        </div>
+
+      </div>
+    </details>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>LLM Council · CV Tailoring Protocol v10</span>
+    <span>2026-06-10</span>
+  </div>
+
+</div>
+</body>
+</html>
