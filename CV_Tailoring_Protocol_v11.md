@@ -6,7 +6,7 @@ Filter 1 is not a machine ranking algorithm. It is typically an inexperienced re
 
 Filter 2 is a senior reader evaluating trajectory, scope, and commercial outcomes. The protocol serves this filter through Step 0's seniority register check and the voice constraints in Step 3.
 
-**Execution note:** This document is the master spec. Run it as a chained workflow inside a Claude Project. Each numbered step is a discrete reasoning task with a single, well-defined output. The workflow is backend by design: no intermediate processing appears in the chat unless the protocol explicitly requires it. There are three user-facing gates: the narrative alignment confirmation in Step 0, the routing table confirmation in Step 1, and the go/no-go decision in Step 2. All other steps run silently except for genuine judgment calls during Step 3. The sequence is intentional: Step 0 aligns the narrative frame before any keyword work begins, Step 1 defines the keyword target, Step 2 measures the starting distance from it and decides whether to attempt it, Step 3 closes the gap, Step 5 verifies the gap is actually closed before anything leaves the session. Each step depends on the confirmed artifact the prior step produced, not on inference from it.
+**Execution note:** This document is the master spec. Run it as a chained workflow inside a Claude Project. Each numbered step is a discrete reasoning task with a single, well-defined output. The workflow is backend by design: no intermediate processing appears in the chat unless the protocol explicitly requires it. There is one user-facing gate: the Go/No-Go decision in Step 2. Steps 0 and 1 run silently; their findings surface inside the Step 2 output. Step 3 runs silently except for genuine judgment calls. The sequence is intentional: Step 0 aligns the narrative frame before any keyword work begins, Step 1 defines the keyword target, Step 2 surfaces everything the user needs to decide whether to proceed, Step 3 closes the gap, Step 5 verifies the gap is actually closed before anything leaves the session. Each step depends on the confirmed artifact the prior step produced, not on inference from it.
 
 -----
 
@@ -70,7 +70,7 @@ If the CV reads below the seniority level of the JD, Step 3 must apply the follo
 **Rules:**
 
 - Step 0 never introduces fabrication. Frame adjustments and seniority rewrites reorder, reweight, and reframe existing truth. They do not invent new proof points.
-- Step 0 output is user-facing. It surfaces in the chat before Step 1 so the candidate can confirm or correct the archetype reading and seniority assessment before the entire tailoring process runs on a potentially wrong frame.
+- Step 0 runs silently. Its outputs — archetype alignment verdict, seniority register assessment, and any intervention plan — are carried into the Step 2 Go/No-Go output, not surfaced independently.
 - If the outcome is Adjacent or Different, or if the seniority check flags a register gap, Step 0 produces a brief intervention plan — no more than four items — that Step 3 executes before running the keyword gap list.
 
 -----
@@ -109,21 +109,21 @@ When in doubt about group classification, assign the more demanding group. A key
 - **Priority** = P if JD Freq is 2 or more; S if single appearance.
 - **CV Target Freq** = target appearance range in the tailored CV. Calculated as: floor of (JD Freq minus 1), minimum 1 for S-priority terms, minimum 2 for P-priority terms. Hard ceiling of 4 regardless of JD frequency. Example: JD Freq 4 → CV Target Freq 2–4. JD Freq 1 → CV Target Freq 1–2.
 
-Surface the routing table in the chat and wait for confirmation or corrections before proceeding. This is the only confirm gate in Step 1. Once confirmed, this table is the operative spec for Steps 2, 3, and 5. Do not modify it after confirmation without surfacing the change.
+The routing table runs silently and is not surfaced in the chat. It is the operative spec for Steps 2, 3, and 5. Do not modify it after it is built without surfacing the change in the Step 2 output.
 
 -----
 
 ## Step 2 — Go/No-Go
 
-Scan the canonical baseline against the confirmed routing table. For each keyword, check whether it is already present at its required tier. Count confirmed placements against total keywords.
+This is the first and only user-facing gate. Steps 0 and 1 have already run silently. Output the following in one message, then stop and wait for an explicit go decision:
 
-Output the following, then stop and wait for an explicit go decision:
+**Narrative alignment:** One sentence on archetype fit (Aligned / Adjacent / Different) and one sentence on seniority register. If Adjacent or Different, or if a register gap was found, list the intervention plan (max four items) that Step 3 will execute.
 
 **Pre-tailoring coverage:** X of N keywords already at correct tier in the baseline (X%).
 
 **Knockout screeners:** list any binary screeners present or implied in the JD (work authorization, minimum years of experience, non-negotiable credential, language requirement) with a pass/fail call against the baseline.
 
-**Unbridgeable gaps:** list any keywords with no honest proof point in the baseline. These cannot be closed in Step 3 without fabrication. Flag them explicitly here so the go/no-go decision is made with full visibility into what tailoring can and cannot deliver.
+**Unbridgeable gaps:** list any keywords with no honest proof point in the baseline. These cannot be closed in Step 3 without fabrication.
 
 **Go/No-Go recommendation:** A direct recommendation — Go or No-Go — with a one-paragraph rationale covering seniority fit, next-step logic, JD match, structural fit, and knockout screener results. No probability percentages. Where risk is material, name it plainly (e.g., "two unbridgeable gaps in the Tier 1 list," "sector mismatch that tailoring cannot close"). The recommendation is a judgment call, not a score.
 
@@ -134,8 +134,6 @@ Stop and wait. Proceed only on explicit go.
 ## Step 3 — Tailoring
 
 Before opening the gap list, build a **frequency map** from the confirmed routing table. For every P-priority keyword, record the CV Target Freq range. This map governs placement decisions throughout the section walk: the goal is not only that each keyword appears at the correct tier, but that high-frequency JD terms appear at proportional frequency in the CV.
-
-Open with a gap list in the chat: every keyword from the routing table not yet confirmed at correct tier, with its target section, and its CV Target Freq. This is the only pre-walk output. No confirmation needed; it is an awareness artifact, not a gate.
 
 Run the section walk in this order, executing against the routing table gap list:
 
@@ -236,25 +234,6 @@ Pass/fail threshold: 80%+ tier coverage overall with no Tier 1 keyword below cor
 List only what changed.
 
 *Repository entries* — for each newly drafted approved bullet, a ready-to-paste entry under the correct role/subsection for `CV_Bullet_Repository.txt`. User pastes it in manually.
-
------
-
-## Step 6 — Outcome tracking
-
-After each application, log the following in a running record (spreadsheet or plain text file):
-
-| Date | Role | Company | Channel | Routing table coverage % | Go/No-Go | Outcome | Time to response |
-|---|---|---|---|---|---|---|---|
-| [date] | [title] | [company] | Cold / Referral / Headhunter | [%] | Go / No-Go | No response / Screener call / Rejection / Offer | [days] |
-
-**Channel:** how the JD arrived — cold application via job board, referral from a contact, or headhunter outreach. This determines whether the protocol's full keyword-scan mechanic was the primary filter or a secondary one.
-
-**Review trigger:** after every 5 completed applications, scan the log for patterns:
-- Which keyword clusters (by routing table group) correlate with screener calls vs. no response?
-- Does coverage % correlate with outcomes, or is narrative fit the stronger predictor?
-- Which channels produce the highest response rate for this profile?
-
-This log is the only mechanism by which the protocol can self-correct. Without it, coverage targets and Go/No-Go thresholds remain working assumptions, not validated standards.
 
 -----
 
