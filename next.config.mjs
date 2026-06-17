@@ -1,7 +1,12 @@
 const nextConfig = {
-  output: "export",
   images: {
     unoptimized: true,
+  },
+  experimental: {
+    outputFileTracingIncludes: {
+      "/api/chat": ["./data/knowledge/**"],
+      "/api/cron/finalize-sessions": ["./data/knowledge/**"],
+    },
   },
 };
 

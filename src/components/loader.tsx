@@ -22,6 +22,7 @@ export function Loader() {
       onComplete: () => {
         document.body.style.overflow = "auto";
         loaderEl.style.display = "none";
+        window.dispatchEvent(new Event("site:loader-complete"));
       },
     });
 
