@@ -42,3 +42,12 @@ create table if not exists chat_daily_usage (
 );
 
 create index if not exists chat_sessions_unfinalized_idx on chat_sessions (last_activity_at) where finalized = false;
+
+-- Row Level Security: enabled with no policies on every table. The app only ever talks to
+-- Supabase from server-side code using the service_role key (see src/lib/db.ts), which bypasses
+-- RLS entirely, so this has no effect on the chatbot itself. It does mean nobody can read or
+-- write these tables through Supabase's public/anon API key, which the app never uses anyway.
+alter table chat_sessions enable row level security;
+alter table chat_messages enable row level security;
+alter table chat_session_summaries enable row level security;
+alter table chat_daily_usage enable row level security;
