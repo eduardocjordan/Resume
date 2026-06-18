@@ -41,8 +41,9 @@ In your Vercel project: **Settings → Environment Variables**. Add each one bel
 
 1. In Supabase, open your project, then **SQL Editor** in the left sidebar.
 2. Click **New query**.
-3. Open the file `supabase/schema.sql` from the GitHub repo (github.com → your repo → `supabase` folder → `schema.sql` → click it, then click the "Raw" or copy icon to get the plain text), copy its contents, and paste into the Supabase SQL editor.
-4. Click **Run**. You should see "Success" — this creates the tables the chatbot needs. You only do this once.
+3. The chatbot code — including `supabase/schema.sql` — currently lives on a branch called `claude/awesome-cori-i7akex`, not on `main` yet, so you need to switch branches before you can see it: on github.com, open your repo, click the branch dropdown (it says **main** by default, near the top-left of the file list), and pick `claude/awesome-cori-i7akex` from the list.
+4. Now open the `supabase` folder → `schema.sql` → click it, then click the "Raw" or copy icon to get the plain text. Copy its contents and paste into the Supabase SQL editor.
+5. Click **Run**. You should see "Success" — this creates the tables the chatbot needs. You only do this once.
 
 ## 4. Find and test your preview link
 
