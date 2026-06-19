@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAnthropicClient } from "@/lib/anthropic";
 import { CHAT_MODEL } from "@/lib/constants";
 import { ensureSession, getSessionTranscript, logMessage, touchSessionAfterMessage } from "@/lib/db";
+import type { ChatSession } from "@/lib/db";
 import { runFinalizationSweep } from "@/lib/insights";
 import { loadKnowledgeBase } from "@/lib/knowledge";
 import {
@@ -39,22 +40,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Message is too long." }, { status: 400 });
   }
 
-  const session = await ensureSession(sessionId);
+  let session: ChatSession;
+  let countAfterUserMessage: number;
+  let transcript: { role: string; content: string }[];
+  try {
+    session = await ensureSession(sessionId);
 
-  if (isOverMessageCap(session.message_count)) {
-    return NextResponse.json({ sessionId, reply: DEAD_END_MESSAGE, sessionCapped: true });
-  }
+    if (isOverMessageCap(session.message_count)) {
+      return NextResponse.json({ sessionId, reply: DEAD_END_MESSAGE, sessionCapped: true });
+    }
 
-  if (await isDailySpendCeilingExceeded()) {
+    if (await isDailySpendCeilingExceeded()) {
+      return NextResponse.json({ sessionId, reply: UNAVAILABLE_MESSAGE, unavailable: true });
+    }
+
+    await logMessage(sessionId, "user", message);
+    countAfterUserMessage = await touchSessionAfterMessage(sessionId, session.message_count);
+    transcript = await getSessionTranscript(sessionId);
+  } catch (error) {
+    console.error("Pre-LLM session/database step failed", error);
     return NextResponse.json({ sessionId, reply: UNAVAILABLE_MESSAGE, unavailable: true });
   }
 
-  await logMessage(sessionId, "user", message);
-  const countAfterUserMessage = await touchSessionAfterMessage(sessionId, session.message_count);
-
   const knowledge = loadKnowledgeBase();
   const system = buildSystemPrompt(knowledge);
-  const transcript = await getSessionTranscript(sessionId);
   const messages = transcript.map((m) => ({
     role: m.role === "assistant" ? ("assistant" as const) : ("user" as const),
     content: m.content,
