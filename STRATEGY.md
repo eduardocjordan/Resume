@@ -21,15 +21,15 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 `FACT:` `src/app/page.tsx` renders, in order: `Loader → CookieBanner → ProgressBar → NavBar → Hero → DefiningWork → Impact → Experience → BrandsGrid → HowIWork → Credentials → Contact → Footer → ChatWidget`.
 
-`INFERRED:` the order implies a narrative arc: identity/credibility (Hero) → proof via concrete wins (DefiningWork) → quantified breadth (Impact) → chronological credibility (Experience) → brand-name recognition (BrandsGrid) → process/philosophy (HowIWork) → formal credentials (Credentials) → the ask (Contact). No comment or commit states this sequencing logic; it's read off the structure only.
+`FACT:` (per Eddie, 2026-06-19) the order is a deliberate narrative arc — identity/credibility (Hero) → proof via concrete wins (DefiningWork) → quantified breadth (Impact) → chronological credibility (Experience) → brand-name recognition (BrandsGrid) → process/philosophy (HowIWork) → formal credentials (Credentials) → the ask (Contact) — confirmed as intended design logic, not just a structural read.
 
 ### 1.2 Hero composition
 
 `FACT:` (`src/components/hero.tsx`) photo + role/location badge + name + 3 taglines + a stats overlay (13+ years / 12+ brands / 200M organic impressions) + 3 CTAs (Download Resume, LinkedIn, Get in touch).
 
-`FACT:` two of the three CTAs carry real instrumentation — `data-gtm-event="resume_download"` and `data-gtm-event="social_click"`, each pushing to `window.dataLayer` on click (`hero.tsx:69-93`). This is a deliberate measurement decision, not incidental markup. The third CTA ("Get in touch", `hero.tsx:102-111`) has no GTM event — `OPEN QUESTION:` whether that's an oversight or a deliberate choice not to track in-page anchor clicks.
+`FACT:` all three hero CTAs carry real instrumentation — `data-gtm-event="resume_download"`, `="social_click"`, and `="contact_cta_click"`, each pushing to `window.dataLayer` on click (`hero.tsx`). The third CTA's missing event was confirmed an oversight, not a deliberate choice (per Eddie, 2026-06-19) — fixed as part of this audit.
 
-`INFERRED:` leading with photo + location + positioning statement (rather than, say, a project first) optimizes for a recruiter/hiring-manager skim pattern. Flagged as inference, not fact — no A/B test or stated rationale backs this.
+`FACT:` (per Eddie, 2026-06-19) leading with photo + location + positioning statement (rather than, say, a project first) is a deliberate choice to optimize for a recruiter/hiring-manager skim pattern.
 
 ### 1.3 "Defining Work" card pattern
 
@@ -37,11 +37,13 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 `FACT:` the image-to-card mapping is deliberate and already documented in `ASSETS.md`'s "Section-specific image assignments" table — cross-reference that table rather than restating it here.
 
-`INFERRED:` putting the metrics bar before the image foregrounds quantified proof over visual proof. Stated as inference, not as a confirmed design principle.
+`FACT:` (per Eddie, 2026-06-19) the image is not secondary or decorative relative to the metrics — both function as evidence. The image is supporting/corroborating media for the claim, not illustration. Metrics-first render order leads with the quantified claim and follows with visual substantiation; it is not a hierarchy ranking one as more important than the other.
 
 ### 1.4 Color / motion / typography system
 
 `FACT:` already explicitly documented in `ASSETS.md` ("Color considerations": `#f9f9f7` paper / `#d4622a` accent / `#1a1c1b` ink) — this is the one part of "UI strategy" that *is* written down. Don't duplicate it here; link to `ASSETS.md` for any palette or asset-usage question. Framer Motion fade/scale-on-scroll entrance patterns repeat across nearly every component (`hero.tsx`, `defining-work.tsx`, `how-i-work.tsx`, via a shared `FadeIn` wrapper) — `FACT:` this is a consistently reused pattern, not a one-off.
+
+`FACT:` (per Eddie, 2026-06-19) the carousel-mobile/grid-desktop pattern (shared by `DefiningWork` and `HowIWork`) is convenient code reuse, not an intended design rule — future sections are not obligated to follow it.
 
 ### 1.5 Chat widget presentation
 
@@ -51,13 +53,11 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 `FACT:` a disclaimer is shown before any message, verbatim: *"This is an early-stage assistant I'm testing to help screen initial conversations — it only knows what's in my public bio, resume, and project write-ups. For anything else, reach out to me directly."* (`chat-widget.tsx:9-10`).
 
-`INFERRED:` bottom-right placement + opt-in click-to-open + a self-deprecating "early-stage" disclaimer together position the bot as a supplementary, low-commitment screening tool rather than a primary site feature. This reading is *consistent* with Pillar 3's framing of the bot as a pre-screening filter — noted as an observed consistency across pillars, not as proof of one unified, deliberately authored intent.
+`FACT:` (per Eddie, 2026-06-19) this placement was not a deliberate positioning decision — its consistency with Pillar 3's pre-screening-filter framing (3.2) is coincidental, not authored intent. Eddie has flagged wanting to explore giving the widget more prominence in the future. Treat current placement as a default, not a confirmed strategy — a future change here would fulfill a known direction, not reverse a deliberate one.
 
 ### 1.6 Open questions for this pillar
 
-- No design rationale exists anywhere for section order, card layout, or widget placement beyond what's inferable from structure.
-- Whether the carousel-on-mobile/grid-on-desktop pattern (shared by `DefiningWork` and `HowIWork`) is an intended *rule* for future sections, or just convenient reuse, is unconfirmed.
-- Whether the missing GTM event on the "Get in touch" hero CTA (1.2) is intentional.
+Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1.3, and 1.5 above. No remaining open design-rationale questions for this pillar.
 
 -----
 
@@ -76,13 +76,11 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 `FACT:` defined in `src/lib/data.ts:32-73` and `data/knowledge/projects.md:1-21`: Doritos Rainbow (PepsiCo), ERG Leadership & Inclusion (J&J/PepsiCo), Neutrogena Sun Care Launch (J&J), Brand Built from Zero (Grupo Mariposa).
 
-`INFERRED:` these four read as covering four distinct competency axes rather than four similar wins:
+`FACT:` (per Eddie, 2026-06-19) these four were not selected to deliberately cover four distinct competency axes — they're the strongest/most-documented wins available. The competency-axis reading below is the document author's pattern-match after the fact, not Eddie's actual selection logic, and should not be treated as a rule governing what a 5th project would need to satisfy:
 - Doritos Rainbow → purpose-driven brand-building with a commercial payoff (200M+ impressions, sold out in 1 week vs. 8 projected)
 - ERG Leadership → values/culture leadership, not P&L (HRC Best Place to Work, James E. Burke Award)
 - Neutrogena Sun Care → regulatory/market-unlock problem-solving (broke a 4-year COFEPRIS stall)
 - Brand Built from Zero → full P&L ownership, zero-to-one (165 ideas filtered to 1, +35% revenue)
-
-This is the document author's pattern-match across the four entries, **not a stated selection criterion found anywhere in the repo.** Treat it as a hypothesis to test against, not a rule to enforce.
 
 `FACT:` each project consistently pairs a qualitative narrative with a quantified metric — this pairing repeats in `impactMetrics` (`data.ts:82-119`). The pairing itself is fact; *why* it's done this way (credibility-building) is inference.
 
@@ -102,7 +100,9 @@ This is the document author's pattern-match across the four entries, **not a sta
 
 `INFERRED:` primary audience = recruiters/hiring managers evaluating Eddie for a senior FMCG marketing role (drawn from CTA choices — Download Resume, LinkedIn — and the chatbot's salary-probing logic in Pillar 3). Secondary = consulting/speaking prospects (`apex Consulting` framing, dedicated `keynote@casjor.com` address).
 
-`OPEN QUESTION:` `data/knowledge/faq.md:6-7` itself states this is unresolved at the content level: *"Is Eduardo open to full-time roles, or only consulting engagements? This isn't something the knowledge base has a confirmed answer for... don't guess at availability, notice period, work authorization, or relocation preferences."* This is stronger evidence than inference — the repo already flags audience/availability as an open question, not something to reverse-engineer further.
+`FACT:` (per Eddie, 2026-06-19) availability messaging is deliberately non-committal in public-facing copy — the FAQ instructs the bot to treat full-time-vs-consulting as fit-dependent rather than asserting a fixed preference, and to proactively invite the visitor's contact info for a direct follow-up rather than resolving the question itself in-chat. This is an intentional tone calibration, not a documentation gap — the underlying strategic preference is deliberately not recorded in this (public) repo.
+
+`FACT:` (per Eddie, 2026-06-19) remote/relocation preference is similarly fit-dependent rather than fixed — the FAQ states he's open to both remote roles and international relocation "for the right opportunity," without committing to a specific scope. Previously flagged as unresolved (`faq.md:9-10`); now a documented, intentionally general position.
 
 ### 2.6 The duplication architecture (most load-bearing fact in this pillar)
 
@@ -116,7 +116,7 @@ This is the document author's pattern-match across the four entries, **not a sta
 
 ### 3.1 Site-level success signals
 
-`FACT:` the actual, tracked definition of "the site is converting" is the GTM events on hero CTAs — `resume_download` and `social_click` (`hero.tsx:69-93`), plus `chat_open`, `chat_message_sent`, and `chat_capped` from the widget (`chat-widget.tsx:19-22, 66, 92, 112`). These are real, measured signals.
+`FACT:` the actual, tracked definition of "the site is converting" is the GTM events on hero CTAs — `resume_download`, `social_click`, and `contact_cta_click` (`hero.tsx`), plus `chat_open`, `chat_close`, `chat_message_sent`, and `chat_capped` from the widget (`chat-widget.tsx`). These are real, measured signals.
 
 **Distinguish this clearly from the hero's stated stats** ("13+ years," "12+ brands," "200M organic impressions," `data.ts:11-15`) — those are hardcoded copy, not live or computed metrics. Treating them as if they were dashboard-driven would be a conflation: they require manual updates and currently have no mechanism keeping them current (e.g., "13+ years" will go stale silently).
 
@@ -192,15 +192,13 @@ A pre-flight checklist, not narrative — run the relevant line before shipping 
 - **Changing hero copy or stats** → `hero.stats` (`data.ts:11-15`) is hardcoded, not computed — "13+ years" will go stale silently if not updated by hand (3.1).
 - **Adding a 5th "evidence pillar" project** → does it pair a qualitative story with a quantified metric like the existing four (2.2, 2.6)? If it can't be quantified, flag that as a deliberate deviation, not an oversight.
 - **Changing what `insights.ts`'s `SUMMARY_TOOL` extracts** → does the new field still capture only explicitly volunteered information, or does it invite inference/profiling? Check against the literal guardrail text (3.6).
-- **Repositioning or restyling the chat widget** (e.g., making it more prominent, giving it its own section) → current placement is read (1.5) as deliberately secondary/experimental; treat any change here as a positioning decision, not a styling one, and update the disclaimer copy (3.2) if the bot's role is changing too.
+- **Repositioning or restyling the chat widget** (e.g., making it more prominent, giving it its own section) → current placement (1.5) is a default, not a deliberate decision, and Eddie has already flagged wanting to explore more prominence; treat an increase in prominence as executing a known direction, not reversing settled intent. Still treat it as a positioning decision, not a styling one, and update the disclaimer copy (3.2) if the bot's role is changing too.
+- **Adding a new interactive element (CTA, button, link)** → does it have a `data-gtm-event`, or is the absence of tracking a deliberate, documented choice? Per Eddie (2026-06-19): tracking status should always be intentional, never incidental (1.2, 3.1).
 
 -----
 
 ## Open Questions / Explicitly Undocumented
 
-- Full-time vs. consulting-only availability — `faq.md:6-7` states this is unconfirmed; don't guess.
-- Remote work / relocation preference — `faq.md:9-10`, same status.
-- No design rationale exists anywhere for section ordering, card layout, or chat widget placement (Pillar 1) — everything there is `INFERRED:` from structure alone.
-- No stated selection criteria for "why these four projects specifically" beyond the pattern-match in 2.2.
-- Whether the missing GTM event on the "Get in touch" hero CTA is intentional (1.2).
-- Whether `.claude/CLAUDE.md`'s Spanish-default / "no codebase" framing was authored with this specific Next.js repo in mind, or is a reused general Apex Consulting workspace file — this document does not assume the latter applies literally here, and cites only §3 (epistemic standards) of that file as governing.
+All six items previously listed here were resolved directly with Eddie on 2026-06-19. See `FACT: (per Eddie, 2026-06-19)` entries in §1.1, §1.2, §1.3, §1.5, §1.6, §2.2, §2.5, and §3.1 above for the resolutions, and the Cross-Pillar Decision Framework for the resulting standing rules. `.claude/CLAUDE.md` was also rewritten for this repo specifically as part of this same pass — it's no longer a reused general workspace file; its §1/§2/§5/§7/§8 now describe this Next.js codebase directly, while §3/§4/§6 (epistemic standards, thinking standards, communication style) were kept unchanged since they generalize fine.
+
+No open questions remain from the original audit. New ones, if any arise from future changes, should follow the same `FACT:`/`INFERRED:`/`OPEN QUESTION:` discipline established above.

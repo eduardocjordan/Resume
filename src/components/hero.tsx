@@ -101,6 +101,12 @@ export function Hero() {
             </motion.a>
             <motion.a
               href="#contact"
+              data-gtm-event="contact_cta_click"
+              data-gtm-location="hero"
+              onClick={() => {
+                (window as any).dataLayer = (window as any).dataLayer || [];
+                (window as any).dataLayer.push({ event: "contact_cta_click", click_location: "hero" });
+              }}
               className="bg-paper border border-ink/20 text-ink px-8 py-4 rounded-sm font-label text-sm font-bold tracking-widest uppercase flex items-center gap-2 hover:bg-paper-dark transition-colors"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
