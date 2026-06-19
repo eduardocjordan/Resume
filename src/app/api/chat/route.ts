@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
     const response = await anthropic.messages.create({
       model: CHAT_MODEL,
       max_tokens: 1024,
+      temperature: 0.3,
       system,
       messages,
     });
