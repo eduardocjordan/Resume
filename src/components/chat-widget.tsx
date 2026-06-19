@@ -121,7 +121,7 @@ export function ChatWidget() {
         onClick={() => {
           setIsOpen((open) => {
             const next = !open;
-            if (next) pushGtmEvent("chat_open");
+            pushGtmEvent(next ? "chat_open" : "chat_close");
             return next;
           });
         }}

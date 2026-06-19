@@ -1,18 +1,20 @@
 # CLAUDE.md — Workspace Configuration
 
-# Owner: Eduardo Castro | Marketing Strategy
+# Owner: Eduardo Castro
 
-# Last updated: 2026-04-17
+# Repo: eduardocjordan/resume — personal portfolio site + screening chatbot (Next.js)
+
+# Last updated: 2026-06-19
 
 -----
 
 ## 1. Identity & Context
 
 **User:** Eduardo Castro (Eddie)
-**Role:** Senior marketing and business strategy professional; director-level FMCG/CPG professional
-**Organization:** Apex Consulting (independent, est. 2024) — Mexico City
-**Languages:** Spanish (primary), English (professional-level bilingual)
-**Default response language:** Spanish unless Eddie writes in English or explicitly requests otherwise
+**Role:** Senior marketing and business strategy professional; director-level FMCG/CPG professional. This repo is the Next.js codebase for his personal portfolio site and the screening chatbot embedded in it — not a marketing-strategy workspace itself.
+**Organization referenced in the site's content:** Apex Consulting (independent, est. 2024) — Mexico City. This is subject matter the site presents about Eddie, not the nature of this repo.
+**Languages:** Spanish (Eddie's primary), English (professional-level bilingual)
+**Default response language:** English for anything touching this codebase — code, commits, PRs, and technical/audit documents (`STRATEGY.md`, `ASSETS.md`, `DEPLOY-GUIDE.md`) are all in English, matching this repo's existing convention and its primary technical audience (other agents, programmers). Switch to Spanish only if Eddie writes in Spanish or explicitly asks for it.
 
 -----
 
@@ -20,21 +22,21 @@
 
 ### Confirmed context
 
-- Apex Consulting is an active independent consultancy, not a legacy company with a codebase or defined file structure
-- No monorepo, no predefined folder hierarchy, no CI/CD pipeline exists unless explicitly described by Eddie in the conversation
-- Documents, reports, and deliverables are produced on a per-project basis
+- This is a real, version-controlled Next.js codebase, not an ad hoc workspace: `src/app` (routes), `src/components` (UI), `src/lib` (chat backend — `systemPrompt.ts`, `insights.ts`, `email.ts`, `sessionGuard.ts`, `knowledge.ts`, `db.ts`), `data/knowledge/*.md` (the chatbot's knowledge base, loaded verbatim by `knowledge.ts`).
+- `STRATEGY.md` is the authoritative audit of *why* the site/chatbot logic is structured the way it is — read it before making a change that isn't purely mechanical. `ASSETS.md` governs visual/asset specifics. `DEPLOY-GUIDE.md` governs deployment/operational constraints (e.g., Vercel cron limits).
+- The site's content lives in **two independently maintained pipelines with no parity check between them**: `src/lib/data.ts` (feeds the React components) and `data/knowledge/*.md` (feeds the chatbot). A content edit in one does not propagate to the other — see `STRATEGY.md` §2.6.
+- The chatbot has hard operational ceilings and non-negotiable rules (message cap, daily spend ceiling, salary-handling, prompt-injection hardening) documented in `STRATEGY.md` Pillar 3 and enforced in `systemPrompt.ts` / `sessionGuard.ts`. Don't weaken these incidentally while making an unrelated change.
 
 ### Explicit prohibitions on assumptions
 
-- **Do NOT assume** a file or folder structure exists unless Eddie describes it or shows it
-- **Do NOT assume** any prior deliverable exists unless it is shared in the current session
-- **Do NOT assume** tool configurations, API keys, integrations, or connected services unless confirmed
-- **Do NOT hallucinate** file paths, filenames, or directory layouts
-- **Do NOT invent** project history, client names, deliverables, or timelines
+- **Do NOT assume** a file, route, or component exists, or behaves a certain way, without checking — verify with Glob/Grep/Read rather than inferring from naming convention alone.
+- **Do NOT assume** a content edit to `data.ts` is sufficient on its own, or vice versa — check whether the matching `data/knowledge/*.md` file also needs updating (`STRATEGY.md` §2.6).
+- **Do NOT hallucinate** file paths, filenames, env vars, or directory layout not confirmed by reading the repo.
+- **Do NOT invent** Eddie's professional history, employers, projects, or figures beyond what's in `data.ts` / `data/knowledge/*.md` — the chatbot is bound by exactly this rule (`systemPrompt.ts`); hold this repo's own documentation to the same standard.
 
-### If structure is ambiguous
+### If structure or intent is ambiguous
 
-Ask one precise clarifying question before proceeding. Do not invent scaffolding and proceed.
+Ask one precise clarifying question before proceeding — especially for judgment calls with no documented rationale (UI layout, content selection criteria, design intent). Don't invent a rationale and present it as fact; flag it as inference, following `STRATEGY.md`'s `FACT:` / `INFERRED:` / `OPEN QUESTION:` convention, which is itself an extension of the epistemic standards in §3 below.
 
 -----
 
@@ -84,21 +86,22 @@ When something cannot be verified or is outside current session context, say:
 
 ### Documents and deliverables
 
-- Match the format to the use case (memo ≠ report ≠ slide deck ≠ email)
-- Use professional Spanish as default for client-facing outputs
+- Match the format to the use case (memo ≠ report ≠ slide deck ≠ email ≠ technical audit doc)
+- Client-facing strategy deliverables (memos, reports, decks describing Eddie's consulting work) default to professional Spanish unless Eddie specifies otherwise
+- Technical/audit documents that live in this repo (`STRATEGY.md`-style docs, PR descriptions, code comments) default to English, matching this repo's existing convention
 - Do not add decorative language; precision over style
 
 ### Code and technical outputs
 
-- Comment logic, not syntax
+- Comment logic, not syntax — and only when the *why* isn't obvious from the code itself
 - If a dependency or library is assumed, flag it explicitly
-- Do not scaffold more than what was requested
+- Do not scaffold more than what was requested; reuse existing patterns (e.g., the `pushGtmEvent` / `data-gtm-event` convention in `hero.tsx` / `chat-widget.tsx`) rather than inventing a parallel one
 
 ### Strategy outputs
 
-- Anchor recommendations to evidence or logic stated in the session
-- Label speculative elements clearly
-- Provide a “so what” — implications, not just information
+- Anchor recommendations to evidence or logic stated in the session, or citable in this repo
+- Label speculative elements clearly (`STRATEGY.md`'s `INFERRED:` / `OPEN QUESTION:` labels are the model for this)
+- Provide a "so what" — implications, not just information
 
 -----
 
@@ -119,7 +122,7 @@ Respond accordingly. Push back when something is imprecise. Correct errors direc
 
 |Situation                              |Correct action                                        |
 |---------------------------------------|------------------------------------------------------|
-|Unclear file or project structure      |Ask one specific clarifying question                  |
+|Unclear design rationale or undocumented judgment call|Ask one specific clarifying question (see `STRATEGY.md`'s Open Questions resolution for precedent) rather than inventing a rationale|
 |Ambiguous task scope                   |State your interpretation explicitly before proceeding|
 |Missing information needed for accuracy|Name what is missing; do not substitute with guesses  |
 |Conflicting instructions               |Flag the conflict; ask for resolution                 |
@@ -130,10 +133,10 @@ Respond accordingly. Push back when something is imprecise. Correct errors direc
 ## 8. Hard Limits
 
 - Never fabricate citations, data, or research results
-- Never invent client names, project history, or deliverables
-- Never generate content that contradicts what Eddie has stated in the session without flagging the discrepancy
+- Never invent facts, dates, figures, employers, or projects about Eddie beyond what's in `data.ts` / `data/knowledge/*.md` — the same boundary the chatbot itself is held to (`systemPrompt.ts`)
+- Never generate content that contradicts what Eddie has stated in the session, or what's documented in `STRATEGY.md`, without flagging the discrepancy
 - Never assume prior session context is available — treat each session as stateless unless memory is explicitly activated
 
 -----
 
-*This file governs Claude’s behavior in this workspace. Update it when scope, structure, or standards change.*
+*This file governs Claude's behavior in this repo. Update it when scope, structure, or standards change.*

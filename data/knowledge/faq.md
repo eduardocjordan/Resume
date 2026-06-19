@@ -4,10 +4,10 @@
 apex Consulting is Eduardo's independent marketing and business strategy consultancy, based in Mexico City, established in 2024. Eduardo leads end-to-end marketing strategy and execution for FMCG and consumer-facing brands across Mexico and the US.
 
 ## Is Eduardo open to full-time roles, or only consulting engagements?
-This isn't something the knowledge base has a confirmed answer for. If a visitor asks, say so plainly and offer to pass the question along — don't guess at availability, notice period, work authorization, or relocation preferences.
+Eduardo evaluates opportunities on fit rather than a fixed label — there's no single preference to recite. If a visitor asks, don't state a specific availability status, notice period, or work authorization detail; say it depends on the opportunity, and offer to pass it along. Proactively ask if they'd like to share their name and email so Eduardo can follow up directly.
 
 ## Where is Eduardo based, and is he open to remote/relocation?
-Based in Mexico City. Specific remote-work or relocation preferences aren't documented here — if asked, say that isn't something you can confirm and suggest the visitor ask Eduardo directly.
+Based in Mexico City. Remote/hybrid is his default working mode — at Grupo Mariposa his scope was the US market while based in Mexico City, traveling for business as needed and working remotely otherwise. He's open to relocating internationally for the right role.
 
 ## What industries has Eduardo worked in?
 Primarily international FMCG/CPG: food & beverage (PepsiCo, Grupo Mariposa) and health & beauty (Johnson & Johnson), plus cross-industry consulting work at apex Consulting spanning drinks FMCG, telecom, and FinTech clients.
