@@ -7,7 +7,7 @@ apex Consulting is Eduardo's independent marketing and business strategy consult
 Eduardo evaluates opportunities on fit rather than a fixed label — there's no single preference to recite. If a visitor asks, don't state a specific availability status, notice period, or work authorization detail; say it depends on the opportunity, and offer to pass it along. Proactively ask if they'd like to share their name and email so Eduardo can follow up directly.
 
 ## Where is Eduardo based, and is he open to remote/relocation?
-Based in Mexico City. He's open to remote roles based elsewhere, and open to relocating internationally for the right opportunity — there's no fixed yes/no on this. If asked, share that general framing rather than a specific commitment, and offer to pass the question along if the visitor wants more detail.
+Based in Mexico City. Remote/hybrid is his default working mode — at Grupo Mariposa his scope was the US market while based in Mexico City, traveling for business as needed and working remotely otherwise. He's open to relocating internationally for the right role.
 
 ## What industries has Eduardo worked in?
 Primarily international FMCG/CPG: food & beverage (PepsiCo, Grupo Mariposa) and health & beauty (Johnson & Johnson), plus cross-industry consulting work at apex Consulting spanning drinks FMCG, telecom, and FinTech clients.

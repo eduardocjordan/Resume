@@ -102,7 +102,7 @@ Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1
 
 `FACT:` (per Eddie, 2026-06-19) availability messaging is deliberately non-committal in public-facing copy — the FAQ instructs the bot to treat full-time-vs-consulting as fit-dependent rather than asserting a fixed preference, and to proactively invite the visitor's contact info for a direct follow-up rather than resolving the question itself in-chat. This is an intentional tone calibration, not a documentation gap — the underlying strategic preference is deliberately not recorded in this (public) repo.
 
-`FACT:` (per Eddie, 2026-06-19) remote/relocation preference is similarly fit-dependent rather than fixed — the FAQ states he's open to both remote roles and international relocation "for the right opportunity," without committing to a specific scope. Previously flagged as unresolved (`faq.md:9-10`); now a documented, intentionally general position.
+`FACT:` (per Eddie, 2026-06-19) remote/relocation has a concrete default, unlike the availability question above: remote/hybrid is his standard working mode — precedent is the Grupo Mariposa role, where his scope was the US market while based in Mexico City, traveling for business as needed and working remotely otherwise (`resume.md:15-17`) — plus openness to international relocation for the right role. This one carries no public-repo sensitivity, so the FAQ states it directly rather than abstracting it.
 
 ### 2.6 The duplication architecture (most load-bearing fact in this pillar)
 
