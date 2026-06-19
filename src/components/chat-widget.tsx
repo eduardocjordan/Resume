@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const SESSION_STORAGE_KEY = "chat_session_id";
-const REVEAL_FALLBACK_MS = 8000;
+const REVEAL_FALLBACK_MS = 2000;
 const CHAT_DISCLAIMER =
   "This is an early-stage assistant I'm testing to help screen initial conversations — it only knows what's in my public bio, resume, and project write-ups. For anything else, reach out to me directly.";
 
