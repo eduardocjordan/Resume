@@ -21,6 +21,18 @@ function pushGtmEvent(event: string, extra?: Record<string, unknown>) {
   (window as any).dataLayer.push({ event, ...extra });
 }
 
+function renderWithEmphasis(text: string) {
+  return text.split(/(\*\*[^*\n]+\*\*|\*[^*\n]+\*)/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+      return <strong key={i}>{part.slice(1, -1)}</strong>;
+    }
+    return part;
+  });
+}
+
 export function ChatWidget() {
   const [isRevealed, setIsRevealed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -140,13 +152,13 @@ export function ChatWidget() {
                 <div
                   key={i}
                   className={cn(
-                    "text-sm leading-relaxed px-4 py-2.5 rounded-lg max-w-[85%]",
+                    "text-sm leading-relaxed whitespace-pre-wrap px-4 py-2.5 rounded-lg max-w-[85%]",
                     m.role === "user" ? "bg-accent/10 text-ink ml-auto" : "bg-paper-dark text-ink",
                     m.capped && "border-l-4 border-accent/60 bg-accent-soft",
                     m.failed && "border-l-4 border-error/60"
                   )}
                 >
-                  {m.content}
+                  {m.role === "assistant" ? renderWithEmphasis(m.content) : m.content}
                 </div>
               ))}
 
