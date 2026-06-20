@@ -40,7 +40,6 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isCapped, setIsCapped] = useState(false);
-  const [hasOpened, setHasOpened] = useState(false);
   const sessionIdRef = useRef<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -55,14 +54,10 @@ export function ChatWidget() {
   }, []);
 
   useEffect(() => {
-    const open = () => setIsOpen(true);
-    window.addEventListener("chat:open", open);
-    return () => window.removeEventListener("chat:open", open);
+    const openFromEvent = () => setIsOpen(true);
+    window.addEventListener("chat:open", openFromEvent);
+    return () => window.removeEventListener("chat:open", openFromEvent);
   }, []);
-
-  useEffect(() => {
-    if (isOpen) setHasOpened(true);
-  }, [isOpen]);
 
   useEffect(() => {
     let stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
@@ -140,10 +135,7 @@ export function ChatWidget() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        {!hasOpened && (
-          <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-75" aria-hidden="true" />
-        )}
-        <span className="material-symbols-outlined text-2xl relative z-10">{isOpen ? "close" : "forum"}</span>
+        <span className="material-symbols-outlined text-2xl">{isOpen ? "close" : "forum"}</span>
       </motion.button>
 
       <AnimatePresence>
