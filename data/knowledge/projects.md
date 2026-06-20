@@ -1,21 +1,21 @@
 # Projects
 
-## 01 — Doritos Rainbow (PepsiCo)
-PepsiCo's first purpose-driven product. 100% of profits were donated to LGBT+ ally NGOs. Sold out in one week instead of the projected eight.
+## Flagship — Doritos Rainbow (PepsiCo)
+PepsiCo's first purpose-driven product. 100% of profits were donated to LGBT+ ally NGOs. Sold out in one week instead of the projected eight. On the site, this project has its own dedicated full-screen section (not part of the numbered projects grid below) — it's the career-defining work referenced in the hero.
 
 Metrics: 200M+ organic impressions, +2.3% brand SOM (share of market), President's Outliers Award.
 
-## 02 — ERG Leadership & Inclusion (Johnson & Johnson / PepsiCo)
+## 01 — ERG Leadership & Inclusion (Johnson & Johnson / PepsiCo)
 Founded the EQUAL Employee Resource Group at PepsiCo and led Open & Out at Johnson & Johnson. Contributed to J&J earning HRC's "Best Place to Work for LGBT+ Equity" recognition and LATAM Forum recognition.
 
 Metrics: HRC Best Place to Work, James E. Burke Award, LATAM Forum recognition.
 
-## 03 — Neutrogena Sun Care Launch (Johnson & Johnson)
+## 02 — Neutrogena Sun Care Launch (Johnson & Johnson)
 Unlocked a four-year regulatory stall by mapping the SPF 55+ COFEPRIS (Mexican regulatory) pathway — SPF 55+ is classified as a drug in Mexico, requiring a specific regulatory route. Coordinated regional production in Brazil and launched the category from zero in Mexico.
 
 Metrics: new category created from zero, +10% incremental B2B revenue, new market share.
 
-## 04 — Brand Built from Zero (Grupo Mariposa)
+## 03 — Brand Built from Zero (Grupo Mariposa)
 Built a brand and innovation system from scratch. Filtered 165 ideas down to one market-ready product through rigorous consumer validation gates (concept testing, sensory panels, pricing ladders).
 
 Metrics: +35% revenue growth, digital-first export brand, full P&L ownership.

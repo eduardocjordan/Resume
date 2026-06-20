@@ -54,6 +54,12 @@ export function ChatWidget() {
   }, []);
 
   useEffect(() => {
+    const openFromEvent = () => setIsOpen(true);
+    window.addEventListener("chat:open", openFromEvent);
+    return () => window.removeEventListener("chat:open", openFromEvent);
+  }, []);
+
+  useEffect(() => {
     let stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
     if (!stored) {
       stored = crypto.randomUUID();

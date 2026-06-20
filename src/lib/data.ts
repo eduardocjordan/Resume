@@ -32,16 +32,6 @@ export type Project = {
 export const projects: Project[] = [
   {
     index: "01",
-    company: "PepsiCo®",
-    title: "Doritos® Rainbow",
-    description:
-      "PepsiCo®'s first purpose-driven product. 100% of profits donated to LGBT+ ally NGOs. Sold out in one week instead of eight.",
-    metrics: "200M+ organic impressions · +2.3% brand SOM · President's Outliers Award",
-    image: "/assets/20160812_102324-1.jpeg",
-    altText: "Doritos Rainbow — PepsiCo's first purpose-driven product, launched 2016",
-  },
-  {
-    index: "02",
     company: "J&J / PepsiCo®",
     title: "ERG Leadership & Inclusion",
     description:
@@ -51,7 +41,7 @@ export const projects: Project[] = [
     altText: "Pride Connection National Congress — Eduardo Castro speaking on LGBTQ+ inclusion in the workplace",
   },
   {
-    index: "03",
+    index: "02",
     company: "Johnson & Johnson",
     title: "Neutrogena® Sun Care Launch",
     description:
@@ -61,7 +51,7 @@ export const projects: Project[] = [
     altText: "Neutrogena Sun Care product portfolio — J&J Mexico market launch",
   },
   {
-    index: "04",
+    index: "03",
     company: "Grupo Mariposa",
     title: "Brand Built from Zero",
     description:
