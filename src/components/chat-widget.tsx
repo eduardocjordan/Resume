@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const SESSION_STORAGE_KEY = "chat_session_id";
-const REVEAL_FALLBACK_MS = 8000;
+const REVEAL_FALLBACK_MS = 2000;
 const CHAT_DISCLAIMER =
   "This is an early-stage assistant I'm testing to help screen initial conversations — it only knows what's in my public bio, resume, and project write-ups. For anything else, reach out to me directly.";
 
@@ -40,6 +40,7 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isCapped, setIsCapped] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false);
   const sessionIdRef = useRef<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -52,6 +53,16 @@ export function ChatWidget() {
       window.clearTimeout(fallback);
     };
   }, []);
+
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener("chat:open", open);
+    return () => window.removeEventListener("chat:open", open);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) setHasOpened(true);
+  }, [isOpen]);
 
   useEffect(() => {
     let stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
@@ -129,7 +140,10 @@ export function ChatWidget() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <span className="material-symbols-outlined text-2xl">{isOpen ? "close" : "forum"}</span>
+        {!hasOpened && (
+          <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-75" aria-hidden="true" />
+        )}
+        <span className="material-symbols-outlined text-2xl relative z-10">{isOpen ? "close" : "forum"}</span>
       </motion.button>
 
       <AnimatePresence>
