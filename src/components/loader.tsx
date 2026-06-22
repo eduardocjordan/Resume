@@ -26,7 +26,10 @@ export function Loader() {
       },
     });
 
-    document.fonts.ready.then(() => {
+    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+    const timeout = new Promise((resolve) => setTimeout(resolve, 1000));
+
+    Promise.race([fontsReady, timeout]).then(() => {
       tl.to(textEl, { opacity: 1, duration: 0.6, ease: "power2.out" })
         .to(barEl,   { width: "100%", duration: 1.4, ease: "power1.inOut" }, 0.4)
         .to(textEl,  { opacity: 0, duration: 0.3 }, "+=0.2")
