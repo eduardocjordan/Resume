@@ -38,7 +38,7 @@ export function HowIWork() {
 
   return (
     <section
-      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-ink text-paper relative"
+      className="h-auto py-24 md:py-32 flex flex-col overflow-hidden bg-ink text-paper relative"
       id="how-i-work"
       aria-labelledby="how-i-work-heading"
     >
@@ -46,8 +46,8 @@ export function HowIWork() {
 
       <div className="max-w-[1400px] w-full mx-auto px-8 md:px-24 pt-12 pb-6 flex-shrink-0 relative z-10">
         <FadeIn>
-          <p className="text-paper/40 font-label font-bold text-[10px] tracking-[0.3em] uppercase mb-3">Process &amp; Approach</p>
-          <h2 id="how-i-work-heading" className="text-4xl md:text-9xl font-headline italic mb-6 md:mb-12 text-paper">How I Work</h2>
+          <p className="text-accent font-label text-[11px] tracking-[0.3em] uppercase mb-3">08 / Method</p>
+          <h2 id="how-i-work-heading" className="font-display italic leading-[0.9] mb-6 md:mb-12 text-paper text-[clamp(3.5rem,8vw,9rem)]">How I Work</h2>
           <div className="w-full h-px bg-paper/10" />
         </FadeIn>
       </div>
@@ -55,6 +55,7 @@ export function HowIWork() {
       {/*
        * Single render: flex carousel on mobile, CSS grid on desktop.
        * overflow-x-auto + snap on mobile; overflow-visible + 2-col grid on desktop.
+       * Cards have no background/border — just a top rule + ghost index number.
        */}
       <div
         ref={scrollRef}
@@ -63,10 +64,13 @@ export function HowIWork() {
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" } as React.CSSProperties}
       >
         {stories.map((story, i) => (
-          <FadeIn key={story.title} delay={i * 0.1}>
-            <div className="flex-shrink-0 md:flex-shrink w-[85vw] md:w-auto snap-start md:snap-align-none p-8 md:p-0 bg-paper/5 md:bg-transparent border border-paper/10 md:border-0">
-              <h3 className="text-xl md:text-3xl font-headline italic mb-4 md:mb-6 text-paper">{story.title}</h3>
-              <p className="text-paper/70 leading-relaxed font-body text-sm font-light">{story.body}</p>
+          <FadeIn key={story.title} delay={i * 0.08}>
+            <div className="flex-shrink-0 md:flex-shrink w-[85vw] md:w-auto snap-start md:snap-align-none border-t border-paper/10 pt-8">
+              <span aria-hidden="true" className="block font-stat leading-[0.8] text-[100px] mb-[-16px] text-accent/[0.12] select-none">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="font-display italic text-paper text-[clamp(1.5rem,2.5vw,2.2rem)]">{story.title}</h3>
+              <p className="text-paper/65 font-body text-[15px] leading-[1.75] font-light mt-[14px]">{story.body}</p>
             </div>
           </FadeIn>
         ))}
@@ -76,7 +80,7 @@ export function HowIWork() {
 
       {/* Mobile blockquote */}
       <div className="md:hidden px-8 pt-6 flex-shrink-0 relative z-10">
-        <blockquote className="text-xl font-headline italic leading-tight text-paper/80 border-t border-paper/10 pt-4">
+        <blockquote className="text-xl font-display italic leading-tight text-paper/80 border-t border-paper/10 pt-4">
           &ldquo;The methodology itself became an asset the company didn&rsquo;t have before I arrived.&rdquo;
         </blockquote>
       </div>
@@ -84,13 +88,13 @@ export function HowIWork() {
       {/* Desktop blockquote */}
       <FadeIn>
         <div className="hidden md:block max-w-[1400px] w-full mx-auto px-24 pb-12 relative z-10 flex-shrink-0">
-          <div className="pt-12 border-t border-paper/10 flex items-start gap-8">
+          <div className="pt-12 border-t border-paper/15 flex items-start gap-8">
             <div className="opacity-30 mt-2 flex-shrink-0">
-              <svg fill="currentColor" height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg fill="currentColor" height="28" width="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V5C14.017 3.34315 15.3602 2 17.017 2H20.017C21.6739 2 23.017 3.34315 23.017 5V15C23.017 18.3137 20.3307 21 17.017 21H14.017ZM1.017 21L1.017 18C1.017 16.8954 1.91243 16 3.017 16H6.017C6.56928 16 7.017 15.5523 7.017 15V9C7.017 8.44772 6.56928 8 6.017 8H3.017C1.91243 8 1.017 7.10457 1.017 6V5C1.017 3.34315 2.36015 2 4.017 2H7.017C8.67386 2 10.017 3.34315 10.017 5V15C10.017 18.3137 7.3307 21 4.017 21H1.017Z" />
               </svg>
             </div>
-            <blockquote className="text-4xl md:text-6xl font-headline italic leading-tight text-paper/95 max-w-5xl">
+            <blockquote className="font-display italic leading-[1.1] text-paper/95 max-w-[900px] text-[clamp(2.5rem,5vw,5rem)]">
               &ldquo;The methodology itself became an asset the company didn&rsquo;t have before I arrived.&rdquo;
             </blockquote>
           </div>
