@@ -31,10 +31,10 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
       <motion.div
         variants={{ rest: { opacity: 0 }, hovered: { opacity: 1 } }}
         transition={{ duration: 0.2 }}
-        className="absolute inset-0 flex items-center justify-center bg-ink"
+        className="absolute inset-0 flex items-center justify-center bg-paper"
         aria-hidden="true"
       >
-        <span className="font-display italic text-white select-none" style={{ fontSize: "16px" }}>
+        <span className="font-display italic text-ink select-none" style={{ fontSize: "16px" }}>
           {brand.name}
         </span>
       </motion.div>
@@ -164,12 +164,8 @@ export function BrandsGrid() {
           </h2>
         </FadeIn>
         <div className="max-w-[920px] mx-auto space-y-4">
-          <div className="bg-paper-dark">
-            <MarqueeRow items={row1} direction="left" />
-          </div>
-          <div className="bg-paper-dark">
-            <MarqueeRow items={row2} direction="right" />
-          </div>
+          <MarqueeRow items={row1} direction="left" />
+          <MarqueeRow items={row2} direction="right" />
         </div>
       </div>
     </section>

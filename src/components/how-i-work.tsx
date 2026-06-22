@@ -38,7 +38,7 @@ export function HowIWork() {
 
   return (
     <section
-      className="h-[calc(100dvh-72px)] flex flex-col overflow-hidden bg-ink text-paper relative"
+      className="h-auto py-24 md:py-32 flex flex-col overflow-hidden bg-ink text-paper relative"
       id="how-i-work"
       aria-labelledby="how-i-work-heading"
     >

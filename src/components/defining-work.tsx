@@ -76,9 +76,11 @@ export function DefiningWork() {
         </FadeIn>
       </div>
 
-      {projects.map((project, i) => (
-        <ProjectRow key={project.index} project={project} i={i} />
-      ))}
+      <div className="max-w-[1280px] mx-auto w-full px-[clamp(28px,6vw,96px)]">
+        {projects.map((project, i) => (
+          <ProjectRow key={project.index} project={project} i={i} />
+        ))}
+      </div>
     </section>
   );
 }
