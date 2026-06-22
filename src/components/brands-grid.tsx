@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { brands } from "@/lib/data";
@@ -31,10 +31,12 @@ function BrandCard({ brand }: { brand: (typeof brands)[0] }) {
       <motion.div
         variants={{ rest: { opacity: 0 }, hovered: { opacity: 1 } }}
         transition={{ duration: 0.2 }}
-        className="absolute inset-0 flex items-center justify-center bg-paper"
+        className="absolute inset-0 flex items-center justify-center bg-ink"
         aria-hidden="true"
       >
-        <span className="text-sm font-medium text-ink select-none">{brand.name}</span>
+        <span className="font-display italic text-white select-none" style={{ fontSize: "16px" }}>
+          {brand.name}
+        </span>
       </motion.div>
     </motion.div>
   );
@@ -125,11 +127,18 @@ function MarqueeRow({
 
 export function BrandsGrid() {
   // Split brands into two non-overlapping halves so no logo appears
-  // in both rows at the same time.
-  const [row1, row2] = useMemo(() => {
+  // in both rows at the same time. SSR renders a stable, unshuffled split;
+  // shuffling happens client-side after mount to avoid a hydration mismatch
+  // from Math.random() diverging between server and client.
+  const [[row1, row2], setRows] = useState<[typeof brands, typeof brands]>(() => {
+    const mid = Math.ceil(brands.length / 2);
+    return [brands.slice(0, mid), brands.slice(mid)];
+  });
+
+  useEffect(() => {
     const s   = shuffle(brands);
     const mid = Math.ceil(s.length / 2);
-    return [s.slice(0, mid), s.slice(mid)];
+    setRows([s.slice(0, mid), s.slice(mid)]);
   }, []);
 
   return (
@@ -140,16 +149,27 @@ export function BrandsGrid() {
     >
       <div className="max-w-[1200px] mx-auto text-center">
         <FadeIn>
+          <p
+            className="font-label uppercase text-accent"
+            style={{ fontSize: "11px", letterSpacing: "0.3em", marginBottom: "16px" }}
+          >
+            12+ brands &middot; across FMCG &amp; CPG
+          </p>
           <h2
             id="brands-heading"
-            className="text-5xl md:text-6xl font-headline italic mb-12 md:mb-20 text-ink"
+            className="font-display italic text-ink mb-12 md:mb-20"
+            style={{ fontSize: "clamp(3rem, 6vw, 6rem)", lineHeight: 0.95 }}
           >
             Brands I&rsquo;ve helped grow
           </h2>
         </FadeIn>
-        <div className="max-w-[920px] mx-auto">
-          <MarqueeRow items={row1} direction="left" />
-          <MarqueeRow items={row2} direction="right" />
+        <div className="max-w-[920px] mx-auto space-y-4">
+          <div className="bg-paper-dark">
+            <MarqueeRow items={row1} direction="left" />
+          </div>
+          <div className="bg-paper-dark">
+            <MarqueeRow items={row2} direction="right" />
+          </div>
         </div>
       </div>
     </section>

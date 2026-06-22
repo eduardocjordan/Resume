@@ -77,3 +77,11 @@
 .animate-bob {
   animation: ecBob 1.6s ease-in-out infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-grain,
+  .animate-drift,
+  .animate-bob {
+    animation: none;
+  }
+}

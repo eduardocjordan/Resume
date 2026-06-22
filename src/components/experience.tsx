@@ -57,8 +57,19 @@ function TimelineEntry({
 
         {/* Center: timeline line + dot */}
         <div className="flex flex-col items-center mx-4">
-          <div className="w-3 h-3 rounded-full bg-accent flex-shrink-0 mt-1.5 z-10" />
-          <div className="w-px bg-ink/20 flex-1 mt-1" />
+          <span
+            className="flex-shrink-0 mt-1.5 z-10 rounded-full bg-accent"
+            style={{
+              width: "10px",
+              height: "10px",
+              border: "3px solid #f9f9f7",
+              boxShadow: "0 0 0 1px #d4622a",
+            }}
+          />
+          <div
+            className="flex-1 mt-1"
+            style={{ width: "2px", backgroundColor: "rgba(26,28,27,0.1)" }}
+          />
         </div>
 
         {/* Right: content */}
@@ -70,13 +81,16 @@ function TimelineEntry({
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-[10px] uppercase tracking-widest font-bold text-ink/50 mb-1">
+                <div className="font-label text-[10px] tracking-[0.2em] uppercase text-ink/45 mb-1">
                   {role.dates}
                 </div>
-                <h3 className="text-lg font-bold font-label text-ink leading-snug">
+                <h3
+                  className="font-display font-semibold text-ink leading-snug"
+                  style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
+                >
                   {role.company}
                 </h3>
-                <p className="text-sm text-ink/70 mt-0.5 leading-snug">{role.title}</p>
+                <p className="font-body text-[14px] text-ink/60 mt-1 leading-snug">{role.title}</p>
               </div>
               <motion.span
                 animate={{ rotate: open ? 180 : 0 }}
@@ -99,15 +113,15 @@ function TimelineEntry({
                 className="overflow-hidden"
               >
                 <div className="pt-4">
-                  <p className="text-sm text-ink/70 leading-relaxed mb-5">
+                  <p className="font-body text-[15px] leading-[1.7] text-ink/75 mb-5">
                     {role.description}
                   </p>
                   <ul className="space-y-2.5 mb-5">
                     {role.bullets.map((b, j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm text-ink">
+                      <li key={j} className="flex items-start gap-2.5 font-body text-[14px] text-ink">
                         <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 flex-shrink-0" />
                         <span>
-                          <strong>{b.bold}</strong>
+                          <strong className="font-semibold text-ink">{b.bold}</strong>
                           {b.rest}
                         </span>
                       </li>
@@ -117,7 +131,8 @@ function TimelineEntry({
                     {role.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-paper-dark text-[10px] uppercase font-bold text-ink/50 rounded-sm"
+                        className="font-label text-[10px] tracking-[0.12em] uppercase text-ink/60 border border-ink/20 rounded-[2px]"
+                        style={{ padding: "5px 12px" }}
                       >
                         {tag}
                       </span>
@@ -142,14 +157,23 @@ export function Experience() {
 
   return (
     <section
-      className="min-h-[calc(100dvh-72px)] px-8 md:px-24 py-8 md:py-32 bg-paper-dark"
+      className="min-h-[calc(100dvh-72px)] px-8 md:px-24 py-8 md:py-32 bg-paper"
       id="experience"
       aria-labelledby="experience-heading"
     >
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
           <div className="mb-6 md:mb-16">
-            <h2 id="experience-heading" className="text-5xl md:text-7xl font-headline italic text-ink">Where I&rsquo;ve worked</h2>
+            <p className="font-label text-[11px] tracking-[0.3em] uppercase text-accent mb-4">
+              06 / Career
+            </p>
+            <h2
+              id="experience-heading"
+              className="font-display text-ink"
+              style={{ fontSize: "clamp(3rem, 7vw, 7rem)" }}
+            >
+              Where I&rsquo;ve <span className="italic">worked.</span>
+            </h2>
             <p className="text-ink/70 mt-4 font-body">
               A career built at the intersection of strategy, innovation, and execution.
             </p>
