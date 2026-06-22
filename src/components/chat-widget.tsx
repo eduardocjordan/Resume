@@ -136,7 +136,7 @@ export function ChatWidget() {
             return next;
           });
         }}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-accent text-white shadow-lg flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-[9500] w-14 h-14 rounded-full bg-accent text-white shadow-lg flex items-center justify-center"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -153,7 +153,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] sm:w-[380px] max-h-[70vh] bg-paper border border-rule shadow-xl rounded-lg flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-6 z-[9500] w-[calc(100vw-3rem)] sm:w-[380px] max-h-[70vh] bg-paper border border-rule shadow-xl rounded-lg flex flex-col overflow-hidden"
           >
             <div className="px-5 py-4 border-b border-rule">
               <p className="font-headline italic text-lg text-ink">Ask about Eduardo</p>
