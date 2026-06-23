@@ -9,7 +9,7 @@ const contactLinks = [
     icon: "mail",
     label: "Direct",
     value: contact.emailDirect,
-    href: `mailto:${contact.emailDirect}?subject=Let%27s%20connect`,
+    href: `mailto:${contact.emailDirect}?subject=Let%27s%20talk`,
     external: false,
     gtmEvent: "email_click",
     gtmLocation: "contact",
@@ -49,13 +49,14 @@ export function Contact() {
               >
                 Let&rsquo;s
                 <br />
-                <span className="italic text-accent">Talk.</span>
+                <span className="italic text-accent">Connect.</span>
               </h2>
               <p
                 className="font-body font-light mb-12 max-w-[420px]"
                 style={{ fontSize: "20px", lineHeight: 1.6, color: "rgba(241,239,233,0.65)" }}
               >
                 If you&rsquo;re building a brand that needs to move both culture and market share,
+                <br />
                 I&rsquo;d like to hear about it.
               </p>
             </div>
