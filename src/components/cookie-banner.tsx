@@ -31,13 +31,13 @@ export function CookieBanner() {
       {visible && (
         <motion.div
           key="cookie-banner"
-          initial={{ y: 72, opacity: 0 }}
+          initial={{ y: -72, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 72, opacity: 0 }}
+          exit={{ y: -72, opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           role="region"
           aria-label="Analytics notice"
-          className="fixed bottom-0 left-0 right-0 z-[9998] flex items-center justify-between gap-4 px-6 py-4 md:px-12"
+          className="fixed top-0 left-0 right-0 z-[9998] flex items-center justify-between gap-4 px-6 py-4 md:px-12"
           style={{ backgroundColor: "#1a1c1b" }}
         >
           <p className="text-xs text-white/70 leading-relaxed max-w-prose">
