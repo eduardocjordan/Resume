@@ -80,6 +80,7 @@ const config: Config = {
         label:    ["Space Mono", "monospace"],
         stat:     ["Bebas Neue", "sans-serif"],
         sans:     ["Plus Jakarta Sans", "sans-serif"],
+        mono:     ["Space Mono", "monospace"],
       },
     },
   },

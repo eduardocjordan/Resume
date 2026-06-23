@@ -1,92 +1,124 @@
 "use client";
 
 import Image from "next/image";
-import { FadeIn } from "@/components/fade-in";
+import { FadeIn } from "./fade-in";
 
 export function DoritosRainbow() {
   return (
     <section
-      className="relative flex flex-col overflow-hidden bg-accent"
-      style={{ height: "100vh", minHeight: 660 }}
+      className="relative flex items-center overflow-hidden bg-accent text-ink"
+      style={{ height: "100vh", minHeight: "660px" }}
       id="doritos-rainbow"
       aria-labelledby="doritos-rainbow-heading"
     >
-      {/* Oversized structural year number — ink-on-accent treatment, theme-independent by design */}
+      {/* Background year element */}
       <div
-        aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none animate-drift text-[#1a1c1b]/[0.08]"
-        style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "min(58vh, 42vw)", lineHeight: 1 }}
+        className="absolute font-stat pointer-events-none text-[230px] md:text-[min(58vh,42vw)] animate-[ecDrift_9s_ease-in-out_infinite_alternate]"
+        style={{
+          top: "-3vh",
+          right: "-1.5vw",
+          lineHeight: 0.8,
+          letterSpacing: "-0.02em",
+          color: "rgba(26,28,27,0.12)",
+        }}
       >
         2016
       </div>
 
-      <div className="relative z-10 flex-1 flex items-center px-8 md:px-24 py-16 pb-28">
-        <div className="grid md:grid-cols-[1.45fr_1fr] gap-12 items-center max-w-[1400px] mx-auto w-full">
-          <FadeIn>
-            <div className="text-[#1a1c1b]">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-8 h-px bg-[#1a1c1b]/40" />
-                <p className="text-xs uppercase tracking-[0.25em] font-bold" style={{ fontFamily: "'Space Mono', monospace" }}>
-                  The decade started here
-                </p>
-              </div>
-              <h2
-                id="doritos-rainbow-heading"
-                className="font-headline italic"
-                style={{ fontSize: "clamp(2.6rem, 6vw, 5.6rem)", lineHeight: 1.05 }}
-              >
-                PepsiCo®&#39;s first purpose-driven product.
-              </h2>
-              <p className="font-headline mt-4" style={{ fontSize: "clamp(1.3rem, 2.2vw, 2rem)", fontWeight: 500 }}>
-                Sold out in one week instead of eight.
-              </p>
-              <p
-                className="mt-8 pt-4 border-t border-[#1a1c1b]/20 font-bold text-sm md:text-base"
-                style={{ fontFamily: "'Space Mono', monospace" }}
-              >
-                200M+ organic impressions · +2.3% brand SOM · President&#39;s Outliers Award
-              </p>
-              <p className="mt-6 italic font-headline text-lg text-[#1a1c1b]/70 max-w-md">
-                This is what becomes possible when a brand decides to mean something.
-              </p>
-            </div>
-          </FadeIn>
+      <div
+        className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] items-center gap-[clamp(32px,5vw,72px)] max-w-[1280px] mx-auto px-[clamp(28px,6vw,96px)]"
+      >
+        {/* Text column */}
+        <FadeIn>
+          <div className="flex items-center gap-3 md:gap-3.5 mb-[26px]">
+            <span className="w-[26px] md:w-[34px]" style={{ height: 1, background: "rgba(26,28,27,0.28)" }} />
+            <p
+              className="font-mono uppercase text-[11px]"
+              style={{ letterSpacing: "0.26em", color: "rgba(26,28,27,0.74)" }}
+            >
+              The decade started here
+            </p>
+          </div>
 
-          <FadeIn delay={0.15} direction="left">
-            <div className="relative mx-auto md:mx-0 w-[220px] md:w-[260px] rotate-[-1.8deg] md:rotate-[-2.2deg]">
-              <div
-                className="bg-[#f9f9f7]"
-                style={{ padding: "14px 14px 46px", boxShadow: "0 30px 60px rgba(0,0,0,0.28)" }}
-              >
-                <div className="relative aspect-[4/5] w-full">
-                  <Image
-                    src="/assets/20160812_102324-1.jpeg"
-                    alt="Doritos Rainbow — PepsiCo's first purpose-driven product, launched 2016"
-                    fill
-                    className="object-cover"
-                    sizes="260px"
-                  />
-                </div>
-                <p
-                  className="mt-3 text-center text-[10px] font-bold uppercase tracking-wide text-[#1a1c1b]"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
-                >
-                  Evidence · 2016
-                </p>
+          <h2
+            id="doritos-rainbow-heading"
+            className="font-headline italic text-[42px] md:text-[clamp(2.6rem,6vw,5.6rem)]"
+            style={{ fontWeight: 400, lineHeight: 0.98, letterSpacing: "-0.015em", color: "#1a1c1b" }}
+          >
+            PepsiCo&rsquo;s first purpose-driven product.
+          </h2>
+
+          <p
+            className="font-headline text-[24px] md:text-[clamp(1.3rem,2.2vw,2rem)] mt-[26px]"
+            style={{ fontWeight: 500, lineHeight: 1.25, color: "#1a1c1b" }}
+          >
+            Sold out in one week instead of eight.
+          </p>
+
+          <p
+            className="font-mono text-[11px] md:text-[clamp(0.72rem,0.92vw,0.84rem)] mt-[30px] pt-[22px]"
+            style={{
+              borderTop: "1px solid rgba(26,28,27,0.28)",
+              letterSpacing: "0.05em",
+              lineHeight: 1.9,
+              color: "#1a1c1b",
+              fontWeight: 700,
+            }}
+          >
+            200M+ organic impressions · +2.3% brand SOM · President&rsquo;s Outliers Award
+          </p>
+
+          <p
+            className="font-body italic text-[clamp(0.86rem,1.05vw,1rem)] mt-[26px] max-w-[480px]"
+            style={{ lineHeight: 1.7, fontWeight: 300, color: "rgba(26,28,27,0.74)" }}
+          >
+            This is what becomes possible when a brand decides to mean something.
+          </p>
+        </FadeIn>
+
+        {/* Photo column */}
+        <FadeIn delay={0.2}>
+          <div className="rotate-[-1.8deg] md:rotate-[-2.2deg]">
+            <div
+              className="bg-paper p-[11px] pb-[30px] md:p-[14px] md:pb-[46px] w-[170px] md:w-[min(38vw,380px)] max-w-[380px] shadow-[0_30px_60px_rgba(0,0,0,0.28)]"
+            >
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <Image
+                  src="/assets/20160812_102324-1.jpeg"
+                  alt="Doritos Rainbow bag with handwritten note from PepsiCo's President"
+                  fill
+                  className="object-cover"
+                />
               </div>
+              <p
+                className="font-mono uppercase text-[10px] text-center mt-[14px]"
+                style={{ letterSpacing: "0.12em", color: "rgba(26,28,27,0.55)" }}
+              >
+                Evidence · 2016
+              </p>
             </div>
-          </FadeIn>
-        </div>
+          </div>
+        </FadeIn>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between bg-paper-dark text-ink px-8 md:px-24 py-5">
-        <p className="font-headline italic text-lg">Defining Work</p>
+      {/* Bottom transition bar */}
+      <div
+        className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-paper-dark text-ink px-[clamp(28px,6vw,96px)] py-[14px]"
+        style={{ borderTop: "1px solid rgba(26,28,27,0.08)" }}
+      >
         <p
-          className="text-xs md:text-sm uppercase tracking-[0.2em] flex items-center gap-2"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="font-headline italic text-[clamp(1rem,1.5vw,1.35rem)]"
+          style={{ color: "rgba(26,28,27,0.85)" }}
         >
-          the decade that walked through the door
-          <span className="inline-block animate-bob leading-none">↓</span>
+          Defining Work
+        </p>
+        <p
+          className="font-mono uppercase text-[10px] flex items-center gap-[7px] md:gap-[10px]"
+          style={{ letterSpacing: "0.2em", color: "rgba(26,28,27,0.5)" }}
+        >
+          <span className="md:hidden">walk through</span>
+          <span className="hidden md:inline">the decade that walked through the door</span>
+          <span className="inline-block animate-[ecBob_1.8s_ease-in-out_infinite]">↓</span>
         </p>
       </div>
     </section>

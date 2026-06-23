@@ -1,8 +1,8 @@
 import { Loader } from "@/components/loader";
+import { OrientationLayer } from "@/components/orientation-layer";
 import { CookieBanner } from "@/components/cookie-banner";
 import { NavBar } from "@/components/nav-bar";
 import { ProgressBar } from "@/components/progress-bar";
-import { OrientationLayer } from "@/components/orientation-layer";
 import { Hero } from "@/components/hero";
 import { DoritosRainbow } from "@/components/doritos-rainbow";
 import { DefiningWork } from "@/components/defining-work";

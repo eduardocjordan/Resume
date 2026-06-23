@@ -36,11 +36,11 @@ function renderWithEmphasis(text: string) {
 export function ChatWidget() {
   const [isRevealed, setIsRevealed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isCapped, setIsCapped] = useState(false);
-  const [hasOpened, setHasOpened] = useState(false);
   const sessionIdRef = useRef<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -55,9 +55,9 @@ export function ChatWidget() {
   }, []);
 
   useEffect(() => {
-    const open = () => setIsOpen(true);
-    window.addEventListener("chat:open", open);
-    return () => window.removeEventListener("chat:open", open);
+    const openFromEvent = () => setIsOpen(true);
+    window.addEventListener("chat:open", openFromEvent);
+    return () => window.removeEventListener("chat:open", openFromEvent);
   }, []);
 
   useEffect(() => {
