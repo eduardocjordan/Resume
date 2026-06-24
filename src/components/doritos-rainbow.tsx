@@ -67,14 +67,14 @@ function EvidenceCarousel() {
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous evidence photo"
-            className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors"
-            style={{ borderColor: "rgba(26,28,27,0.28)", color: "rgba(26,28,27,0.74)" }}
+            className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors hover:bg-white/15"
+            style={{ borderColor: "rgba(255,255,255,0.55)", color: "rgba(255,255,255,0.92)" }}
           >
             ‹
           </button>
           <span
             className="font-mono uppercase text-[10px]"
-            style={{ letterSpacing: "0.12em", color: "rgba(26,28,27,0.55)" }}
+            style={{ letterSpacing: "0.12em", color: "rgba(255,255,255,0.8)" }}
           >
             {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
           </span>
@@ -82,8 +82,8 @@ function EvidenceCarousel() {
             type="button"
             onClick={() => go(1)}
             aria-label="Next evidence photo"
-            className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors"
-            style={{ borderColor: "rgba(26,28,27,0.28)", color: "rgba(26,28,27,0.74)" }}
+            className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors hover:bg-white/15"
+            style={{ borderColor: "rgba(255,255,255,0.55)", color: "rgba(255,255,255,0.92)" }}
           >
             ›
           </button>

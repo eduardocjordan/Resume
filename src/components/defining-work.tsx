@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FadeIn } from "./fade-in";
 import { projects } from "@/lib/data";
@@ -31,45 +32,47 @@ function ProjectGallery({ photos, title }: { photos: Project["photos"]; title: s
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <Image
-        src={photo.image}
-        alt={photo.alt || title}
-        fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-        className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
-      />
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={photo.image}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Image
+            src={photo.image}
+            alt={photo.alt || title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+        </motion.div>
+      </AnimatePresence>
 
       {total > 1 && (
-        <>
-          <div
-            className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }}
-          />
-          <p
-            className="absolute bottom-3 left-4 font-mono uppercase text-[10px] text-paper"
-            style={{ letterSpacing: "0.12em" }}
+        <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-full bg-ink/40 backdrop-blur-sm px-2.5 py-1.5">
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous photo"
+            className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
           >
-            {photo.caption} · {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
-          </p>
-          <div className="absolute bottom-2.5 right-3 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => go(-1)}
-              aria-label="Previous photo"
-              className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => go(1)}
-              aria-label="Next photo"
-              className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
-            >
-              ›
-            </button>
-          </div>
-        </>
+            ‹
+          </button>
+          <span className="font-mono uppercase text-[10px] text-paper" style={{ letterSpacing: "0.12em" }}>
+            {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next photo"
+            className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
+          >
+            ›
+          </button>
+        </div>
       )}
     </div>
   );
