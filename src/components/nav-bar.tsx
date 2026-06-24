@@ -6,9 +6,9 @@ import { hero } from "@/lib/data";
 
 const links = [
   { label: "Highlights",  href: "#defining-work", section: "defining-work" },
-  { label: "Impact",      href: "#impact",         section: "impact" },
-  { label: "Career",      href: "#experience",     section: "experience" },
   { label: "Method",      href: "#how-i-work",     section: "how-i-work" },
+  { label: "Career",      href: "#experience",     section: "experience" },
+  { label: "Impact",      href: "#impact",         section: "impact" },
   { label: "Credentials", href: "#credentials",    section: "credentials" },
   { label: "Contact",     href: "#contact",        section: "contact" },
 ];

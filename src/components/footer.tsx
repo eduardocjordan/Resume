@@ -19,12 +19,6 @@ export function Footer() {
           >
             eduardo@casjor.com
           </a>
-          <a
-            href="mailto:keynote@casjor.com?subject=Keynote%20%26%20Speaking"
-            className="hover:text-accent transition-colors"
-          >
-            keynote@casjor.com
-          </a>
         </div>
         <p className="font-headline text-xl tracking-widest text-paper/90">
           Mexico City &middot; &copy; {year}

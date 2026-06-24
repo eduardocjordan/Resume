@@ -1,7 +1,80 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { FadeIn } from "./fade-in";
+import { doritosEvidence } from "@/lib/data";
+
+function EvidenceCarousel() {
+  const [index, setIndex] = useState(0);
+  const total = doritosEvidence.length;
+  const go = (delta: number) => setIndex((i) => (i + delta + total) % total);
+
+  return (
+    <div>
+      <div className="relative rotate-[-1.8deg] md:rotate-[-2.2deg] w-[170px] md:w-[min(38vw,380px)] max-w-[380px] mx-auto md:mx-0">
+        {doritosEvidence.map((evidence, i) => {
+          const offset = (i - index + total) % total;
+          if (offset > 2) return null;
+          return (
+            <div
+              key={evidence.image}
+              className="bg-paper p-[11px] pb-[30px] md:p-[14px] md:pb-[46px] shadow-[0_30px_60px_rgba(0,0,0,0.28)] transition-transform duration-400"
+              style={{
+                position: offset === 0 ? "static" : "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                transform: `translate(${offset * 6}px, ${offset * 8}px) rotate(${offset * 1.4}deg)`,
+                zIndex: total - offset,
+                pointerEvents: offset === 0 ? "auto" : "none",
+              }}
+            >
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <Image src={evidence.image} alt={evidence.alt} fill className="object-cover" />
+              </div>
+              <p
+                className="font-mono uppercase text-[10px] text-center mt-[14px]"
+                style={{ letterSpacing: "0.12em", color: "rgba(26,28,27,0.55)" }}
+              >
+                {evidence.caption}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+
+      {total > 1 && (
+        <div className="flex items-center justify-center md:justify-start gap-5 mt-5">
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous evidence photo"
+            className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors"
+            style={{ borderColor: "rgba(26,28,27,0.28)", color: "rgba(26,28,27,0.74)" }}
+          >
+            ‹
+          </button>
+          <span
+            className="font-mono uppercase text-[10px]"
+            style={{ letterSpacing: "0.12em", color: "rgba(26,28,27,0.55)" }}
+          >
+            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next evidence photo"
+            className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors"
+            style={{ borderColor: "rgba(26,28,27,0.28)", color: "rgba(26,28,27,0.74)" }}
+          >
+            ›
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function DoritosRainbow() {
   return (
@@ -78,26 +151,7 @@ export function DoritosRainbow() {
 
         {/* Photo column */}
         <FadeIn delay={0.2}>
-          <div className="rotate-[-1.8deg] md:rotate-[-2.2deg]">
-            <div
-              className="bg-paper p-[11px] pb-[30px] md:p-[14px] md:pb-[46px] w-[170px] md:w-[min(38vw,380px)] max-w-[380px] shadow-[0_30px_60px_rgba(0,0,0,0.28)]"
-            >
-              <div className="relative aspect-[3/4] w-full overflow-hidden">
-                <Image
-                  src="/assets/20160812_102324-1.jpeg"
-                  alt="Doritos Rainbow bag with handwritten note from PepsiCo's President"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <p
-                className="font-mono uppercase text-[10px] text-center mt-[14px]"
-                style={{ letterSpacing: "0.12em", color: "rgba(26,28,27,0.55)" }}
-              >
-                Evidence · 2016
-              </p>
-            </div>
-          </div>
+          <EvidenceCarousel />
         </FadeIn>
       </div>
 

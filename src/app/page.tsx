@@ -3,13 +3,14 @@ import { OrientationLayer } from "@/components/orientation-layer";
 import { CookieBanner } from "@/components/cookie-banner";
 import { NavBar } from "@/components/nav-bar";
 import { ProgressBar } from "@/components/progress-bar";
+import { FixedChapterEyebrow } from "@/components/fixed-chapter-eyebrow";
 import { Hero } from "@/components/hero";
 import { DoritosRainbow } from "@/components/doritos-rainbow";
 import { DefiningWork } from "@/components/defining-work";
-import { Impact } from "@/components/impact";
+import { HowIWork } from "@/components/how-i-work";
 import { Experience } from "@/components/experience";
 import { BrandsGrid } from "@/components/brands-grid";
-import { HowIWork } from "@/components/how-i-work";
+import { Impact } from "@/components/impact";
 import { Credentials } from "@/components/credentials";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
@@ -23,14 +24,15 @@ export default function Home() {
       <CookieBanner />
       <ProgressBar />
       <NavBar />
+      <FixedChapterEyebrow />
       <main id="main-content">
         <Hero />
         <DoritosRainbow />
         <DefiningWork />
-        <Impact />
+        <HowIWork />
         <Experience />
         <BrandsGrid />
-        <HowIWork />
+        <Impact />
         <Credentials />
         <Contact />
       </main>
