@@ -1,58 +1,78 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { FadeIn } from "./fade-in";
 import { projects } from "@/lib/data";
 import type { Project } from "@/lib/data";
 
+const AUTOPLAY_INTERVAL_MS = 4500;
+
 function ProjectGallery({ photos, title }: { photos: Project["photos"]; title: string }) {
   const [index, setIndex] = useState(0);
+  const [hovering, setHovering] = useState(false);
+  const [interacted, setInteracted] = useState(false);
   const total = photos.length;
-  const go = (delta: number) => setIndex((i) => (i + delta + total) % total);
+  const go = (delta: number) => {
+    setInteracted(true);
+    setIndex((i) => (i + delta + total) % total);
+  };
   const photo = photos[index];
 
+  useEffect(() => {
+    if (total <= 1 || hovering || interacted) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % total), AUTOPLAY_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [total, hovering, interacted]);
+
   return (
-    <div className="relative aspect-[16/10] overflow-hidden group">
-      <Image
-        src={photo.image}
-        alt={photo.alt || title}
-        fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-        className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
-      />
+    <div
+      className="relative aspect-[16/10] overflow-hidden group"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={photo.image}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Image
+            src={photo.image}
+            alt={photo.alt || title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+        </motion.div>
+      </AnimatePresence>
 
       {total > 1 && (
-        <>
-          <div
-            className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }}
-          />
-          <p
-            className="absolute bottom-3 left-4 font-mono uppercase text-[10px] text-paper"
-            style={{ letterSpacing: "0.12em" }}
+        <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-full bg-ink/40 backdrop-blur-sm px-2.5 py-1.5">
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous photo"
+            className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
           >
-            {photo.caption} · {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
-          </p>
-          <div className="absolute bottom-2.5 right-3 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => go(-1)}
-              aria-label="Previous photo"
-              className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => go(1)}
-              aria-label="Next photo"
-              className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
-            >
-              ›
-            </button>
-          </div>
-        </>
+            ‹
+          </button>
+          <span className="font-mono uppercase text-[10px] text-paper" style={{ letterSpacing: "0.12em" }}>
+            {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next photo"
+            className="font-mono text-[13px] leading-none w-6 h-6 flex items-center justify-center rounded-full border border-paper/40 text-paper transition-colors hover:bg-paper/20"
+          >
+            ›
+          </button>
+        </div>
       )}
     </div>
   );
