@@ -127,19 +127,128 @@ export function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-[clamp(28px,5vw,72px)] items-end mt-[clamp(30px,5vh,58px)]">
-            <div className="flex flex-col gap-[14px] max-w-[560px]">
-              {hero.taglines.map((t, i) => (
-                <p
-                  key={i}
-                  className={cn(
-                    "text-[clamp(0.92rem,1.12vw,1.06rem)] leading-[1.7] font-light text-ink/78",
-                    i === 1 && "hidden md:block",
-                    i === 2 && "font-headline italic text-[clamp(1.15rem,1.7vw,1.5rem)] leading-[1.4] text-ink font-normal"
-                  )}
-                  dangerouslySetInnerHTML={{ __html: t }}
-                />
-              ))}
+          <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-[clamp(28px,5vw,72px)] items-start mt-[clamp(30px,5vh,58px)]">
+            <div className="flex flex-col">
+              <div className="flex flex-col gap-[14px] max-w-[560px]">
+                {hero.taglines.map((t, i) => (
+                  <p
+                    key={i}
+                    className={cn(
+                      "text-[clamp(0.92rem,1.12vw,1.06rem)] leading-[1.7] font-light text-ink/78",
+                      i === 1 && "hidden md:block",
+                      i === 2 && "font-headline italic text-[clamp(1.15rem,1.7vw,1.5rem)] leading-[1.4] text-ink font-normal"
+                    )}
+                    dangerouslySetInnerHTML={{ __html: t }}
+                  />
+                ))}
+              </div>
+
+              {/* Mobile stats — swipeable, scroll-snapped carousel */}
+              <div className="md:hidden mt-[clamp(28px,5vw,72px)]">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-ink/45" style={{ fontFamily: "'Space Mono', monospace" }}>
+                    By the numbers
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.14em] text-ink/40" style={{ fontFamily: "'Space Mono', monospace" }}>
+                    swipe →
+                  </span>
+                </div>
+                <div
+                  className="flex gap-[14px] overflow-x-auto pb-1.5 snap-x snap-mandatory -mx-[28px] px-[28px]"
+                  style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+                >
+                  {orderedStats.map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="flex-none w-[150px] text-left bg-paper-dark rounded snap-start py-4 px-[18px]"
+                    >
+                      <div className="font-stat leading-[0.82] text-ink text-[72px]">
+                        <StatValue target={parseInt(stat.value, 10)} start={statsStart} />
+                        <span className="text-accent">{stat.suffix}</span>
+                      </div>
+                      <div
+                        className="text-[10px] uppercase tracking-[0.14em] text-ink/50 font-bold mt-[10px]"
+                        style={{ fontFamily: "'Space Mono', monospace" }}
+                      >
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <FadeIn delay={0.26}>
+                <div className="flex flex-wrap items-center gap-[14px] mt-[clamp(30px,4.5vh,52px)]">
+                  <motion.a
+                    href={hero.cv}
+                    download
+                    data-gtm-event="resume_download"
+                    data-gtm-location="hero"
+                    onClick={() => pushGtmEvent("resume_download", { click_location: "hero" })}
+                    className="editorial-gradient text-white px-[26px] py-[15px] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] group"
+                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    <svg
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[3px]"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Resume
+                  </motion.a>
+                  <motion.button
+                    type="button"
+                    data-gtm-event="chat_open"
+                    data-gtm-location="hero"
+                    onClick={() => {
+                      pushGtmEvent("chat_open", { click_location: "hero" });
+                      window.dispatchEvent(new Event("chat:open"));
+                    }}
+                    className="bg-paper text-ink px-[26px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] hover:bg-paper-dark transition-colors"
+                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#d4622a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    </svg>
+                    Talk to My Second Brain
+                  </motion.button>
+                  <motion.a
+                    href={hero.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-gtm-event="social_click"
+                    data-gtm-location="hero"
+                    data-gtm-platform="linkedin"
+                    onClick={() => pushGtmEvent("social_click", { click_location: "hero", platform: "linkedin" })}
+                    className="bg-paper text-ink px-[26px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] hover:bg-paper-dark transition-colors"
+                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4622a" aria-hidden="true">
+                      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+                    </svg>
+                    LinkedIn
+                  </motion.a>
+                </div>
+              </FadeIn>
             </div>
 
             {/* Desktop stats — stacked column */}
@@ -166,113 +275,6 @@ export function Hero() {
                 </div>
               ))}
             </div>
-
-            {/* Mobile stats — swipeable, scroll-snapped carousel */}
-            <div className="md:hidden">
-              <div className="flex items-center justify-between mb-2.5">
-                <span className="text-[10px] uppercase tracking-[0.18em] text-ink/45" style={{ fontFamily: "'Space Mono', monospace" }}>
-                  By the numbers
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.14em] text-ink/40" style={{ fontFamily: "'Space Mono', monospace" }}>
-                  swipe →
-                </span>
-              </div>
-              <div
-                className="flex gap-[14px] overflow-x-auto pb-1.5 snap-x snap-mandatory -mx-[28px] px-[28px]"
-                style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
-              >
-                {orderedStats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex-none w-[150px] text-left bg-paper-dark rounded snap-start py-4 px-[18px]"
-                  >
-                    <div className="font-stat leading-[0.82] text-ink text-[72px]">
-                      <StatValue target={parseInt(stat.value, 10)} start={statsStart} />
-                      <span className="text-accent">{stat.suffix}</span>
-                    </div>
-                    <div
-                      className="text-[10px] uppercase tracking-[0.14em] text-ink/50 font-bold mt-[10px]"
-                      style={{ fontFamily: "'Space Mono', monospace" }}
-                    >
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.26}>
-          <div className="flex flex-wrap items-center gap-[14px] mt-[clamp(30px,4.5vh,52px)]">
-            <motion.a
-              href={hero.cv}
-              download
-              data-gtm-event="resume_download"
-              data-gtm-location="hero"
-              onClick={() => pushGtmEvent("resume_download", { click_location: "hero" })}
-              className="editorial-gradient text-white px-[26px] py-[15px] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] group"
-              style={{ fontFamily: "'Space Mono', monospace" }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            >
-              <svg
-                width="17"
-                height="17"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-                className="transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[3px]"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Download Resume
-            </motion.a>
-            <motion.button
-              type="button"
-              data-gtm-event="chat_open"
-              data-gtm-location="hero"
-              onClick={() => {
-                pushGtmEvent("chat_open", { click_location: "hero" });
-                window.dispatchEvent(new Event("chat:open"));
-              }}
-              className="bg-paper text-ink px-[26px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] hover:bg-paper-dark transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace" }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#d4622a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-              </svg>
-              Talk to My Second Brain
-            </motion.button>
-            <motion.a
-              href={hero.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-gtm-event="social_click"
-              data-gtm-location="hero"
-              data-gtm-platform="linkedin"
-              onClick={() => pushGtmEvent("social_click", { click_location: "hero", platform: "linkedin" })}
-              className="bg-paper text-ink px-[26px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] hover:bg-paper-dark transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace" }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4622a" aria-hidden="true">
-                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-              </svg>
-              LinkedIn
-            </motion.a>
           </div>
         </FadeIn>
       </div>
