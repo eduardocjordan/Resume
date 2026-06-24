@@ -18,18 +18,20 @@ export function Loader() {
     const wipeEl   = wipeRef.current;
     if (!loaderEl || !textEl || !barEl || !wipeEl) return;
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        document.body.style.overflow = "auto";
-        loaderEl.style.display = "none";
-        window.dispatchEvent(new Event("site:loader-complete"));
-      },
-    });
+    let tl: gsap.core.Timeline | undefined;
 
     const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
     const timeout = new Promise((resolve) => setTimeout(resolve, 1000));
 
     Promise.race([fontsReady, timeout]).then(() => {
+      tl = gsap.timeline({
+        onComplete: () => {
+          document.body.style.overflow = "auto";
+          loaderEl.style.display = "none";
+          window.dispatchEvent(new Event("site:loader-complete"));
+        },
+      });
+
       tl.to(textEl, { opacity: 1, duration: 0.6, ease: "power2.out" })
         .to(barEl,   { width: "100%", duration: 1.4, ease: "power1.inOut" }, 0.4)
         .to(textEl,  { opacity: 0, duration: 0.3 }, "+=0.2")
@@ -39,7 +41,7 @@ export function Loader() {
     });
 
     return () => {
-      tl.kill();
+      tl?.kill();
       document.body.style.overflow = "auto";
     };
   }, []);
