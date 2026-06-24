@@ -185,7 +185,7 @@ export function Hero() {
                     data-gtm-event="resume_download"
                     data-gtm-location="hero"
                     onClick={() => pushGtmEvent("resume_download", { click_location: "hero" })}
-                    className="editorial-gradient text-white px-[26px] py-[15px] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] group"
+                    className="editorial-gradient text-white px-[18px] py-[15px] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] group"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
@@ -217,7 +217,7 @@ export function Hero() {
                       pushGtmEvent("chat_open", { click_location: "hero" });
                       window.dispatchEvent(new Event("chat:open"));
                     }}
-                    className="bg-paper text-ink px-[26px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] hover:bg-paper-dark transition-colors"
+                    className="bg-paper text-ink px-[18px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] hover:bg-paper-dark transition-colors"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
@@ -236,7 +236,7 @@ export function Hero() {
                     data-gtm-location="hero"
                     data-gtm-platform="linkedin"
                     onClick={() => pushGtmEvent("social_click", { click_location: "hero", platform: "linkedin" })}
-                    className="bg-paper text-ink px-[26px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] hover:bg-paper-dark transition-colors"
+                    className="bg-paper text-ink px-[18px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] hover:bg-paper-dark transition-colors"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
