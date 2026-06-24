@@ -18,15 +18,202 @@ export const hero = {
   email: "mailto:eduardo@casjor.com?subject=Let's connect",
 };
 
+export type EvidencePhoto = { image: string; alt: string; caption: string };
+
+export const doritosEvidence: EvidencePhoto[] = [
+  {
+    image: "/assets/Doritos/20160523_102105.jpeg",
+    alt: "Doritos Rainbow retail cartons laid out in a tiled display",
+    caption: "Packaging · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160523-WA0017.jpeg",
+    alt: "Production floor worker holding a Doritos Rainbow bag",
+    caption: "Production line · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160523-WA0020.jpeg",
+    alt: "Pallets of Doritos Rainbow shipping boxes in a warehouse",
+    caption: "Warehouse · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160606-WA0015.jpeg",
+    alt: "Doritos Rainbow bags stocked on a retail shelf",
+    caption: "Retail shelf · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160608-WA0033.jpeg",
+    alt: "Doritos Rainbow store display at Walmart",
+    caption: "Store display · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160611-WA0023.jpeg",
+    alt: "Doritos Rainbow promotional display in a supermarket",
+    caption: "Supermarket display · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160613-WA0002.jpeg",
+    alt: "Doritos Rainbow print advertisement in a travel magazine",
+    caption: "Print feature · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160606-WA0006.jpeg",
+    alt: "Social media post mentioning Doritos Rainbow",
+    caption: "Social reaction · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG-20160606-WA0011.jpeg",
+    alt: "Doritos Rainbow bag displayed next to a Facebook post quote",
+    caption: "Desk display · 2016",
+  },
+  {
+    image: "/assets/Doritos/IMG_Eduardo Castro _1.jpeg",
+    alt: "PepsiCo internal slide for Global Ally Day 2016 featuring Doritos Rainbow",
+    caption: "Ally Day · 2016",
+  },
+  {
+    image: "/assets/Doritos/20160812_102324-1.jpeg",
+    alt: "Doritos Rainbow bag with handwritten note from PepsiCo's President",
+    caption: "Evidence · 2016",
+  },
+];
+
+export const ergEvidence: EvidencePhoto[] = [
+  {
+    image: "/assets/ERG/IMG-20160608-WA0062.jpeg",
+    alt: "Presenting the EQUAL @ PepsiCo employee resource group vision",
+    caption: "EQUAL ERG · 2016",
+  },
+  {
+    image: "/assets/ERG/IMG-20160608-WA0027.jpeg",
+    alt: "Group photo at a PepsiCo Ally program event",
+    caption: "Ally event · 2016",
+  },
+  {
+    image: "/assets/ERG/20160608_123058.jpeg",
+    alt: "Eduardo Castro presenting to a full conference room",
+    caption: "Conference · 2016",
+  },
+  {
+    image: "/assets/ERG/IMG-20160623-WA0017.jpeg",
+    alt: "Rainbow layer cake with a Pride Connection Mexico topper",
+    caption: "Pride Connection · 2016",
+  },
+  {
+    image: "/assets/ERG/IMG_3646.jpeg",
+    alt: "Group photo for World AIDS Day awareness",
+    caption: "AIDS Day awareness",
+  },
+  {
+    image: "/assets/ERG/IMG-20170505-WA0011.jpeg",
+    alt: "PepsiCo EQUAL branding approval slide for 2017",
+    caption: "EQUAL branding · 2017",
+  },
+  {
+    image: "/assets/ERG/IMG_0188.jpeg",
+    alt: "Presenting on Diversity & Inclusion at Johnson & Johnson",
+    caption: "J&J D&I session",
+  },
+  {
+    image: "/assets/ERG/71d2b581-2ee3-4b04-8980-308d5a7f5211.jpeg",
+    alt: "Group photo in front of the HRC Equidad MX best-places-to-work banner",
+    caption: "HRC recognition",
+  },
+  {
+    image: "/assets/ERG/IMG_2562.jpeg",
+    alt: "PepsiCo México social post on the EQUAL employee resource group",
+    caption: "EQUAL · social post",
+  },
+  {
+    image: "/assets/ERG/IMG_3665.png",
+    alt: "Johnson & Johnson social post on HRC LGBT+ equity recognition",
+    caption: "HRC equity · 2020",
+  },
+];
+
+export const suncareEvidence: EvidencePhoto[] = [
+  {
+    image: "/assets/Suncare/IMG-20170411-WA0014.jpeg",
+    alt: "Pallets of Neutrogena Sun Care product in a distribution warehouse",
+    caption: "Warehouse · 2017",
+  },
+  {
+    image: "/assets/Suncare/IMG_0644.jpeg",
+    alt: "Neutrogena Sun Fresh product shot",
+    caption: "Product shot",
+  },
+  {
+    image: "/assets/Suncare/IMG_0643.jpeg",
+    alt: "Neutrogena Sun Fresh SPF 50+ campaign creative",
+    caption: "Campaign creative",
+  },
+];
+
+export const fromZeroEvidence: EvidencePhoto[] = [
+  {
+    image: "/assets/FromZero/IMG_7923.jpeg",
+    alt: "Ocho beverage formulation samples labeled for testing",
+    caption: "Ocho · formulation samples",
+  },
+  {
+    image: "/assets/FromZero/IMG_2723.jpeg",
+    alt: "Mattson beverage formulation tasting samples from product development",
+    caption: "Mattson · formulation tasting",
+  },
+  {
+    image: "/assets/FromZero/IMG_2737.jpeg",
+    alt: "Consumer research panel session",
+    caption: "Consumer panel",
+  },
+  {
+    image: "/assets/FromZero/IMG_2761.jpeg",
+    alt: "Consumer taste-test panel session",
+    caption: "Taste-test panel",
+  },
+  {
+    image: "/assets/FromZero/IMG_1323.jpeg",
+    alt: "Bía Foods brand presentation on stage at a CBC conference",
+    caption: "Bía Foods · Grupo Mariposa",
+  },
+  {
+    image: "/assets/FromZero/46D003A1-7DB2-47E8-8798-1C1BF5E7447B.jpeg",
+    alt: "Factory visit during a San Marcos production run",
+    caption: "San Marcos · factory visit",
+  },
+  {
+    image: "/assets/FromZero/5B94F4B9-F06D-4475-B421-A8F0FC52ED86.jpeg",
+    alt: "Holding a Mulby can on the bottling line floor",
+    caption: "Bottling line",
+  },
+  {
+    image: "/assets/FromZero/3be2b90c-e917-486b-8e18-ca6ffb19b5a3.jpeg",
+    alt: "Trade-show booth for the Mulby beverage brand",
+    caption: "Mulby launch · Grupo Mariposa",
+  },
+  {
+    image: "/assets/FromZero/IMG_3727.jpeg",
+    alt: "Celebrating the Mulby beverage launch",
+    caption: "Mulby team · Grupo Mariposa",
+  },
+  {
+    image: "/assets/FromZero/IMG_7887.jpeg",
+    alt: "Warehouse visit in safety gear",
+    caption: "Warehouse visit",
+  },
+  {
+    image: "/assets/FromZero/IMG_5016.jpeg",
+    alt: "Team recognition moment for the Mulby brand",
+    caption: "Team recognition",
+  },
+];
+
 export type Project = {
   index: string;
   company: string;
   title: string;
   description: string;
   metrics: string;
-  image: string;
-  altText?: string;
-  imagePlaceholder?: { bg: string; label: string };
+  photos: EvidencePhoto[];
 };
 
 export const projects: Project[] = [
@@ -37,8 +224,7 @@ export const projects: Project[] = [
     description:
       "Founded EQUAL ERG at PepsiCo® and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
     metrics: "HRC Best Place to Work · James E. Burke Award · LATAM Forum recognition",
-    image: "/assets/IMG_3381.jpeg",
-    altText: "Pride Connection National Congress — Eduardo Castro speaking on LGBTQ+ inclusion in the workplace",
+    photos: ergEvidence,
   },
   {
     index: "02",
@@ -47,8 +233,7 @@ export const projects: Project[] = [
     description:
       "Unlocked a four-year regulatory stall by mapping the SPF 55+ COFEPRIS pathway. Coordinated regional production in Brazil and launched the category from zero.",
     metrics: "New category from zero · +10% incremental B2B revenue · New market share",
-    image: "/assets/IMG_0583.jpeg",
-    altText: "Neutrogena Sun Care product portfolio — J&J Mexico market launch",
+    photos: suncareEvidence,
   },
   {
     index: "03",
@@ -57,20 +242,7 @@ export const projects: Project[] = [
     description:
       "Built a brand and innovation system from scratch. Filtered 165 ideas down to one market-ready product through rigorous consumer validation gates.",
     metrics: "+35% revenue growth · Digital-first export brand · Full P&L ownership",
-    image: "/assets/IMG_0584.jpeg",
-    altText: "Grupo Mariposa brand launch — product portfolio built from zero",
-  },
-];
-
-export type DoritosEvidence = { image: string; alt: string; caption: string; tag: string };
-
-// TODO(Eddie): extend with the rest of the Doritos Rainbow evidence photos once supplied.
-export const doritosEvidence: DoritosEvidence[] = [
-  {
-    image: "/assets/doritos/20160812_102324-1.jpeg",
-    alt: "Doritos Rainbow bag with handwritten note from PepsiCo's President",
-    caption: "Evidence · 2016",
-    tag: "President's note",
+    photos: fromZeroEvidence,
   },
 ];
 

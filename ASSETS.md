@@ -2,7 +2,7 @@
 
 > Reference guide for all visual assets in `/public/assets/`.
 > Use this file to make informed decisions about which asset to use in each context.
-> Last updated: April 2026
+> Last updated: June 2026
 
 -----
 
@@ -16,13 +16,70 @@
 
 ## Project Images — Highlights / Defining Work
 
-|File                    |Project              |Description                                                                                    |Use                                            |
-|------------------------|---------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------|
-|`20160812_102324-1.jpeg`|Doritos Rainbow      |Doritos Rainbow bag + handwritten note from PepsiCo President + Swiss Army knife award         |✅ **Doritos Rainbow card**                     |
-|`IMG_3381.jpeg`         |ERG Leadership       |Eduardo Castro speaking at Pride Connection National Congress, rainbow flags visible           |✅ **ERG Leadership card**                      |
-|`IMG_0583.jpeg`         |Neutrogena Sun Care  |Neutrogena Sun Care product portfolio — J&J Mexico market launch                               |✅ **Neutrogena Sun Care card**                 |
-|`IMG_0584.jpeg`         |Brand Built from Zero|Grupo Mariposa brand launch — product portfolio                                                |✅ **Grupo Mariposa card**                      |
-|`IMG_0576.png`          |Grupo Mariposa logo  |"GRUPO MARIPOSA" wordmark in dark gray with multicolor circular icon. Light background version.|✅ **Experience timeline — Grupo Mariposa logo**|
+Each of the four evidence-pillar projects (Doritos Rainbow, ERG Leadership & Inclusion, Neutrogena Sun Care Launch, Brand Built from Zero) now displays a multi-photo carousel rather than a single static image. Photos live in per-project folders under `/public/assets/` and are wired into `src/lib/data.ts` as `EvidencePhoto[]` arrays (`doritosEvidence`, `ergEvidence`, `suncareEvidence`, `fromZeroEvidence`). The Doritos Rainbow hero section uses its own rotated/stacked `EvidenceCarousel`; the three Defining Work grid cards use the shared `ProjectGallery` component (full-bleed image with bottom gradient scrim, caption + counter overlay, ‹/› nav).
+
+### `/public/assets/Doritos/` — Doritos Rainbow (11 photos)
+
+|File                                |Caption               |
+|-------------------------------------|-----------------------|
+|`20160523_102105.jpeg`               |Packaging · 2016       |
+|`IMG-20160523-WA0017.jpeg`           |Production line · 2016 |
+|`IMG-20160523-WA0020.jpeg`           |Warehouse · 2016       |
+|`IMG-20160606-WA0015.jpeg`           |Retail shelf · 2016    |
+|`IMG-20160608-WA0033.jpeg`           |Store display · 2016   |
+|`IMG-20160611-WA0023.jpeg`           |Supermarket display · 2016|
+|`IMG-20160613-WA0002.jpeg`           |Print feature · 2016   |
+|`IMG-20160606-WA0006.jpeg`           |Social reaction · 2016 |
+|`IMG-20160606-WA0011.jpeg`           |Desk display · 2016    |
+|`IMG_Eduardo Castro _1.jpeg`         |Ally Day · 2016        |
+|`20160812_102324-1.jpeg`             |Evidence · 2016 — bag + handwritten note from PepsiCo's President|
+
+### `/public/assets/ERG/` — ERG Leadership & Inclusion (10 photos)
+
+|File                                       |Caption              |
+|--------------------------------------------|----------------------|
+|`IMG-20160608-WA0062.jpeg`                  |EQUAL ERG · 2016      |
+|`IMG-20160608-WA0027.jpeg`                  |Ally event · 2016     |
+|`20160608_123058.jpeg`                      |Conference · 2016     |
+|`IMG-20160623-WA0017.jpeg`                  |Pride Connection · 2016|
+|`IMG_3646.jpeg`                             |AIDS Day awareness    |
+|`IMG-20170505-WA0011.jpeg`                  |EQUAL branding · 2017 |
+|`IMG_0188.jpeg`                             |J&J D&I session       |
+|`71d2b581-2ee3-4b04-8980-308d5a7f5211.jpeg` |HRC recognition       |
+|`IMG_2562.jpeg`                             |EQUAL · social post   |
+|`IMG_3665.png`                              |HRC equity · 2020     |
+
+### `/public/assets/Suncare/` — Neutrogena Sun Care Launch (3 photos)
+
+|File                       |Caption          |
+|----------------------------|-------------------|
+|`IMG-20170411-WA0014.jpeg`  |Warehouse · 2017  |
+|`IMG_0644.jpeg`             |Product shot      |
+|`IMG_0643.jpeg`             |Campaign creative |
+
+### `/public/assets/FromZero/` — Brand Built from Zero (11 photos)
+
+Carousel spanning the full Grupo Mariposa product-development story, including the Ocho, Mattson, San Marcos, and Mulby sub-brands/partners.
+
+|File                                          |Caption                  |
+|------------------------------------------------|----------------------------|
+|`IMG_7923.jpeg`                                 |Ocho · formulation samples  |
+|`IMG_2723.jpeg`                                 |Mattson · formulation tasting|
+|`IMG_2737.jpeg`                                 |Consumer panel             |
+|`IMG_2761.jpeg`                                 |Taste-test panel           |
+|`IMG_1323.jpeg`                                 |Bía Foods · Grupo Mariposa |
+|`46D003A1-7DB2-47E8-8798-1C1BF5E7447B.jpeg`     |San Marcos · factory visit (EXIF-rotated source; renders upright via browser auto-orientation)|
+|`5B94F4B9-F06D-4475-B421-A8F0FC52ED86.jpeg`     |Bottling line (EXIF-rotated source; renders upright via browser auto-orientation)|
+|`3be2b90c-e917-486b-8e18-ca6ffb19b5a3.jpeg`     |Mulby launch · Grupo Mariposa|
+|`IMG_3727.jpeg`                                 |Mulby team · Grupo Mariposa |
+|`IMG_7887.jpeg`                                 |Warehouse visit             |
+|`IMG_5016.jpeg`                                 |Team recognition            |
+
+`IMG_0576.png` (Grupo Mariposa wordmark + icon, light background) continues to serve the Experience timeline, unrelated to the FromZero carousel above.
+
+### Superseded single-image files
+
+`IMG_3381.jpeg`, `IMG_0583.jpeg`, and `IMG_0584.jpeg` (the original single photo per Highlights card) are no longer referenced in code — replaced by the galleries above. Left in place in `/public/assets/` rather than deleted.
 
 -----
 
@@ -137,12 +194,12 @@ Logos with dark or colored text on transparent backgrounds work best for light s
 
 ### Section-specific image assignments
 
-|Section        |Card                      |Image file               |
-|---------------|--------------------------|-------------------------|
-|Highlights     |Doritos Rainbow           |`20160812_102324-1.jpeg` |
-|Highlights     |ERG Leadership & Inclusion|`IMG_3381.jpeg`          |
-|Highlights     |Neutrogena Sun Care Launch|`IMG_0583.jpeg`          |
-|Highlights     |Brand Built from Zero     |`IMG_0584.jpeg`          |
+|Section        |Card                      |Image source                          |
+|---------------|--------------------------|---------------------------------------|
+|Highlights     |Doritos Rainbow           |`doritosEvidence` gallery — `/assets/Doritos/` (11 photos)|
+|Highlights     |ERG Leadership & Inclusion|`ergEvidence` gallery — `/assets/ERG/` (10 photos)|
+|Highlights     |Neutrogena Sun Care Launch|`suncareEvidence` gallery — `/assets/Suncare/` (3 photos)|
+|Highlights     |Brand Built from Zero     |`fromZeroEvidence` gallery — `/assets/FromZero/` (11 photos)|
 |Hero           |Profile photo             |`IMG_3827.jpeg`          |
 |Career timeline|Grupo Mariposa logo       |`IMG_0576.png`           |
 |Career timeline|Johnson & Johnson logo    |`JohnsonJohnson-Logo.svg`|
@@ -150,4 +207,4 @@ Logos with dark or colored text on transparent backgrounds work best for light s
 
 -----
 
-*Last updated: April 2026*
+*Last updated: June 2026*
