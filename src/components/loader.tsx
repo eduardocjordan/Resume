@@ -52,7 +52,7 @@ export function Loader() {
       style={{
         position: "fixed",
         inset: 0,
-        background: "#ff4d00",
+        background: "#0a0a0a",
         zIndex: 9999,
         display: "flex",
         flexDirection: "column",
@@ -69,7 +69,7 @@ export function Loader() {
           inset: 0,
           pointerEvents: "none",
           background:
-            "radial-gradient(circle at 50% 46%, rgba(255,77,0,0) 26%, rgba(168,40,0,.34) 78%, rgba(120,28,0,.5) 100%)",
+            "radial-gradient(circle at 50% 46%, rgba(255,77,0,.10) 0%, rgba(10,10,10,0) 45%, rgba(10,10,10,.65) 100%)",
         }}
       />
 
@@ -83,7 +83,7 @@ export function Loader() {
           fontSize: "11px",
           letterSpacing: "0.34em",
           textTransform: "uppercase",
-          color: "rgba(10,10,10,.55)",
+          color: "rgba(255,77,0,.55)",
         }}
       >
         Eduardo Castro — System Boot
@@ -96,7 +96,7 @@ export function Loader() {
             fontSize: "clamp(10px, 1.2vw, 12px)",
             letterSpacing: "0.34em",
             textTransform: "uppercase",
-            color: "rgba(10,10,10,.66)",
+            color: "rgba(255,77,0,.66)",
             marginBottom: 22,
           }}
         >
@@ -110,7 +110,7 @@ export function Loader() {
             fontSize: "clamp(1.5rem, 5vw, 3.2rem)",
             lineHeight: 1.18,
             letterSpacing: "0.02em",
-            color: "#0a0a0a",
+            color: "#ff4d00",
             userSelect: "none",
           }}
         >
@@ -123,7 +123,7 @@ export function Loader() {
               display: "inline-block",
               width: "0.5em",
               height: "1.05em",
-              background: "#0a0a0a",
+              background: "#ff4d00",
               verticalAlign: "-0.16em",
               marginLeft: "0.14em",
             }}
@@ -137,7 +137,7 @@ export function Loader() {
           marginTop: "clamp(30px,5vh,50px)",
           width: "min(300px, 60vw)",
           height: "2px",
-          background: "rgba(10,10,10,.2)",
+          background: "rgba(255,77,0,.2)",
           overflow: "hidden",
         }}
       >
@@ -146,7 +146,7 @@ export function Loader() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "#0a0a0a",
+            background: "#ff4d00",
             width: "0%",
           }}
         />
@@ -157,7 +157,7 @@ export function Loader() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "#ff4d00",
+          background: "#0a0a0a",
           transform: "scaleX(0)",
           transformOrigin: "left",
         }}

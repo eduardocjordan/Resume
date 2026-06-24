@@ -85,16 +85,16 @@ export function OrientationLayer() {
           </p>
 
           {/* Centered content */}
-          <FadeIn direction="none" delay={0.3}>
-            <div
-              className="absolute"
-              style={{
-                left: "clamp(28px, 6vw, 96px)",
-                top: "50%",
-                transform: "translateY(-50%)",
-                maxWidth: 880,
-              }}
-            >
+          <div
+            className="absolute"
+            style={{
+              left: "clamp(28px, 6vw, 96px)",
+              top: "50%",
+              transform: "translateY(-50%)",
+              maxWidth: 880,
+            }}
+          >
+            <FadeIn direction="none" delay={0.3}>
               <p
                 className="uppercase text-[11px]"
                 style={{ letterSpacing: "0.34em", color: "#ff4d00", marginBottom: 26 }}
@@ -115,8 +115,8 @@ export function OrientationLayer() {
               >
                 That icon in the corner — it knows my work, my background, what I&apos;ve shipped. Ask it anything.
               </p>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          </div>
 
           {/* Directional gesture toward the chat widget's floating button, bottom-right of viewport — desktop */}
           <motion.div

@@ -142,23 +142,27 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Desktop stats — inline row with dividers */}
-            <div className="hidden md:flex items-end gap-[clamp(18px,2.4vw,38px)] flex-wrap">
+            {/* Desktop stats — stacked column */}
+            <div className="hidden md:flex flex-col items-start">
               {orderedStats.map((stat, i) => (
-                <div key={stat.label} className="flex items-end gap-[clamp(18px,2.4vw,38px)]">
-                  <div>
-                    <div className="font-stat leading-[0.82] text-ink" style={{ fontSize: "clamp(54px, 6.4vw, 100px)" }}>
-                      <StatValue target={parseInt(stat.value, 10)} start={statsStart} />
-                      <span className="text-accent">{stat.suffix}</span>
-                    </div>
-                    <div
-                      className="text-[10px] uppercase tracking-[0.16em] text-ink/50 font-bold mt-[8px]"
-                      style={{ fontFamily: "'Space Mono', monospace" }}
-                    >
-                      {stat.label}
-                    </div>
+                <div
+                  key={stat.label}
+                  className={
+                    i > 0
+                      ? "w-full mt-[clamp(20px,3vh,32px)] pt-[clamp(10px,1.5vh,14px)] border-t border-[rgba(26,28,27,.14)]"
+                      : "w-full"
+                  }
+                >
+                  <div className="font-stat leading-[0.82] text-ink" style={{ fontSize: "clamp(54px, 6.4vw, 100px)" }}>
+                    <StatValue target={parseInt(stat.value, 10)} start={statsStart} />
+                    <span className="text-accent">{stat.suffix}</span>
                   </div>
-                  {i < orderedStats.length - 1 && <div className="w-px self-stretch bg-[rgba(26,28,27,.14)]" />}
+                  <div
+                    className="text-[10px] uppercase tracking-[0.16em] text-ink/50 font-bold mt-[8px]"
+                    style={{ fontFamily: "'Space Mono', monospace" }}
+                  >
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>

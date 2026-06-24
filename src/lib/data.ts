@@ -218,27 +218,26 @@ export const brands: Brand[] = [
 
 export type Story = { title: string; body: string; aphorism: string };
 
-// TODO(Eddie): replace each aphorism placeholder with the real one-line aphorism for that story.
 export const stories: Story[] = [
   {
     title: "The brief nobody asked for",
     body: "At PepsiCo®, I noticed limited-edition launches underperformed because of sequencing. I mapped data from 6 launches and proposed a trade activation adjustment that became standard practice. Nobody asked for it. That's when the useful ones happen.",
-    aphorism: "TODO(Eddie): aphorism for \"The brief nobody asked for\"",
+    aphorism: "Not afraid to point out and bridge opportunities",
   },
   {
     title: "The regulatory detour",
     body: "Neutrogena®'s Sun Care had been sitting at the border for 4 years. I diagnosed that SPF 55+ is a drug in Mexico, requiring COFEPRIS pathways. I coordinated regional production in Brazil and launched the category in 2 years. Strategy without diagnosis is just confidence.",
-    aphorism: "TODO(Eddie): aphorism for \"The regulatory detour\"",
+    aphorism: "Process mapping and escalation",
   },
   {
     title: "The 165 ideas",
     body: "At Grupo Mariposa, I built the system to decide what was worth building. Filtered 165 ideas through rigorous validation: concept testing, sensory panels, and pricing ladders. Only one made it to market. That's how you avoid launching products nobody wants.",
-    aphorism: "TODO(Eddie): aphorism for \"The 165 ideas\"",
+    aphorism: "Methodology and evidence-based decisions",
   },
   {
     title: "The packaging line crossover",
     body: "My move to marketing was engineered. As PMO, I was running automation on packaging lines. Innovation team saw how I handled ambiguity and meetings. Technical credentials got me in the room; performance in the room got me the role.",
-    aphorism: "TODO(Eddie): aphorism for \"The packaging line crossover\"",
+    aphorism: "Natural orchestrator and big-picture guardian",
   },
 ];
 
