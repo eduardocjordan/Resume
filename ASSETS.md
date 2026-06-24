@@ -59,19 +59,19 @@ Each of the four evidence-pillar projects (Doritos Rainbow, ERG Leadership & Inc
 
 ### `/public/assets/FromZero/` — Brand Built from Zero (11 photos)
 
-Combined carousel spanning Grupo Mariposa and apex/Mulby material, per Eddie's direction to treat "Brand Built from Zero" as one broader "brands built from zero" theme.
+Carousel spanning the full Grupo Mariposa product-development story, including the Ocho, Mattson, San Marcos, and Mulby sub-brands/partners.
 
 |File                                          |Caption                  |
 |------------------------------------------------|----------------------------|
-|`IMG_7923.jpeg`                                 |Formulation samples        |
-|`IMG_2723.jpeg`                                 |Formulation tasting        |
+|`IMG_7923.jpeg`                                 |Ocho · formulation samples  |
+|`IMG_2723.jpeg`                                 |Mattson · formulation tasting|
 |`IMG_2737.jpeg`                                 |Consumer panel             |
 |`IMG_2761.jpeg`                                 |Taste-test panel           |
 |`IMG_1323.jpeg`                                 |Bía Foods · Grupo Mariposa |
-|`46D003A1-7DB2-47E8-8798-1C1BF5E7447B.jpeg`     |Factory visit (EXIF-rotated source; renders upright via browser auto-orientation)|
+|`46D003A1-7DB2-47E8-8798-1C1BF5E7447B.jpeg`     |San Marcos · factory visit (EXIF-rotated source; renders upright via browser auto-orientation)|
 |`5B94F4B9-F06D-4475-B421-A8F0FC52ED86.jpeg`     |Bottling line (EXIF-rotated source; renders upright via browser auto-orientation)|
-|`3be2b90c-e917-486b-8e18-ca6ffb19b5a3.jpeg`     |Mulby launch                |
-|`IMG_3727.jpeg`                                 |Mulby team                  |
+|`3be2b90c-e917-486b-8e18-ca6ffb19b5a3.jpeg`     |Mulby launch · Grupo Mariposa|
+|`IMG_3727.jpeg`                                 |Mulby team · Grupo Mariposa |
 |`IMG_7887.jpeg`                                 |Warehouse visit             |
 |`IMG_5016.jpeg`                                 |Team recognition            |
 

@@ -152,13 +152,13 @@ export const suncareEvidence: EvidencePhoto[] = [
 export const fromZeroEvidence: EvidencePhoto[] = [
   {
     image: "/assets/FromZero/IMG_7923.jpeg",
-    alt: "Beverage formulation samples labeled for testing",
-    caption: "Formulation samples",
+    alt: "Ocho beverage formulation samples labeled for testing",
+    caption: "Ocho · formulation samples",
   },
   {
     image: "/assets/FromZero/IMG_2723.jpeg",
-    alt: "Beverage formulation tasting samples from product development",
-    caption: "Formulation tasting",
+    alt: "Mattson beverage formulation tasting samples from product development",
+    caption: "Mattson · formulation tasting",
   },
   {
     image: "/assets/FromZero/IMG_2737.jpeg",
@@ -178,7 +178,7 @@ export const fromZeroEvidence: EvidencePhoto[] = [
   {
     image: "/assets/FromZero/46D003A1-7DB2-47E8-8798-1C1BF5E7447B.jpeg",
     alt: "Factory visit during a San Marcos production run",
-    caption: "Factory visit",
+    caption: "San Marcos · factory visit",
   },
   {
     image: "/assets/FromZero/5B94F4B9-F06D-4475-B421-A8F0FC52ED86.jpeg",
@@ -188,12 +188,12 @@ export const fromZeroEvidence: EvidencePhoto[] = [
   {
     image: "/assets/FromZero/3be2b90c-e917-486b-8e18-ca6ffb19b5a3.jpeg",
     alt: "Trade-show booth for the Mulby beverage brand",
-    caption: "Mulby launch",
+    caption: "Mulby launch · Grupo Mariposa",
   },
   {
     image: "/assets/FromZero/IMG_3727.jpeg",
     alt: "Celebrating the Mulby beverage launch",
-    caption: "Mulby team",
+    caption: "Mulby team · Grupo Mariposa",
   },
   {
     image: "/assets/FromZero/IMG_7887.jpeg",
