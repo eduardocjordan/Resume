@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/data";
 import { FadeIn } from "./fade-in";
 import { cn } from "@/lib/utils";
+import { useCountUp } from "@/hooks/use-count-up";
+import { ORIENTATION_DISMISS_KEY } from "./orientation-layer";
 
 const orderedStats = [hero.stats[0], hero.stats[2], hero.stats[1]];
 
@@ -14,11 +16,45 @@ function pushGtmEvent(event: string, extra?: Record<string, unknown>) {
   (window as any).dataLayer.push({ event, ...extra });
 }
 
+// Gates the hero stat count-up to fire ~520ms after the orientation overlay
+// is dismissed (matching the prototype's entrance cascade), or shortly after
+// mount if the overlay was already dismissed earlier this session.
+function useStatsStart() {
+  const [start, setStart] = useState(false);
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+
+    if (sessionStorage.getItem(ORIENTATION_DISMISS_KEY)) {
+      timeout = setTimeout(() => setStart(true), 100);
+      return () => clearTimeout(timeout);
+    }
+
+    const onDismiss = () => {
+      timeout = setTimeout(() => setStart(true), 520);
+    };
+    window.addEventListener("site:orientation-dismissed", onDismiss, { once: true });
+    return () => {
+      window.removeEventListener("site:orientation-dismissed", onDismiss);
+      if (timeout) clearTimeout(timeout);
+    };
+  }, []);
+
+  return start;
+}
+
+function StatValue({ target, start }: { target: number; start: boolean }) {
+  return <>{useCountUp(target, start).value}</>;
+}
+
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const headlineScale = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
   const headlineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+  const prefersReducedMotion = useReducedMotion();
+  const portraitY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, 40]);
+  const statsStart = useStatsStart();
 
   return (
     <section
@@ -28,7 +64,10 @@ export function Hero() {
       aria-labelledby="hero-heading"
     >
       {/* Right-edge portrait — secondary, atmospheric */}
-      <div className="hidden md:block absolute top-0 right-0 h-full" style={{ width: "min(34vw, 470px)" }}>
+      <motion.div
+        className="hidden md:block absolute top-0 right-0 h-full"
+        style={{ width: "min(34vw, 470px)", y: portraitY }}
+      >
         <Image
           src={hero.portrait}
           alt="Eduardo Castro — Marketing Director, Brand Growth Strategist"
@@ -48,7 +87,7 @@ export function Hero() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(0deg, rgba(212,98,42,.14), rgba(212,98,42,.04))" }}
         />
-      </div>
+      </motion.div>
 
       <div className="relative z-10 max-w-[1280px] w-full mx-auto">
         <FadeIn>
@@ -60,7 +99,7 @@ export function Hero() {
           </div>
         </FadeIn>
 
-        <FadeIn delay={0.08}>
+        <FadeIn delay={0.08} direction="wipe">
           <motion.h1
             id="hero-heading"
             className="font-headline text-ink origin-left"
@@ -109,7 +148,7 @@ export function Hero() {
                 <div key={stat.label} className="flex items-end gap-[clamp(18px,2.4vw,38px)]">
                   <div>
                     <div className="font-stat leading-[0.82] text-ink" style={{ fontSize: "clamp(54px, 6.4vw, 100px)" }}>
-                      {stat.value}
+                      <StatValue target={parseInt(stat.value, 10)} start={statsStart} />
                       <span className="text-accent">{stat.suffix}</span>
                     </div>
                     <div
@@ -144,7 +183,7 @@ export function Hero() {
                     className="flex-none w-[150px] text-left bg-paper-dark rounded snap-start py-4 px-[18px]"
                   >
                     <div className="font-stat leading-[0.82] text-ink text-[72px]">
-                      {stat.value}
+                      <StatValue target={parseInt(stat.value, 10)} start={statsStart} />
                       <span className="text-accent">{stat.suffix}</span>
                     </div>
                     <div
@@ -168,13 +207,24 @@ export function Hero() {
               data-gtm-event="resume_download"
               data-gtm-location="hero"
               onClick={() => pushGtmEvent("resume_download", { click_location: "hero" })}
-              className="editorial-gradient text-white px-[26px] py-[15px] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px]"
+              className="editorial-gradient text-white px-[26px] py-[15px] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[10px] group"
               style={{ fontFamily: "'Space Mono', monospace" }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[3px]"
+              >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />

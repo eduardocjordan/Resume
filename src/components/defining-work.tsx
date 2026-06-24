@@ -7,7 +7,7 @@ import type { Project } from "@/lib/data";
 
 function ProjectCard({ project, i }: { project: Project; i: number }) {
   return (
-    <FadeIn delay={i * 0.08}>
+    <FadeIn delay={i * 0.1}>
       <div className="flex flex-col h-full border border-ink/10 bg-paper">
         <div className="flex flex-col flex-1 p-7 md:p-9">
           <div className="flex items-center justify-between mb-5">

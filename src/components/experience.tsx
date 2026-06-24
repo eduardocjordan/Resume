@@ -21,7 +21,7 @@ function TimelineEntry({
   const logoSrc = role.logo || role.logoExternal || null;
 
   return (
-    <FadeIn delay={index * 0.08}>
+    <FadeIn delay={index * 0.09}>
       <div className="flex gap-0">
         {/* Left: logo column */}
         <div className="w-20 md:w-24 flex-shrink-0 flex flex-col items-center pt-1">
@@ -58,12 +58,13 @@ function TimelineEntry({
         {/* Center: timeline line + dot */}
         <div className="flex flex-col items-center mx-4">
           <span
-            className="flex-shrink-0 mt-1.5 z-10 rounded-full bg-accent"
+            className="flex-shrink-0 mt-1.5 z-10 rounded-full transition-colors duration-300"
             style={{
               width: "10px",
               height: "10px",
               border: "3px solid #f9f9f7",
-              boxShadow: "0 0 0 1px #d4622a",
+              backgroundColor: open ? "#d4622a" : "rgba(26,28,27,.3)",
+              boxShadow: open ? "0 0 0 1px #d4622a" : "none",
             }}
           />
           <div
@@ -149,7 +150,7 @@ function TimelineEntry({
 }
 
 export function Experience() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleToggle = (i: number) => {
     setOpenIndex((prev) => (prev === i ? null : i));

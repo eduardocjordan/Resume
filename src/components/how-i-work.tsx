@@ -14,6 +14,12 @@ export function HowIWork() {
       aria-labelledby="how-i-work-heading"
     >
       <div className="absolute top-0 right-0 w-[50%] h-full bg-paper/5 -skew-x-12 translate-x-1/4 pointer-events-none" />
+      <FadeIn direction="rule">
+        <div
+          className="absolute top-0 left-0 right-0 pointer-events-none"
+          style={{ height: "2px", background: "linear-gradient(90deg, #d4622a, rgba(212,98,42,0))" }}
+        />
+      </FadeIn>
 
       <div className="max-w-[1400px] w-full mx-auto px-8 md:px-24 pb-10 md:pb-16 relative z-10">
         <FadeIn>
@@ -31,7 +37,7 @@ export function HowIWork() {
               <FadeIn
                 key={story.title}
                 delay={i * 0.06}
-                className={`border-b md:border-b-0 md:border-l border-paper/10 overflow-hidden transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:h-full ${
+                className={`border-b md:border-b-0 md:border-l border-paper/10 overflow-hidden transition-[flex] duration-[650ms] ease-[cubic-bezier(0.4,0.05,0.2,1)] md:h-full ${
                   isActive ? "md:flex-[3]" : "md:flex-[0.6]"
                 }`}
               >

@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { doritosEvidence } from "@/lib/data";
 
@@ -77,15 +78,21 @@ function EvidenceCarousel() {
 }
 
 export function DoritosRainbow() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const wordY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [48, -48]);
+
   return (
     <section
+      ref={sectionRef}
       className="relative flex items-center overflow-hidden bg-accent text-ink"
       style={{ height: "100vh", minHeight: "660px" }}
       id="doritos-rainbow"
       aria-labelledby="doritos-rainbow-heading"
     >
       {/* Background year element */}
-      <div
+      <motion.div
         className="absolute font-stat pointer-events-none text-[230px] md:text-[min(58vh,42vw)] animate-[ecDrift_9s_ease-in-out_infinite_alternate]"
         style={{
           top: "-3vh",
@@ -93,10 +100,11 @@ export function DoritosRainbow() {
           lineHeight: 0.8,
           letterSpacing: "-0.02em",
           color: "rgba(26,28,27,0.12)",
+          y: wordY,
         }}
       >
         2016
-      </div>
+      </motion.div>
 
       <div
         className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] items-center gap-[clamp(32px,5vw,72px)] max-w-[1280px] mx-auto px-[clamp(28px,6vw,96px)]"
