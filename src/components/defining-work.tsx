@@ -1,19 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FadeIn } from "./fade-in";
 import { projects } from "@/lib/data";
 import type { Project } from "@/lib/data";
 
+const AUTOPLAY_INTERVAL_MS = 4500;
+
 function ProjectGallery({ photos, title }: { photos: Project["photos"]; title: string }) {
   const [index, setIndex] = useState(0);
+  const [hovering, setHovering] = useState(false);
+  const [interacted, setInteracted] = useState(false);
   const total = photos.length;
-  const go = (delta: number) => setIndex((i) => (i + delta + total) % total);
+  const go = (delta: number) => {
+    setInteracted(true);
+    setIndex((i) => (i + delta + total) % total);
+  };
   const photo = photos[index];
 
+  useEffect(() => {
+    if (total <= 1 || hovering || interacted) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % total), AUTOPLAY_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [total, hovering, interacted]);
+
   return (
-    <div className="relative aspect-[16/10] overflow-hidden group">
+    <div
+      className="relative aspect-[16/10] overflow-hidden group"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
       <Image
         src={photo.image}
         alt={photo.alt || title}

@@ -17,18 +17,34 @@ function EvidenceCarousel() {
         {doritosEvidence.map((evidence, i) => {
           const offset = (i - index + total) % total;
           if (offset > 2) return null;
+          const isPeek = offset === 1 && total > 1;
           return (
             <div
               key={evidence.image}
+              role={isPeek ? "button" : undefined}
+              tabIndex={isPeek ? 0 : undefined}
+              aria-label={isPeek ? "Show next evidence photo" : undefined}
+              onClick={isPeek ? () => go(1) : undefined}
+              onKeyDown={
+                isPeek
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        go(1);
+                      }
+                    }
+                  : undefined
+              }
               className="bg-paper p-[11px] pb-[30px] md:p-[14px] md:pb-[46px] shadow-[0_30px_60px_rgba(0,0,0,0.28)] transition-transform duration-400"
               style={{
                 position: offset === 0 ? "static" : "absolute",
                 top: 0,
                 left: 0,
                 width: "100%",
-                transform: `translate(${offset * 6}px, ${offset * 8}px) rotate(${offset * 1.4}deg)`,
+                transform: `translate(${offset * 14}px, ${offset * 18}px) rotate(${offset * 1.4}deg)`,
                 zIndex: total - offset,
-                pointerEvents: offset === 0 ? "auto" : "none",
+                pointerEvents: offset <= 1 ? "auto" : "none",
+                cursor: isPeek ? "pointer" : undefined,
               }}
             >
               <div className="relative aspect-[3/4] w-full overflow-hidden">
