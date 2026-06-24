@@ -60,6 +60,31 @@
   100% { transform: translate(0, 0); }
 }
 
+@keyframes ecDrift {
+  0%   { transform: translateX(-1.5%); }
+  100% { transform: translateX(1.5%); }
+}
+
+@keyframes ecBlink {
+  0%, 46%  { opacity: 1; }
+  50%, 96% { opacity: 0; }
+  100%     { opacity: 1; }
+}
+
+@keyframes ecLoadBar {
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes ecMarch {
+  to { stroke-dashoffset: -14; }
+}
+
+@keyframes ecDashGlow {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+
 .animate-grain {
   animation: ecGrain 6s steps(5) infinite;
 }
@@ -69,11 +94,23 @@
 .animate-bob {
   animation: ecBob 1.6s ease-in-out infinite;
 }
+.animate-blink {
+  animation: ecBlink 1s steps(1) infinite;
+}
+.animate-march-glow {
+  animation: ecMarch 0.7s linear infinite, ecDashGlow 1.3s ease-in-out infinite;
+}
+.animate-dash-glow {
+  animation: ecDashGlow 1.3s ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-grain,
   .animate-drift,
-  .animate-bob {
+  .animate-bob,
+  .animate-blink,
+  .animate-march-glow,
+  .animate-dash-glow {
     animation: none;
   }
 }

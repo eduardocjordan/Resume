@@ -55,48 +55,109 @@ export function Loader() {
         background: "#0a0a0a",
         zIndex: 9999,
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
       }}
       aria-hidden="true"
     >
+      {/* Radial vignette */}
       <div
-        ref={textRef}
         style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background:
+            "radial-gradient(circle at 50% 46%, rgba(255,77,0,.10) 0%, rgba(10,10,10,0) 45%, rgba(10,10,10,.65) 100%)",
+        }}
+      />
+
+      <p
+        style={{
+          position: "absolute",
+          top: 34,
+          left: "50%",
+          transform: "translateX(-50%)",
           fontFamily: "'Space Mono', monospace",
-          fontSize: "clamp(0.8rem, 1.5vw, 1.1rem)",
-          letterSpacing: "0.3em",
+          fontSize: "11px",
+          letterSpacing: "0.34em",
           textTransform: "uppercase",
-          color: "#ff4d00",
-          opacity: 0,
-          whiteSpace: "pre-line",
-          textAlign: "center",
-          userSelect: "none",
-          lineHeight: 1.6,
+          color: "rgba(255,77,0,.55)",
         }}
       >
-        {"100% vibe-coded\nusing AI"}
+        Eduardo Castro — System Boot
+      </p>
+
+      <div ref={textRef} style={{ opacity: 0, textAlign: "center" }}>
+        <p
+          style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "clamp(10px, 1.2vw, 12px)",
+            letterSpacing: "0.34em",
+            textTransform: "uppercase",
+            color: "rgba(255,77,0,.66)",
+            marginBottom: 22,
+          }}
+        >
+          {"> decrypting portfolio"}
+        </p>
+        <p
+          style={{
+            margin: 0,
+            fontFamily: "'Space Mono', monospace",
+            fontWeight: 700,
+            fontSize: "clamp(1.5rem, 5vw, 3.2rem)",
+            lineHeight: 1.18,
+            letterSpacing: "0.02em",
+            color: "#ff4d00",
+            userSelect: "none",
+          }}
+        >
+          100% VIBE-CODED
+          <br />
+          USING AI
+          <span
+            className="animate-blink"
+            style={{
+              display: "inline-block",
+              width: "0.5em",
+              height: "1.05em",
+              background: "#ff4d00",
+              verticalAlign: "-0.16em",
+              marginLeft: "0.14em",
+            }}
+          />
+        </p>
       </div>
 
       <div
-        ref={barRef}
         style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
+          position: "relative",
+          marginTop: "clamp(30px,5vh,50px)",
+          width: "min(300px, 60vw)",
           height: "2px",
-          background: "#ff4d00",
-          width: "0%",
+          background: "rgba(255,77,0,.2)",
+          overflow: "hidden",
         }}
-      />
+      >
+        <div
+          ref={barRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "#ff4d00",
+            width: "0%",
+          }}
+        />
+      </div>
 
       <div
         ref={wipeRef}
         style={{
           position: "absolute",
           inset: 0,
-          background: "#ff4d00",
+          background: "#0a0a0a",
           transform: "scaleX(0)",
           transformOrigin: "left",
         }}

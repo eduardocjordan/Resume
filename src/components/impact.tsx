@@ -1,9 +1,18 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { impactMetrics } from "@/lib/data";
+import { useCountUp } from "@/hooks/use-count-up";
+
+const ACCENT_RGB = [212, 98, 42];
+const PAPER_RGB = [249, 249, 247];
+
+function interpolateColor(from: number[], to: number[], progress: number) {
+  const [r, g, b] = from.map((c, i) => Math.round(c + (to[i] - c) * progress));
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
 // Group metrics into pages of 2 for mobile carousel
 const pages: (typeof impactMetrics)[] = [];
@@ -37,13 +46,22 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
 
 function StatNumber({ stat }: { stat: string }) {
   const { prefix, core, suffix } = splitStat(stat);
+  const decimals = core.includes(".") ? core.split(".")[1].length : 0;
+  const target = parseFloat(core);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const { value, progress } = useCountUp(target, inView, 1400, decimals);
+  const color = interpolateColor(ACCENT_RGB, PAPER_RGB, progress);
+
   return (
     <div
-      className="font-stat text-paper"
+      ref={ref}
+      className="font-stat"
       style={{ fontSize: "clamp(80px, 8vw, 110px)", lineHeight: 0.82 }}
     >
       {prefix && <span className="text-accent">{prefix}</span>}
-      {core}
+      <span style={{ color, transition: "color .2s linear" }}>{value}</span>
       {suffix && <span className="text-accent">{suffix}</span>}
     </div>
   );
@@ -65,6 +83,12 @@ export function Impact() {
       id="impact"
       aria-labelledby="impact-heading"
     >
+      <FadeIn direction="rule">
+        <div
+          className="absolute top-0 left-0 right-0 pointer-events-none"
+          style={{ height: "2px", background: "linear-gradient(90deg, #d4622a, rgba(212,98,42,0))" }}
+        />
+      </FadeIn>
       <div className="max-w-[1600px] w-full mx-auto px-8 md:px-24 pt-16 md:pt-24 pb-8 flex-shrink-0 relative z-10">
         <FadeIn direction="none">
           <p
@@ -152,7 +176,7 @@ export function Impact() {
       {/* Desktop grid */}
       <div className="hidden md:grid grid-cols-3 gap-x-10 gap-y-14 max-w-[1600px] w-full mx-auto px-24 flex-1 content-center pb-16 relative z-10">
         {impactMetrics.map((metric, i) => (
-          <FadeIn key={i} delay={i * 0.07}>
+          <FadeIn key={i} delay={i * 0.08}>
             <motion.div
               initial={{ borderLeftColor: "rgba(212,98,42,0.4)" }}
               whileHover={{ borderLeftColor: "#d4622a" }}
