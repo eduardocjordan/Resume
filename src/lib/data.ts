@@ -62,6 +62,18 @@ export const projects: Project[] = [
   },
 ];
 
+export type DoritosEvidence = { image: string; alt: string; caption: string; tag: string };
+
+// TODO(Eddie): extend with the rest of the Doritos Rainbow evidence photos once supplied.
+export const doritosEvidence: DoritosEvidence[] = [
+  {
+    image: "/assets/doritos/20160812_102324-1.jpeg",
+    alt: "Doritos Rainbow bag with handwritten note from PepsiCo's President",
+    caption: "Evidence · 2016",
+    tag: "President's note",
+  },
+];
+
 export type ImpactMetric = {
   company: string;
   stat: string;
@@ -204,24 +216,29 @@ export const brands: Brand[] = [
   { name: "CBC",            logo: "/assets/CBC-logo.png" },
 ];
 
-export type Story = { title: string; body: string };
+export type Story = { title: string; body: string; aphorism: string };
 
+// TODO(Eddie): replace each aphorism placeholder with the real one-line aphorism for that story.
 export const stories: Story[] = [
   {
     title: "The brief nobody asked for",
     body: "At PepsiCo®, I noticed limited-edition launches underperformed because of sequencing. I mapped data from 6 launches and proposed a trade activation adjustment that became standard practice. Nobody asked for it. That's when the useful ones happen.",
+    aphorism: "TODO(Eddie): aphorism for \"The brief nobody asked for\"",
   },
   {
     title: "The regulatory detour",
     body: "Neutrogena®'s Sun Care had been sitting at the border for 4 years. I diagnosed that SPF 55+ is a drug in Mexico, requiring COFEPRIS pathways. I coordinated regional production in Brazil and launched the category in 2 years. Strategy without diagnosis is just confidence.",
+    aphorism: "TODO(Eddie): aphorism for \"The regulatory detour\"",
   },
   {
     title: "The 165 ideas",
     body: "At Grupo Mariposa, I built the system to decide what was worth building. Filtered 165 ideas through rigorous validation: concept testing, sensory panels, and pricing ladders. Only one made it to market. That's how you avoid launching products nobody wants.",
+    aphorism: "TODO(Eddie): aphorism for \"The 165 ideas\"",
   },
   {
     title: "The packaging line crossover",
     body: "My move to marketing was engineered. As PMO, I was running automation on packaging lines. Innovation team saw how I handled ambiguity and meetings. Technical credentials got me in the room; performance in the room got me the role.",
+    aphorism: "TODO(Eddie): aphorism for \"The packaging line crossover\"",
   },
 ];
 

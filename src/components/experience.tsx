@@ -165,7 +165,7 @@ export function Experience() {
         <FadeIn>
           <div className="mb-6 md:mb-16">
             <p className="font-label text-[11px] tracking-[0.3em] uppercase text-accent mb-4">
-              06 / Career
+              04 / Career
             </p>
             <h2
               id="experience-heading"

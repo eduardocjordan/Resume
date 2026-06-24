@@ -54,7 +54,7 @@ export function Credentials() {
       <div className="max-w-[1200px] w-full mx-auto px-8 md:px-24 pt-12 pb-8 flex-shrink-0">
         <FadeIn direction="none">
           <p className="font-label text-[11px] uppercase tracking-[0.3em] text-accent mb-4">
-            09 / Credentials
+            06 / Credentials
           </p>
         </FadeIn>
         <FadeIn delay={0.08}>
