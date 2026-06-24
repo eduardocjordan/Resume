@@ -54,7 +54,13 @@ export function OrientationLayer() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.4 }}
           className="fixed inset-0 overflow-hidden cursor-pointer font-mono"
-          style={{ zIndex: 9000, background: "#0a0a0a", color: "#f1efe9" }}
+          style={{
+            zIndex: 9000,
+            background: "rgba(10,10,10,.82)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            color: "#f1efe9",
+          }}
         >
           {/* Grain texture — matches the loader's near-black/orange treatment for continuity */}
           <div
