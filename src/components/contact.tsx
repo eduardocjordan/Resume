@@ -2,37 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
-import { contact } from "@/lib/data";
-
-const contactLinks = [
-  {
-    icon: "mail",
-    label: "Direct",
-    value: contact.emailDirect,
-    href: `mailto:${contact.emailDirect}?subject=Let%27s%20talk`,
-    external: false,
-    gtmEvent: "email_click",
-    gtmLocation: "contact",
-  },
-  {
-    icon: "mail_outline",
-    label: "Consulting & Speaking",
-    value: contact.emailConsulting,
-    href: `mailto:${contact.emailConsulting}?subject=Keynote%20%26%20Speaking`,
-    external: false,
-    gtmEvent: "email_click",
-    gtmLocation: "contact",
-  },
-  {
-    icon: "group",
-    label: "LinkedIn Profile",
-    value: contact.linkedin,
-    href: contact.linkedinUrl,
-    external: true,
-    gtmEvent: "linkedin_click",
-    gtmLocation: "contact",
-  },
-];
+import { contact, contactCopy } from "@/lib/data";
 
 export function Contact() {
   return (
@@ -44,20 +14,20 @@ export function Contact() {
             <div className="text-left">
               <h2
                 id="contact-heading"
-                className="font-display mb-8 leading-[0.85]"
-                style={{ fontSize: "clamp(5rem, 12vw, 12rem)", color: "#f9f9f7" }}
+                className="font-display mb-8 leading-[0.85] text-paper"
+                style={{ fontSize: "clamp(5rem, 12vw, 12rem)" }}
               >
-                Let&rsquo;s
+                {contactCopy.headingLine1}
                 <br />
-                <span className="italic text-accent">Connect.</span>
+                <span className="italic text-accent">{contactCopy.headingAccent}</span>
               </h2>
               <p
-                className="font-body font-light mb-12 max-w-[420px]"
-                style={{ fontSize: "20px", lineHeight: 1.6, color: "rgba(241,239,233,0.65)" }}
+                className="font-body font-light mb-12 max-w-[420px] text-paper/65"
+                style={{ fontSize: "20px", lineHeight: 1.6 }}
               >
-                If you&rsquo;re building a brand that needs to move both culture and market share,
+                {contactCopy.pitchLines[0]}
                 <br />
-                I&rsquo;d like to hear about it.
+                {contactCopy.pitchLines[1]}
               </p>
             </div>
           </FadeIn>
@@ -66,7 +36,7 @@ export function Contact() {
           <FadeIn delay={0.12}>
             {/* Mobile: plain text */}
             <div className="md:hidden text-center">
-              <p className="text-sm leading-loose" style={{ color: "rgba(241,239,233,0.8)" }}>
+              <p className="text-sm leading-loose text-paper/80">
                 <a
                   href={contact.linkedinUrl}
                   target="_blank"
@@ -87,7 +57,7 @@ export function Contact() {
 
             {/* Desktop: card CTAs */}
             <div className="hidden md:block space-y-4">
-              {contactLinks.map((link) => (
+              {contactCopy.links.map((link) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
@@ -95,12 +65,12 @@ export function Contact() {
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   data-gtm-event={link.gtmEvent}
-                  data-gtm-location={link.gtmLocation}
+                  data-gtm-location="contact"
                   onClick={() => {
                     (window as any).dataLayer = (window as any).dataLayer || [];
-                    (window as any).dataLayer.push({ event: link.gtmEvent, click_location: link.gtmLocation });
+                    (window as any).dataLayer.push({ event: link.gtmEvent, click_location: "contact" });
                   }}
-                  className="flex items-center gap-6"
+                  className="flex items-center gap-6 bg-paper/5"
                   initial={{ borderLeftColor: "rgba(212,98,42,0.4)" }}
                   whileHover={{
                     y: -4,
@@ -109,22 +79,21 @@ export function Contact() {
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   style={{
-                    backgroundColor: "rgba(241,239,233,0.05)",
                     borderLeft: "4px solid rgba(212,98,42,0.4)",
                     padding: "28px 32px",
                   }}
                 >
-                  <span className="material-symbols-outlined text-3xl" style={{ color: "rgba(241,239,233,0.45)" }}>
+                  <span className="material-symbols-outlined text-3xl text-paper/45">
                     {link.icon}
                   </span>
                   <div className="text-left">
                     <p
-                      className="font-label text-xs uppercase"
-                      style={{ letterSpacing: "0.3em", color: "rgba(241,239,233,0.55)" }}
+                      className="font-label text-xs uppercase text-paper/55"
+                      style={{ letterSpacing: "0.3em" }}
                     >
                       {link.label}
                     </p>
-                    <p className="font-display italic" style={{ fontSize: "22px", color: "#f9f9f7" }}>
+                    <p className="font-display italic text-paper" style={{ fontSize: "22px" }}>
                       {link.value}
                     </p>
                   </div>

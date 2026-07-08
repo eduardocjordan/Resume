@@ -22,7 +22,9 @@
   }
   body {
     @apply antialiased bg-paper text-ink;
-    font-family: var(--font-plus-jakarta), sans-serif;
+    /* Loaded via the Google Fonts <link> in layout.tsx — there is no next/font
+       variable, so the family name must be referenced directly. */
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   h1, h2, h3, h4 {
     font-family: 'Cormorant Garamond', serif;

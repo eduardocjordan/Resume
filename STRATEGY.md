@@ -9,7 +9,7 @@
 > - `INFERRED:` — a reasonable read of the pattern, not stated anywhere as a rule.
 > - `OPEN QUESTION:` — genuinely undocumented; don't guess, ask Eddie.
 >
-> Last verified against commit `dcbf85c` on branch `claude/documentation-strategy-audit-aqg2k7`, 2026-06-19.
+> Last verified against the working tree on branch `claude/landing-page-blindspots-3jn5my`, 2026-07-08 (blindspot pass + interview with Eddie; see the 2026-07-08 addendum at the end).
 
 -----
 
@@ -19,15 +19,15 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 ### 1.1 Section order
 
-`FACT:` `src/app/page.tsx` renders, in order: `Loader → CookieBanner → ProgressBar → NavBar → Hero → DefiningWork → Impact → Experience → BrandsGrid → HowIWork → Credentials → Contact → Footer → ChatWidget`.
+`FACT:` (verified 2026-07-08) `src/app/page.tsx` renders, in order: `Loader → OrientationLayer → ProgressBar → NavBar → FixedChapterEyebrow → Hero → DoritosRainbow → DefiningWork → HowIWork → Experience → BrandsGrid → Impact → Credentials → Contact → Footer → ChatWidget`. The CookieBanner was removed 2026-07-08 (per Eddie — replaced by a plain-language privacy note in the footer; see addendum).
 
-`FACT:` (per Eddie, 2026-06-19) the order is a deliberate narrative arc — identity/credibility (Hero) → proof via concrete wins (DefiningWork) → quantified breadth (Impact) → chronological credibility (Experience) → brand-name recognition (BrandsGrid) → process/philosophy (HowIWork) → formal credentials (Credentials) → the ask (Contact) — confirmed as intended design logic, not just a structural read.
+`FACT:` (per Eddie, 2026-06-19) the *original* order was a deliberate narrative arc — identity/credibility (Hero) → proof via concrete wins (DefiningWork) → quantified breadth (Impact) → Experience → BrandsGrid → HowIWork → Credentials → Contact. `OPEN QUESTION:` the subsequent reorder (DoritosRainbow inserted as a dedicated flagship section, HowIWork moved ahead of Experience, Impact moved after BrandsGrid) happened without a recorded rationale — the current order is fact, its narrative logic is not confirmed the way the original arc was.
 
 ### 1.2 Hero composition
 
 `FACT:` (`src/components/hero.tsx`) photo + role/location badge + name + 3 taglines + a stats overlay (13+ years / 12+ brands / 200M organic impressions) + 3 CTAs (Download Resume, LinkedIn, Get in touch).
 
-`FACT:` all three hero CTAs carry real instrumentation — `data-gtm-event="resume_download"`, `="social_click"`, and `="contact_cta_click"`, each pushing to `window.dataLayer` on click (`hero.tsx`). The third CTA's missing event was confirmed an oversight, not a deliberate choice (per Eddie, 2026-06-19) — fixed as part of this audit.
+`FACT:` (verified 2026-07-08) the hero's three CTAs are now: Download Resume (`data-gtm-event="resume_download"`), **"Talk to My Second Brain"** (`data-gtm-event="chat_open"`, dispatches `chat:open` to the widget), and LinkedIn (`data-gtm-event="social_click"`). The former third CTA "Get in touch" / `contact_cta_click` no longer exists — that event name is retired and should not appear in dashboards for new traffic.
 
 `FACT:` (per Eddie, 2026-06-19) leading with photo + location + positioning statement (rather than, say, a project first) is a deliberate choice to optimize for a recruiter/hiring-manager skim pattern.
 
@@ -49,11 +49,11 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 `FACT:` (`src/components/chat-widget.tsx`) fixed bottom-right floating button (`chat-widget.tsx:106-121`) that opens a fixed-position panel — not a modal, not a full-screen takeover; the rest of the page stays usable.
 
-`FACT:` the widget is hidden entirely (`return null`, `chat-widget.tsx:57`) until either a `site:loader-complete` event fires or an 8-second fallback timer elapses (`chat-widget.tsx:34-42`, `REVEAL_FALLBACK_MS = 8000`) — the chat is deliberately secondary to the initial page-load/loader sequence, never competing with first paint.
+`FACT:` (verified 2026-07-08) the widget is hidden entirely (`return null`) until either a `site:loader-complete` event fires or a fallback timer elapses — `REVEAL_FALLBACK_MS` is now **2000ms**, not the 8000ms this document previously recorded. The chat remains secondary to first paint, but the gap is much shorter.
 
 `FACT:` a disclaimer is shown before any message, verbatim: *"This is an early-stage assistant I'm testing to help screen initial conversations — it only knows what's in my public bio, resume, and project write-ups. For anything else, reach out to me directly."* (`chat-widget.tsx:9-10`).
 
-`FACT:` (per Eddie, 2026-06-19) this placement was not a deliberate positioning decision — its consistency with Pillar 3's pre-screening-filter framing (3.2) is coincidental, not authored intent. Eddie has flagged wanting to explore giving the widget more prominence in the future. Treat current placement as a default, not a confirmed strategy — a future change here would fulfill a known direction, not reverse a deliberate one.
+`FACT:` (per Eddie, 2026-06-19) the original placement was not a deliberate positioning decision. The "more prominence" direction Eddie flagged then has since been executed: the `OrientationLayer` prologue overlay now points visitors at the chat icon ("ask it anything") before they reach the hero, and the hero's second CTA opens the chat directly. `FACT:` (per Eddie, 2026-07-08) the AI-forward entry sequence (loader + prologue) is explicitly an **experiment, not a settled commitment** — it is instrumented with `prologue_shown` / `prologue_dismissed` (with `seconds_visible`) GTM events so its bounce cost can be measured before deciding to keep, soften, or cut it. Don't treat the prologue as permanent architecture until that data has been read.
 
 ### 1.6 Open questions for this pillar
 
@@ -110,13 +110,15 @@ Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1
 
 **This is a standing structural risk, not a bug per se: a content edit in one place does not propagate to the other.** It is the anchor of the cross-pillar checklist below.
 
+`FACT:` (per Eddie, 2026-07-08) **all visitor-facing copy lives in `data.ts`, not in components.** A third de-facto pipeline had grown — section copy hardcoded inside `doritos-rainbow.tsx`, `orientation-layer.tsx`, `loader.tsx`, `how-i-work.tsx`, `impact.tsx`, `contact.tsx`, `footer.tsx` — and was consolidated back into `data.ts` (`loaderCopy`, `orientationCopy`, `doritosRainbowCopy`, `howIWorkCopy`, `impactCopy`, `contactCopy`, `footerCopy`). This is now a standing rule: new sections put their strings in `data.ts` from the start.
+
 -----
 
 ## Pillar 3 — Performance Expectations (site signals + chatbot behavior/limits)
 
 ### 3.1 Site-level success signals
 
-`FACT:` the actual, tracked definition of "the site is converting" is the GTM events on hero CTAs — `resume_download`, `social_click`, and `contact_cta_click` (`hero.tsx`), plus `chat_open`, `chat_close`, `chat_message_sent`, and `chat_capped` from the widget (`chat-widget.tsx`). These are real, measured signals.
+`FACT:` (verified 2026-07-08) the actual, tracked definition of "the site is converting" is the GTM event set: `resume_download` (hero + nav + mobile nav), `social_click` (hero), `chat_open` / `chat_close` / `chat_message_sent` / `chat_capped` (widget + hero CTA), `email_click` / `linkedin_click` (contact section), `scroll_depth` (nav), and — new with the prologue experiment — `prologue_shown` / `prologue_dismissed` (with `seconds_visible`). `contact_cta_click` is retired (see 1.2).
 
 **Distinguish this clearly from the hero's stated stats** ("13+ years," "12+ brands," "200M organic impressions," `data.ts:11-15`) — those are hardcoded copy, not live or computed metrics. Treating them as if they were dashboard-driven would be a conflation: they require manual updates and currently have no mechanism keeping them current (e.g., "13+ years" will go stale silently).
 
@@ -194,6 +196,9 @@ A pre-flight checklist, not narrative — run the relevant line before shipping 
 - **Changing what `insights.ts`'s `SUMMARY_TOOL` extracts** → does the new field still capture only explicitly volunteered information, or does it invite inference/profiling? Check against the literal guardrail text (3.6).
 - **Repositioning or restyling the chat widget** (e.g., making it more prominent, giving it its own section) → current placement (1.5) is a default, not a deliberate decision, and Eddie has already flagged wanting to explore more prominence; treat an increase in prominence as executing a known direction, not reversing settled intent. Still treat it as a positioning decision, not a styling one, and update the disclaimer copy (3.2) if the bot's role is changing too.
 - **Adding a new interactive element (CTA, button, link)** → does it have a `data-gtm-event`, or is the absence of tracking a deliberate, documented choice? Per Eddie (2026-06-19): tracking status should always be intentional, never incidental (1.2, 3.1).
+- **Adding visitor-facing copy** → it lives in `src/lib/data.ts`, never hardcoded in a component (2.6, per Eddie 2026-07-08) — and if it makes a factual claim, check the matching `data/knowledge/*.md` file.
+- **Adding a photo or image asset** → compress to web size first: longest side ≤ 1600px, ≤ ~400KB, metadata stripped (per Eddie 2026-07-08; the optimizer is disabled via `images.unoptimized`, so files ship exactly as committed).
+- **Touching the loader or orientation prologue** → it's an instrumented experiment, not settled design (1.5); keep `prologue_shown` / `prologue_dismissed` intact so the data stays comparable.
 
 -----
 
@@ -202,3 +207,17 @@ A pre-flight checklist, not narrative — run the relevant line before shipping 
 All six items previously listed here were resolved directly with Eddie on 2026-06-19. See `FACT: (per Eddie, 2026-06-19)` entries in §1.1, §1.2, §1.3, §1.5, §1.6, §2.2, §2.5, and §3.1 above for the resolutions, and the Cross-Pillar Decision Framework for the resulting standing rules. `.claude/CLAUDE.md` was also rewritten for this repo specifically as part of this same pass — it's no longer a reused general workspace file; its §1/§2/§5/§7/§8 now describe this Next.js codebase directly, while §3/§4/§6 (epistemic standards, thinking standards, communication style) were kept unchanged since they generalize fine.
 
 No open questions remain from the original audit. New ones, if any arise from future changes, should follow the same `FACT:`/`INFERRED:`/`OPEN QUESTION:` discipline established above.
+
+-----
+
+## Addendum — 2026-07-08 blindspot pass (decisions per Eddie)
+
+A blindspot review found the site had drifted from this document after 2026-06-19. Eddie was interviewed on the ambiguities; his decisions, all implemented the same day:
+
+1. **Images** — evidence photos are compressed in the repo (≤1600px, ~200–400KB, EXIF stripped); `images.unoptimized: true` stays and is now harmless. Standing rule added to the checklist.
+2. **AI-forward entry sequence** (loader + prologue) — an experiment, kept but instrumented (`prologue_shown` / `prologue_dismissed` with `seconds_visible`) so its bounce cost is measurable before a keep/soften/cut decision.
+3. **Copy home** — all visitor-facing copy consolidated into `data.ts`; standing rule (see 2.6).
+4. **Bot self-knowledge** — `data/knowledge/faq.md` now covers what the chatbot is, the "second brain" framing, and how the site was built, so the bot can answer what the prologue invites visitors to ask.
+5. **Cookie banner removed** — replaced by a truthful privacy note in the footer (`footerCopy.privacyNote`) covering analytics and chat lead capture. The old banner auto-recorded consent without interaction and claimed "no personal data is saved," which contradicted the chat pipeline (3.6).
+
+Bug fixes in the same pass, no decision needed: resume-download 404 (`public/download` → `public/downloads`, duplicate PDF in `/assets` removed); brands-marquee `touchAction: none` blocked vertical scrolling on mobile (now `pan-y`); undefined `--font-plus-jakarta` variable meant body text fell back to generic sans-serif (now references `'Plus Jakarta Sans'` directly); dark-mode hardcoded colors tokenized (hero portrait wash, hero CTA borders, Experience timeline dots, Impact stat/label colors — Impact's count-up end color now reads the `--paper` token at runtime); reduced-motion respected by the marquee, gallery autoplay, and chat ping (count-ups already were); orientation overlay got `role="dialog"`, focus on its Enter button, and an explicit button handler; a real 1200×630 OG image (`/assets/og-image.jpg`) replaced the portrait that was mis-declared as landscape; dead fields `hero.email` / `contact.cvUrl` removed.

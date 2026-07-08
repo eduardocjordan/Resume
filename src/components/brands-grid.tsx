@@ -60,12 +60,15 @@ function MarqueeRow({
     const inner = innerRef.current;
     if (!inner) return;
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const start = () => {
       // With mr-4/md:mr-6 (margin-right, no CSS gap), each card's footprint is
       // exactly W + G, so offsetWidth = N*(W+G) and half = N/2*(W+G).
       // translateX(-half) lands precisely on card N/2+1 — seamless loop.
       s.current.half = inner.offsetWidth / 2;
       if (direction === "right") s.current.pos = -s.current.half;
+      if (reducedMotion) return; // rows stay static but remain draggable
 
       const tick = () => {
         if (!s.current.dragging) {
@@ -106,7 +109,7 @@ function MarqueeRow({
     <div
       ref={wrapRef}
       className="overflow-hidden cursor-grab active:cursor-grabbing"
-      style={{ touchAction: "none" }}
+      style={{ touchAction: "pan-y" }} // horizontal drags belong to the marquee; vertical swipes must still scroll the page
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={stopDrag}

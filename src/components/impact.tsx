@@ -1,13 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FadeIn } from "./fade-in";
-import { impactMetrics } from "@/lib/data";
+import { impactMetrics, impactCopy } from "@/lib/data";
 import { useCountUp } from "@/hooks/use-count-up";
 
 const ACCENT_RGB = [212, 98, 42];
-const PAPER_RGB = [249, 249, 247];
+
+// The count-up settles on the paper token, which inverts in dark mode —
+// read it from the CSS variable instead of hardcoding the light value.
+function getPaperRgb(): number[] {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue("--paper").trim();
+  const parts = raw.split(/\s+/).map(Number);
+  return parts.length === 3 && parts.every((n) => !Number.isNaN(n)) ? parts : [249, 249, 247];
+}
 
 function interpolateColor(from: number[], to: number[], progress: number) {
   const [r, g, b] = from.map((c, i) => Math.round(c + (to[i] - c) * progress));
@@ -36,8 +43,9 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
       {Array.from({ length: count }).map((_, i) => (
         <span
           key={i}
-          className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#C25028" : "rgba(245,240,232,0.25)" }}
+          className={`block w-2 h-2 rounded-full transition-colors duration-300 ${
+            i === active ? "bg-accent" : "bg-paper/25"
+          }`}
         />
       ))}
     </div>
@@ -52,7 +60,9 @@ function StatNumber({ stat }: { stat: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
   const { value, progress } = useCountUp(target, inView, 1400, decimals);
-  const color = interpolateColor(ACCENT_RGB, PAPER_RGB, progress);
+  const [paperRgb, setPaperRgb] = useState(ACCENT_RGB);
+  useEffect(() => setPaperRgb(getPaperRgb()), []);
+  const color = interpolateColor(ACCENT_RGB, paperRgb, progress);
 
   return (
     <div
@@ -95,7 +105,7 @@ export function Impact() {
             className="font-label uppercase text-accent mb-4"
             style={{ fontSize: "11px", letterSpacing: "0.3em" }}
           >
-            05 / Impact
+            {impactCopy.eyebrow}
           </p>
         </FadeIn>
         <FadeIn>
@@ -106,17 +116,16 @@ export function Impact() {
                 className="font-display text-paper"
                 style={{ fontSize: "clamp(3rem, 6vw, 6rem)", lineHeight: 1 }}
               >
-                Results that <br />
-                <span className="italic text-accent">hold up.</span>
+                {impactCopy.headingLine1} <br />
+                <span className="italic text-accent">{impactCopy.headingAccent}</span>
               </h2>
             </div>
             <div className="hidden md:block md:w-1/2">
               <p
-                className="font-body font-light max-w-[480px]"
-                style={{ fontSize: "20px", color: "rgba(241,239,233,0.65)" }}
+                className="font-body font-light max-w-[480px] text-paper/65"
+                style={{ fontSize: "20px" }}
               >
-                Numbers from real engagements, not projections. Each one traces back to a
-                strategic decision, a team, and a market.
+                {impactCopy.intro}
               </p>
             </div>
           </div>
@@ -144,11 +153,10 @@ export function Impact() {
                 }}
               >
                 <p
-                  className="font-label uppercase"
+                  className="font-label uppercase text-paper/55"
                   style={{
                     fontSize: "10px",
                     letterSpacing: "0.26em",
-                    color: "rgba(241,239,233,0.55)",
                     marginBottom: "8px",
                   }}
                 >
@@ -156,11 +164,10 @@ export function Impact() {
                 </p>
                 <StatNumber stat={metric.stat} />
                 <p
-                  className="font-body font-semibold uppercase"
+                  className="font-body font-semibold uppercase text-paper/65"
                   style={{
                     fontSize: "13px",
                     letterSpacing: "0.06em",
-                    color: "rgba(241,239,233,0.65)",
                     marginTop: "10px",
                   }}
                 >
@@ -189,11 +196,10 @@ export function Impact() {
               }}
             >
               <p
-                className="font-label uppercase"
+                className="font-label uppercase text-paper/55"
                 style={{
                   fontSize: "10px",
                   letterSpacing: "0.26em",
-                  color: "rgba(241,239,233,0.55)",
                   marginBottom: "8px",
                 }}
               >
@@ -201,11 +207,10 @@ export function Impact() {
               </p>
               <StatNumber stat={metric.stat} />
               <p
-                className="font-body font-semibold uppercase"
+                className="font-body font-semibold uppercase text-paper/65"
                 style={{
                   fontSize: "13px",
                   letterSpacing: "0.06em",
-                  color: "rgba(241,239,233,0.65)",
                   marginTop: "10px",
                 }}
               >

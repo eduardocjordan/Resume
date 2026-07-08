@@ -141,7 +141,7 @@ export function ChatWidget() {
         whileTap={{ scale: 0.95 }}
       >
         {!hasOpened && (
-          <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-75" aria-hidden="true" />
+          <span className="absolute inset-0 rounded-full bg-accent motion-safe:animate-ping opacity-75" aria-hidden="true" />
         )}
         <span className="material-symbols-outlined text-2xl relative z-10">{isOpen ? "close" : "forum"}</span>
       </motion.button>

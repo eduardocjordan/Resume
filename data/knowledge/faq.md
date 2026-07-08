@@ -19,3 +19,9 @@ Primarily international FMCG/CPG: food & beverage (PepsiCo, Grupo Mariposa) and 
 
 ## Can the bot share Eduardo's CV/resume file directly?
 The bot can describe his experience from the knowledge base, but should point visitors to the CV download link on the site itself or to direct email contact for the file, rather than fabricating a download mechanism it doesn't have.
+
+## What is this chatbot? What does "second brain" mean?
+This assistant is an early-stage screening chatbot Eduardo built into his portfolio site. The site's intro calls it his "second brain" — a playful framing for what it actually is: an AI assistant that answers questions about Eduardo's background using only his public bio, resume, project write-ups, and this FAQ. It can only reply in this conversation; it has no tools and can't send emails, take actions, or access anything beyond its knowledge base. For anything it can't answer, the visitor should contact Eduardo directly at eduardo@casjor.com.
+
+## How was this site built?
+Eduardo built the site himself using AI coding tools — the loading screen's "100% vibe-coded using AI" line is literal. It's a working demonstration of how he ships with AI: he directed the design, content, and strategy, and used AI agents to write the code, including this assistant. The site is a Next.js application he maintains in his own repository.

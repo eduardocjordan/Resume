@@ -1,30 +1,53 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn } from "@/components/fade-in";
+import { orientationCopy } from "@/lib/data";
 
 export const ORIENTATION_DISMISS_KEY = "orientation_dismissed";
 const DISMISS_KEY = ORIENTATION_DISMISS_KEY;
 
+function pushGtmEvent(event: string, extra?: Record<string, unknown>) {
+  (window as any).dataLayer = (window as any).dataLayer || [];
+  (window as any).dataLayer.push({ event, ...extra });
+}
+
 export function OrientationLayer() {
   const [visible, setVisible] = useState(false);
+  const shownAtRef = useRef<number | null>(null);
+  const enterRef = useRef<HTMLButtonElement>(null);
+  const dismissedRef = useRef(false);
+
+  const dismiss = useCallback(() => {
+    // Guards double-fire: a click on "Enter Site" also bubbles to the section's onClick.
+    if (dismissedRef.current) return;
+    dismissedRef.current = true;
+    setVisible(false);
+    sessionStorage.setItem(DISMISS_KEY, "true");
+    if (shownAtRef.current !== null) {
+      pushGtmEvent("prologue_dismissed", {
+        seconds_visible: Math.round((performance.now() - shownAtRef.current) / 100) / 10,
+      });
+    }
+    window.dispatchEvent(new Event("site:orientation-dismissed"));
+  }, []);
 
   useEffect(() => {
     if (sessionStorage.getItem(DISMISS_KEY)) return;
 
-    const show = () => setVisible(true);
+    const show = () => {
+      shownAtRef.current = performance.now();
+      pushGtmEvent("prologue_shown");
+      setVisible(true);
+    };
     window.addEventListener("site:loader-complete", show);
     return () => window.removeEventListener("site:loader-complete", show);
   }, []);
 
   useEffect(() => {
     if (!visible) return;
-    const dismiss = () => {
-      setVisible(false);
-      sessionStorage.setItem(DISMISS_KEY, "true");
-      window.dispatchEvent(new Event("site:orientation-dismissed"));
-    };
+    enterRef.current?.focus();
     const dismissOnKey = (e: KeyboardEvent) => {
       if (["ArrowDown", "PageDown", "End", " ", "Enter", "Escape"].includes(e.key)) dismiss();
     };
@@ -38,19 +61,17 @@ export function OrientationLayer() {
       window.removeEventListener("touchmove", dismiss);
       window.removeEventListener("keydown", dismissOnKey);
     };
-  }, [visible]);
-
-  const dismiss = () => {
-    setVisible(false);
-    sessionStorage.setItem(DISMISS_KEY, "true");
-    window.dispatchEvent(new Event("site:orientation-dismissed"));
-  };
+  }, [visible, dismiss]);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.section
           onClick={dismiss}
+          data-gtm-event="prologue_dismissed"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Introduction"
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.4 }}
           className="fixed inset-0 overflow-hidden cursor-pointer font-mono"
@@ -87,7 +108,8 @@ export function OrientationLayer() {
               color: "rgba(241,239,233,.42)",
             }}
           >
-            Prologue — 00<span className="hidden sm:inline"> / Eduardo Castro</span>
+            {orientationCopy.kicker}
+            <span className="hidden sm:inline">{orientationCopy.kickerSuffix}</span>
           </p>
 
           {/* Centered content */}
@@ -105,21 +127,18 @@ export function OrientationLayer() {
                 className="uppercase text-[11px]"
                 style={{ letterSpacing: "0.34em", color: "#ff4d00", marginBottom: 26 }}
               >
-                Before we begin
+                {orientationCopy.eyebrow}
               </p>
               <p
                 className="text-[30px] md:text-[clamp(1.7rem,3.5vw,3.15rem)]"
                 style={{ fontWeight: 700, lineHeight: 1.16, color: "#f4f2ec" }}
-              >
-                I built this with AI.
-                <br />
-                Then I built <span style={{ color: "#ff4d00" }}>a brain</span> inside it.
-              </p>
+                dangerouslySetInnerHTML={{ __html: orientationCopy.headlineHtml }}
+              />
               <p
                 className="text-[12.5px] md:text-[clamp(0.82rem,1.05vw,0.96rem)] mt-[22px] md:mt-[30px]"
                 style={{ lineHeight: 1.85, color: "rgba(241,239,233,.62)", maxWidth: 540 }}
               >
-                That icon in the corner — it knows my work, my background, what I&apos;ve shipped. Ask it anything.
+                {orientationCopy.body}
               </p>
             </FadeIn>
           </div>
@@ -136,15 +155,15 @@ export function OrientationLayer() {
               className="uppercase text-[11px]"
               style={{ letterSpacing: "0.22em", color: "rgba(241,239,233,.5)", lineHeight: 1.7 }}
             >
-              that icon,
+              {orientationCopy.pointerLines[0]}
               <br />
-              bottom-right
+              {orientationCopy.pointerLines[1]}
             </p>
             <p
               className="uppercase text-[11px] animate-dash-glow"
               style={{ letterSpacing: "0.22em", color: "#ffffff", marginTop: 8, fontWeight: 700 }}
             >
-              ask it anything ↘
+              {orientationCopy.pointerCta}
             </p>
             <svg
               width="170"
@@ -181,7 +200,7 @@ export function OrientationLayer() {
             className="md:hidden absolute uppercase text-[11px] pointer-events-none animate-dash-glow"
             style={{ right: 84, bottom: 128, color: "#ffffff", letterSpacing: "0.2em", fontWeight: 700 }}
           >
-            ask it ↘
+            {orientationCopy.pointerCtaMobile}
           </motion.p>
           <div
             className="md:hidden absolute pointer-events-none"
@@ -196,7 +215,9 @@ export function OrientationLayer() {
           />
 
           <button
+            ref={enterRef}
             type="button"
+            onClick={dismiss}
             className="absolute flex items-center gap-3 uppercase text-[11px] md:text-[12px]"
             style={{
               left: "clamp(28px, 6vw, 96px)",
@@ -208,7 +229,7 @@ export function OrientationLayer() {
             }}
           >
             <span className="inline-block animate-bob leading-none">↓</span>
-            <span>Enter Site</span>
+            <span>{orientationCopy.enterCta}</span>
             <span style={{ width: 54, height: 1, background: "rgba(241,239,233,.3)" }} />
           </button>
         </motion.section>

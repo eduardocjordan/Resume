@@ -1,6 +1,5 @@
 import { Loader } from "@/components/loader";
 import { OrientationLayer } from "@/components/orientation-layer";
-import { CookieBanner } from "@/components/cookie-banner";
 import { NavBar } from "@/components/nav-bar";
 import { ProgressBar } from "@/components/progress-bar";
 import { FixedChapterEyebrow } from "@/components/fixed-chapter-eyebrow";
@@ -21,7 +20,6 @@ export default function Home() {
     <>
       <Loader />
       <OrientationLayer />
-      <CookieBanner />
       <ProgressBar />
       <NavBar />
       <FixedChapterEyebrow />

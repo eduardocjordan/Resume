@@ -1,3 +1,5 @@
+import { contact, footerCopy } from "@/lib/data";
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -6,7 +8,7 @@ export function Footer() {
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-[1600px] mx-auto">
         <div className="flex gap-8 md:gap-12 font-label text-[10px] tracking-center uppercase flex-wrap justify-center">
           <a
-            href="https://www.linkedin.com/in/eduardocaj"
+            href={contact.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accent transition-colors"
@@ -14,10 +16,10 @@ export function Footer() {
             LinkedIn
           </a>
           <a
-            href="mailto:eduardo@casjor.com?subject=Let%27s%20connect"
+            href={`mailto:${contact.emailDirect}?subject=Let%27s%20connect`}
             className="hover:text-accent transition-colors"
           >
-            eduardo@casjor.com
+            {contact.emailDirect}
           </a>
         </div>
         <p className="font-headline text-xl tracking-widest text-paper/90">
@@ -25,7 +27,10 @@ export function Footer() {
         </p>
       </div>
       <p className="text-[10px] text-paper/20 text-center max-w-2xl mx-auto mt-6">
-        All trademarks, brand names, and logos referenced on this site are the property of their respective owners. Eduardo Castro&rsquo;s association with these brands was in a professional capacity.
+        {footerCopy.trademarkNote}
+      </p>
+      <p className="text-[10px] text-paper/20 text-center max-w-2xl mx-auto mt-2">
+        {footerCopy.privacyNote}
       </p>
     </footer>
   );

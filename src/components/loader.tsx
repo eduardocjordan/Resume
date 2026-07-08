@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { loaderCopy } from "@/lib/data";
 
 export function Loader() {
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ export function Loader() {
           color: "rgba(255,77,0,.55)",
         }}
       >
-        Eduardo Castro — System Boot
+        {loaderCopy.kicker}
       </p>
 
       <div ref={textRef} style={{ opacity: 0, textAlign: "center" }}>
@@ -100,7 +101,7 @@ export function Loader() {
             marginBottom: 22,
           }}
         >
-          {"> decrypting portfolio"}
+          {loaderCopy.status}
         </p>
         <p
           style={{
@@ -114,9 +115,9 @@ export function Loader() {
             userSelect: "none",
           }}
         >
-          100% VIBE-CODED
+          {loaderCopy.headlineLines[0]}
           <br />
-          USING AI
+          {loaderCopy.headlineLines[1]}
           <span
             className="animate-blink"
             style={{

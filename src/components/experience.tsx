@@ -62,14 +62,14 @@ function TimelineEntry({
             style={{
               width: "10px",
               height: "10px",
-              border: "3px solid #f9f9f7",
-              backgroundColor: open ? "#d4622a" : "rgba(26,28,27,.3)",
+              border: "3px solid rgb(var(--paper))",
+              backgroundColor: open ? "#d4622a" : "rgb(var(--ink) / 0.3)",
               boxShadow: open ? "0 0 0 1px #d4622a" : "none",
             }}
           />
           <div
             className="flex-1 mt-1"
-            style={{ width: "2px", backgroundColor: "rgba(26,28,27,0.1)" }}
+            style={{ width: "2px", backgroundColor: "rgb(var(--ink) / 0.1)" }}
           />
         </div>
 

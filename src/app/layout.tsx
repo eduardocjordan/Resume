@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Eduardo Castro",
     images: [
       {
-        url: `${siteUrl}/assets/IMG_3827.jpeg`,
+        url: `${siteUrl}/assets/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "Eduardo Castro — Marketing Director",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Brand Strategy | Eduardo Castro",
     description:
       "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
-    images: [`${siteUrl}/assets/IMG_3827.jpeg`],
+    images: [`${siteUrl}/assets/og-image.jpg`],
   },
   alternates: {
     canonical: siteUrl,

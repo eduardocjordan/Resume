@@ -161,9 +161,19 @@ Carousel spanning the full Grupo Mariposa product-development story, including t
 |-----------------------|--------------------|-------------------------------------|
 |`CV Eduardo Castro.pdf`|`/public/downloads/`|"Download Resume" — nav CTA, hero CTA|
 
+> Single copy only. A duplicate that lived in `/public/assets/` was removed 2026-07-08, and the folder (previously `download/`, singular — which 404'd every resume CTA) was renamed to match the `/downloads/` links.
+
 -----
 
 ## Usage Guidelines
+
+### Photo weight policy (standing rule, per Eddie 2026-07-08)
+
+`next.config.mjs` sets `images.unoptimized: true`, so **files ship to visitors exactly as committed** — there is no runtime resizing or re-encoding. Every photo added to `/public/assets/` must be compressed first: longest side ≤ 1600px, target ≤ ~400KB, JPEG quality ~80, metadata/EXIF stripped (bake rotation in before stripping). The evidence galleries were bulk-compressed 2026-07-08 (48MB → 6MB).
+
+### Social preview image
+
+`og-image.jpg` (1200×630) is the OpenGraph/Twitter card, composed from the hero portrait + name block; referenced in `src/app/layout.tsx`. The raw portrait `IMG_3827.jpeg` is portrait-orientation and must not be declared as a 1200×630 card. If the hero portrait changes, regenerate the OG card too.
 
 ### Logo grid ("Brands I've helped grow")
 

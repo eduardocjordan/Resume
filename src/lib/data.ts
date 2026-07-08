@@ -15,7 +15,6 @@ export const hero = {
   ],
   cv: "/downloads/CV Eduardo Castro.pdf",
   linkedin: "https://www.linkedin.com/in/eduardocaj",
-  email: "mailto:eduardo@casjor.com?subject=Let's connect",
 };
 
 export type EvidencePhoto = { image: string; alt: string; caption: string };
@@ -443,5 +442,106 @@ export const contact = {
   emailConsulting: "keynote@casjor.com",
   linkedin: "/in/eduardocaj",
   linkedinUrl: "https://www.linkedin.com/in/eduardocaj",
-  cvUrl: "/downloads/CV Eduardo Castro.pdf",
+};
+
+// ——— Section copy ———
+// All visitor-facing strings live here, not in components (STRATEGY.md §2.6).
+// Editing a claim below? Check whether the matching data/knowledge/*.md file
+// needs the same change.
+
+export const loaderCopy = {
+  kicker: "Eduardo Castro — System Boot",
+  status: "> decrypting portfolio",
+  headlineLines: ["100% VIBE-CODED", "USING AI"],
+};
+
+export const orientationCopy = {
+  kicker: "Prologue — 00",
+  kickerSuffix: " / Eduardo Castro",
+  eyebrow: "Before we begin",
+  headlineHtml:
+    'I built this with AI.<br />Then I built <span style="color:#ff4d00">a brain</span> inside it.',
+  body: "That icon in the corner — it knows my work, my background, what I’ve shipped. Ask it anything.",
+  pointerLines: ["that icon,", "bottom-right"],
+  pointerCta: "ask it anything ↘",
+  pointerCtaMobile: "ask it ↘",
+  enterCta: "Enter Site",
+};
+
+export const doritosRainbowCopy = {
+  year: "2016",
+  eyebrow: "The decade started here",
+  heading: "PepsiCo’s first purpose-driven product.",
+  subheading: "Sold out in one week instead of eight.",
+  metricsLine: "200M+ organic impressions · +2.3% brand SOM · President’s Outliers Award",
+  closing: "This is what becomes possible when a brand decides to mean something.",
+  bottomBarTitle: "Defining Work",
+  bottomBarHintMobile: "walk through",
+  bottomBarHintDesktop: "the decade that walked through the door",
+};
+
+export const howIWorkCopy = {
+  eyebrow: "03 / Method",
+  heading: "How I Work",
+  closingQuote:
+    "The methodology itself became an asset the company didn’t have before I arrived.",
+};
+
+export const impactCopy = {
+  eyebrow: "05 / Impact",
+  headingLine1: "Results that",
+  headingAccent: "hold up.",
+  intro:
+    "Numbers from real engagements, not projections. Each one traces back to a strategic decision, a team, and a market.",
+};
+
+export type ContactLink = {
+  icon: string;
+  label: string;
+  value: string;
+  href: string;
+  external: boolean;
+  gtmEvent: string;
+};
+
+export const contactCopy = {
+  headingLine1: "Let’s",
+  headingAccent: "Connect.",
+  pitchLines: [
+    "If you’re building a brand that needs to move both culture and market share,",
+    "I’d like to hear about it.",
+  ],
+  links: [
+    {
+      icon: "mail",
+      label: "Direct",
+      value: contact.emailDirect,
+      href: `mailto:${contact.emailDirect}?subject=Let%27s%20talk`,
+      external: false,
+      gtmEvent: "email_click",
+    },
+    {
+      icon: "mail_outline",
+      label: "Consulting & Speaking",
+      value: contact.emailConsulting,
+      href: `mailto:${contact.emailConsulting}?subject=Keynote%20%26%20Speaking`,
+      external: false,
+      gtmEvent: "email_click",
+    },
+    {
+      icon: "group",
+      label: "LinkedIn Profile",
+      value: contact.linkedin,
+      href: contact.linkedinUrl,
+      external: true,
+      gtmEvent: "linkedin_click",
+    },
+  ] satisfies ContactLink[],
+};
+
+export const footerCopy = {
+  trademarkNote:
+    "All trademarks, brand names, and logos referenced on this site are the property of their respective owners. Eduardo Castro’s association with these brands was in a professional capacity.",
+  privacyNote:
+    "This site uses Google Analytics to understand how visitors engage. Conversations with the chat assistant — including any contact details you choose to share in them — are stored and summarized so Eduardo can read them and follow up. Nothing is sold or shared beyond that.",
 };
