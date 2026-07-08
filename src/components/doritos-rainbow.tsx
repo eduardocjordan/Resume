@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./fade-in";
-import { doritosEvidence } from "@/lib/data";
+import { doritosEvidence, doritosRainbowCopy } from "@/lib/data";
 
 function EvidenceCarousel() {
   const [index, setIndex] = useState(0);
@@ -119,7 +119,7 @@ export function DoritosRainbow() {
           y: wordY,
         }}
       >
-        2016
+        {doritosRainbowCopy.year}
       </motion.div>
 
       <div
@@ -133,7 +133,7 @@ export function DoritosRainbow() {
               className="font-mono uppercase text-[11px]"
               style={{ letterSpacing: "0.26em", color: "rgba(26,28,27,0.74)" }}
             >
-              The decade started here
+              {doritosRainbowCopy.eyebrow}
             </p>
           </div>
 
@@ -142,14 +142,14 @@ export function DoritosRainbow() {
             className="font-headline italic text-[42px] md:text-[clamp(2.6rem,6vw,5.6rem)]"
             style={{ fontWeight: 400, lineHeight: 0.98, letterSpacing: "-0.015em", color: "#1a1c1b" }}
           >
-            PepsiCo&rsquo;s first purpose-driven product.
+            {doritosRainbowCopy.heading}
           </h2>
 
           <p
             className="font-headline text-[24px] md:text-[clamp(1.3rem,2.2vw,2rem)] mt-[26px]"
             style={{ fontWeight: 500, lineHeight: 1.25, color: "#1a1c1b" }}
           >
-            Sold out in one week instead of eight.
+            {doritosRainbowCopy.subheading}
           </p>
 
           <p
@@ -162,14 +162,14 @@ export function DoritosRainbow() {
               fontWeight: 700,
             }}
           >
-            200M+ organic impressions · +2.3% brand SOM · President&rsquo;s Outliers Award
+            {doritosRainbowCopy.metricsLine}
           </p>
 
           <p
             className="font-body italic text-[clamp(0.86rem,1.05vw,1rem)] mt-[26px] max-w-[480px]"
             style={{ lineHeight: 1.7, fontWeight: 300, color: "rgba(26,28,27,0.74)" }}
           >
-            This is what becomes possible when a brand decides to mean something.
+            {doritosRainbowCopy.closing}
           </p>
         </FadeIn>
 
@@ -188,14 +188,14 @@ export function DoritosRainbow() {
           className="font-headline italic text-[clamp(1rem,1.5vw,1.35rem)]"
           style={{ color: "rgba(26,28,27,0.85)" }}
         >
-          Defining Work
+          {doritosRainbowCopy.bottomBarTitle}
         </p>
         <p
           className="font-mono uppercase text-[10px] flex items-center gap-[7px] md:gap-[10px]"
           style={{ letterSpacing: "0.2em", color: "rgba(26,28,27,0.5)" }}
         >
-          <span className="md:hidden">walk through</span>
-          <span className="hidden md:inline">the decade that walked through the door</span>
+          <span className="md:hidden">{doritosRainbowCopy.bottomBarHintMobile}</span>
+          <span className="hidden md:inline">{doritosRainbowCopy.bottomBarHintDesktop}</span>
           <span className="inline-block animate-[ecBob_1.8s_ease-in-out_infinite]">↓</span>
         </p>
       </div>

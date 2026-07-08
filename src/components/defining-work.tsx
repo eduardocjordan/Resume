@@ -22,6 +22,7 @@ function ProjectGallery({ photos, title }: { photos: Project["photos"]; title: s
 
   useEffect(() => {
     if (total <= 1 || hovering || interacted) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => setIndex((i) => (i + 1) % total), AUTOPLAY_INTERVAL_MS);
     return () => clearInterval(id);
   }, [total, hovering, interacted]);

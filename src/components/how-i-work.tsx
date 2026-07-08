@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FadeIn } from "./fade-in";
-import { stories } from "@/lib/data";
+import { stories, howIWorkCopy } from "@/lib/data";
 
 export function HowIWork() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -23,8 +23,8 @@ export function HowIWork() {
 
       <div className="max-w-[1400px] w-full mx-auto px-8 md:px-24 pb-10 md:pb-16 relative z-10">
         <FadeIn>
-          <p className="text-accent font-label text-[11px] tracking-[0.3em] uppercase mb-3">03 / Method</p>
-          <h2 id="how-i-work-heading" className="font-display italic leading-[0.9] mb-6 md:mb-12 text-paper text-[clamp(3.5rem,8vw,9rem)]">How I Work</h2>
+          <p className="text-accent font-label text-[11px] tracking-[0.3em] uppercase mb-3">{howIWorkCopy.eyebrow}</p>
+          <h2 id="how-i-work-heading" className="font-display italic leading-[0.9] mb-6 md:mb-12 text-paper text-[clamp(3.5rem,8vw,9rem)]">{howIWorkCopy.heading}</h2>
           <div className="w-full h-px bg-paper/10" />
         </FadeIn>
       </div>
@@ -88,7 +88,7 @@ export function HowIWork() {
               </svg>
             </div>
             <blockquote className="font-display italic leading-[1.1] text-paper/95 max-w-[900px] text-[clamp(1.75rem,5vw,5rem)]">
-              &ldquo;The methodology itself became an asset the company didn&rsquo;t have before I arrived.&rdquo;
+              &ldquo;{howIWorkCopy.closingQuote}&rdquo;
             </blockquote>
           </div>
         </div>

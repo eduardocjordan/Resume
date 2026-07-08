@@ -80,7 +80,7 @@ export function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, #f9f9f7 0%, rgba(249,249,247,.45) 22%, rgba(249,249,247,0) 55%)",
+              "linear-gradient(90deg, rgb(var(--paper)) 0%, rgb(var(--paper) / 0.45) 22%, rgb(var(--paper) / 0) 55%)",
           }}
         />
         <div
@@ -217,7 +217,7 @@ export function Hero() {
                       pushGtmEvent("chat_open", { click_location: "hero" });
                       window.dispatchEvent(new Event("chat:open"));
                     }}
-                    className="bg-paper text-ink px-[18px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] hover:bg-paper-dark transition-colors"
+                    className="bg-paper text-ink px-[18px] py-[15px] border border-ink/[0.28] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] hover:bg-paper-dark transition-colors"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
@@ -236,7 +236,7 @@ export function Hero() {
                     data-gtm-location="hero"
                     data-gtm-platform="linkedin"
                     onClick={() => pushGtmEvent("social_click", { click_location: "hero", platform: "linkedin" })}
-                    className="bg-paper text-ink px-[18px] py-[15px] border border-[rgba(26,28,27,.28)] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] hover:bg-paper-dark transition-colors"
+                    className="bg-paper text-ink px-[18px] py-[15px] border border-ink/[0.28] rounded-sm text-[12px] font-bold tracking-[0.16em] uppercase flex items-center gap-[8px] hover:bg-paper-dark transition-colors"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
@@ -258,7 +258,7 @@ export function Hero() {
                   key={stat.label}
                   className={
                     i > 0
-                      ? "w-full mt-[clamp(20px,3vh,32px)] pt-[clamp(10px,1.5vh,14px)] border-t border-[rgba(26,28,27,.14)]"
+                      ? "w-full mt-[clamp(20px,3vh,32px)] pt-[clamp(10px,1.5vh,14px)] border-t border-ink/[0.14]"
                       : "w-full"
                   }
                 >
