@@ -4,14 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn } from "@/components/fade-in";
 import { orientationCopy } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 export const ORIENTATION_DISMISS_KEY = "orientation_dismissed";
 const DISMISS_KEY = ORIENTATION_DISMISS_KEY;
-
-function pushGtmEvent(event: string, extra?: Record<string, unknown>) {
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  (window as any).dataLayer.push({ event, ...extra });
-}
 
 export function OrientationLayer() {
   const [visible, setVisible] = useState(false);

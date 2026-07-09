@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { pushGtmEvent, setGtmState } from "@/lib/gtm";
 
 const SESSION_STORAGE_KEY = "chat_session_id";
 const REVEAL_FALLBACK_MS = 2000;
@@ -15,11 +16,6 @@ type ChatMessage = {
   capped?: boolean;
   failed?: boolean;
 };
-
-function pushGtmEvent(event: string, extra?: Record<string, unknown>) {
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  (window as any).dataLayer.push({ event, ...extra });
-}
 
 function renderWithEmphasis(text: string) {
   return text.split(/(\*\*[^*\n]+\*\*|\*[^*\n]+\*)/g).map((part, i) => {
@@ -71,6 +67,9 @@ export function ChatWidget() {
       window.localStorage.setItem(SESSION_STORAGE_KEY, stored);
     }
     sessionIdRef.current = stored;
+    // Same ID the lead-summary email prints as "Session ID" — exposing it as
+    // dataLayer state lets GA4 join a lead back to its session's source/medium.
+    setGtmState({ chat_session_id: stored });
   }, []);
 
   useEffect(() => {
@@ -83,10 +82,14 @@ export function ChatWidget() {
     const trimmed = input.trim();
     if (!trimmed || isLoading || isCapped) return;
 
+    const messageIndex = messages.filter((m) => m.role === "user").length + 1;
     setMessages((prev) => [...prev, { role: "user", content: trimmed }]);
     setInput("");
     setIsLoading(true);
-    pushGtmEvent("chat_message_sent");
+    pushGtmEvent("chat_message_sent", {
+      message_index: messageIndex,
+      chat_session_id: sessionIdRef.current,
+    });
 
     try {
       const response = await fetch("/api/chat", {
@@ -99,6 +102,7 @@ export function ChatWidget() {
       if (typeof data.sessionId === "string") {
         sessionIdRef.current = data.sessionId;
         window.localStorage.setItem(SESSION_STORAGE_KEY, data.sessionId);
+        setGtmState({ chat_session_id: data.sessionId });
       }
 
       if (!response.ok || typeof data.reply !== "string") {
@@ -112,7 +116,7 @@ export function ChatWidget() {
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply, capped: Boolean(data.sessionCapped) }]);
       if (data.sessionCapped) {
         setIsCapped(true);
-        pushGtmEvent("chat_capped");
+        pushGtmEvent("chat_capped", { chat_session_id: sessionIdRef.current });
       }
     } catch {
       setMessages((prev) => [

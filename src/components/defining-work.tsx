@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FadeIn } from "./fade-in";
 import { projects } from "@/lib/data";
 import type { Project } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const AUTOPLAY_INTERVAL_MS = 4500;
 
@@ -15,6 +16,7 @@ function ProjectGallery({ photos, title }: { photos: Project["photos"]; title: s
   const [interacted, setInteracted] = useState(false);
   const total = photos.length;
   const go = (delta: number) => {
+    if (!interacted) pushGtmEvent("gallery_nav", { project: title });
     setInteracted(true);
     setIndex((i) => (i + delta + total) % total);
   };

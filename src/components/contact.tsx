@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { contact, contactCopy } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 export function Contact() {
   return (
@@ -66,10 +67,7 @@ export function Contact() {
                     : {})}
                   data-gtm-event={link.gtmEvent}
                   data-gtm-location="contact"
-                  onClick={() => {
-                    (window as any).dataLayer = (window as any).dataLayer || [];
-                    (window as any).dataLayer.push({ event: link.gtmEvent, click_location: "contact" });
-                  }}
+                  onClick={() => pushGtmEvent(link.gtmEvent, { click_location: "contact" })}
                   className="flex items-center gap-6 bg-paper/5"
                   initial={{ borderLeftColor: "rgba(212,98,42,0.4)" }}
                   whileHover={{
