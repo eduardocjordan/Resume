@@ -157,39 +157,54 @@ then build funnels, register key events, and expect pickers to be populated.
 
 ## 3. UTM taxonomy for sharing links
 
-Three parameters, all lowercase, hyphens, one canonical spelling per company
-(GA4 treats `PepsiCo` and `pepsico` as different sources forever):
+Four parameters, all lowercase, hyphens, one canonical spelling per source and
+per company (GA4 treats `PepsiCo` and `pepsico` — or `LinkedIn` and
+`linkedin` — as different values forever):
 
 | Parameter | Meaning | Examples |
 |---|---|---|
-| `utm_source` | who — the company | `pepsico`, `grupo-bimbo` |
-| `utm_medium` | where the link lived | `application`, `resume-pdf`, `email`, `linkedin-dm` |
-| `utm_campaign` | which application — role + month | `marketing-director-2026-07` |
+| `utm_source` | where the click came from — the channel | `linkedin`, `resume`, `application`, `email` |
+| `utm_medium` | general category of that channel — derived from source, not chosen per link | `social`, `document`, `referral`, `email` |
+| `utm_campaign` | who — the target company | `pepsico`, `grupo-bimbo` |
+| `utm_content` | which application — role + month | `marketing-director-2026-07` |
+
+Putting the channel in `utm_source` (rather than the company) matters for GA4's
+default channel grouping, which pattern-matches `utm_source` against known
+channel names — `linkedin` groups correctly as Organic Social; an arbitrary
+company name does not group at all and lands in "Unassigned" (see below).
 
 ### The `/via/` short-link helper
 
 `src/app/via/[[...slug]]/route.ts` turns clean, application-friendly URLs into
-fully tagged visits — segments are `[source, medium?, campaign?]`, medium
-defaults to `application`:
+fully tagged visits — segments are `[source, company?, campaign?]`. Medium is
+not a segment; it's looked up from source (`MEDIUM_BY_SOURCE` in the route,
+default `referral` for an unlisted source):
 
-- `eduardo.casjor.com/via/pepsico` → source `pepsico`, medium `application`
-- `eduardo.casjor.com/via/pepsico/resume-pdf` → medium `resume-pdf`
-- `eduardo.casjor.com/via/pepsico/application/marketing-director-2026-07` → full triple
+- `eduardo.casjor.com/via/linkedin` → source `linkedin`, medium `social`
+- `eduardo.casjor.com/via/resume` → source `resume`, medium `document`
+- `eduardo.casjor.com/via/linkedin/pepsico` → + campaign (company) `pepsico`
+- `eduardo.casjor.com/via/linkedin/pepsico/marketing-director-2026-07` → + content (role + date) `marketing-director-2026-07`
+
+So a LinkedIn profile link stays the single evergreen `/via/linkedin`, a resume
+PDF footer link stays `/via/resume`, and either becomes company- and
+role-specific by appending segments for a targeted application or direct
+message — no separate link has to be minted per channel.
 
 Values are normalized server-side (lowercase, `[a-z0-9-]`), so casing/typos in
 shared links can't fragment GA4 sources. `/via/` with no segments redirects home
-untagged. Keep a running list of slugs used per application so spellings stay
-canonical.
+untagged. Keep a running list of company/campaign slugs used per application so
+spellings stay canonical.
 
 ### Reading it in GA4
 
-- Default **Traffic acquisition** report shows *channel groups* — custom mediums
-  land in **"Unassigned"**, which is expected, not broken. Switch the primary
-  dimension to **Session source/medium** (or add **Session campaign** as
-  secondary).
+- Default **Traffic acquisition** report shows *channel groups* — `linkedin`
+  sources should now group correctly; an unrecognized source still lands in
+  **"Unassigned"**, which is expected, not broken. Switch the primary
+  dimension to **Session source/medium** (or add **Session campaign** /
+  **Session manual ad content** as secondary) to see the raw values.
 - The working view: **Explore → Free form**, rows = Session source + Session
-  medium, values = Sessions, Engaged sessions, Key events; drill a company by
-  adding Event name.
+  campaign (company), values = Sessions, Engaged sessions, Key events; add
+  Session manual ad content (role + date) or Event name to drill further.
 - When a lead email arrives, filter an Exploration on its `chat_session_id`
   custom dimension to see that visitor's source and full event trail.
 - Expectations: recruiters copy URLs without params, ATS bots pre-crawl links
