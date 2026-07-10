@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FadeIn } from "./fade-in";
 import { experience, type Role } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 function TimelineEntry({
   role,
@@ -77,6 +78,8 @@ function TimelineEntry({
         <div className="flex-1 pb-2 md:pb-10">
           <button
             onClick={onToggle}
+            data-gtm-event="experience_expand"
+            data-gtm-company={role.company}
             className="w-full text-left group"
             aria-expanded={open}
           >
@@ -153,7 +156,13 @@ export function Experience() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleToggle = (i: number) => {
-    setOpenIndex((prev) => (prev === i ? null : i));
+    setOpenIndex((prev) => {
+      const opening = prev !== i;
+      // Fires only on a user opening a role — not on collapse, and never for
+      // the default-open first entry (which requires no interaction).
+      if (opening) pushGtmEvent("experience_expand", { company: experience[i].company });
+      return opening ? i : null;
+    });
   };
 
   return (

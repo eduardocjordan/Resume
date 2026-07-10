@@ -2,6 +2,7 @@ import { Loader } from "@/components/loader";
 import { OrientationLayer } from "@/components/orientation-layer";
 import { NavBar } from "@/components/nav-bar";
 import { ProgressBar } from "@/components/progress-bar";
+import { SectionViewTracker } from "@/components/section-view-tracker";
 import { FixedChapterEyebrow } from "@/components/fixed-chapter-eyebrow";
 import { Hero } from "@/components/hero";
 import { DoritosRainbow } from "@/components/doritos-rainbow";
@@ -20,6 +21,7 @@ export default function Home() {
     <>
       <Loader />
       <OrientationLayer />
+      <SectionViewTracker />
       <ProgressBar />
       <NavBar />
       <FixedChapterEyebrow />

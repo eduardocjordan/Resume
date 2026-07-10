@@ -5,11 +5,17 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { doritosEvidence, doritosRainbowCopy } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 function EvidenceCarousel() {
   const [index, setIndex] = useState(0);
+  const [interacted, setInteracted] = useState(false);
   const total = doritosEvidence.length;
-  const go = (delta: number) => setIndex((i) => (i + delta + total) % total);
+  const go = (delta: number) => {
+    if (!interacted) pushGtmEvent("gallery_nav", { project: "Doritos Rainbow" });
+    setInteracted(true);
+    setIndex((i) => (i + delta + total) % total);
+  };
 
   return (
     <div>

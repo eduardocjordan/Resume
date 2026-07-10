@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FadeIn } from "./fade-in";
 import { stories, howIWorkCopy } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 export function HowIWork() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,7 +44,12 @@ export function HowIWork() {
               >
                 <button
                   type="button"
-                  onClick={() => setActiveIndex(i)}
+                  onClick={() => {
+                    if (!isActive) pushGtmEvent("story_select", { story: story.title });
+                    setActiveIndex(i);
+                  }}
+                  data-gtm-event="story_select"
+                  data-gtm-story={story.title}
                   aria-expanded={isActive}
                   className="w-full h-full text-left flex items-start gap-5 md:flex-col md:items-stretch md:gap-0 py-6 md:py-0 px-5 md:px-0"
                 >

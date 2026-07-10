@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { hero } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const links = [
   { label: "Highlights",  href: "#defining-work", section: "defining-work" },
@@ -63,8 +64,7 @@ export function NavBar() {
       milestones.forEach((m) => {
         if (rounded >= m && !hit[m]) {
           hit[m] = true;
-          (window as any).dataLayer = (window as any).dataLayer || [];
-          (window as any).dataLayer.push({ event: "scroll_depth", percent_scrolled: m });
+          pushGtmEvent("scroll_depth", { percent_scrolled: m });
         }
       });
       (window as any).__scrollHit = hit;
@@ -78,6 +78,7 @@ export function NavBar() {
     setIsDark(next);
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
+    pushGtmEvent("theme_toggle", { theme: next ? "dark" : "light" });
   };
 
   return (
@@ -149,10 +150,7 @@ export function NavBar() {
                 download
                 data-gtm-event="resume_download"
                 data-gtm-location="nav"
-                onClick={() => {
-                  (window as any).dataLayer = (window as any).dataLayer || [];
-                  (window as any).dataLayer.push({ event: "resume_download", click_location: "nav" });
-                }}
+                onClick={() => pushGtmEvent("resume_download", { click_location: "nav" })}
                 className="hidden md:inline-flex items-center gap-1.5 editorial-gradient text-white px-4 py-2 rounded-sm font-label text-xs font-semibold tracking-wide"
               >
                 <span className="material-symbols-outlined" style={{ fontSize: "14px" }}>download</span>
@@ -201,8 +199,7 @@ export function NavBar() {
                     data-gtm-event="resume_download"
                     data-gtm-location="nav_mobile"
                     onClick={() => {
-                      (window as any).dataLayer = (window as any).dataLayer || [];
-                      (window as any).dataLayer.push({ event: "resume_download", click_location: "nav_mobile" });
+                      pushGtmEvent("resume_download", { click_location: "nav_mobile" });
                       setMenuOpen(false);
                     }}
                     className="editorial-gradient text-white px-4 py-3 rounded-sm font-label text-sm font-semibold tracking-wide text-center"

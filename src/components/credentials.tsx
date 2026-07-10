@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { credentials } from "@/lib/data";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const SLIDES = 3;
 
@@ -86,6 +87,9 @@ export function Credentials() {
                       href={edu.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-gtm-event="credential_click"
+                      data-gtm-institution={edu.institution}
+                      onClick={() => pushGtmEvent("credential_click", { institution: edu.institution })}
                       className="flex items-start gap-4 opacity-70 hover:opacity-100 transition-opacity"
                     >
                       {edu.logo && (
@@ -180,6 +184,9 @@ export function Credentials() {
                     href={edu.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-gtm-event="credential_click"
+                    data-gtm-institution={edu.institution}
+                    onClick={() => pushGtmEvent("credential_click", { institution: edu.institution })}
                     className="flex items-start gap-4 opacity-70 hover:opacity-100 transition-opacity"
                   >
                     {edu.logo && (

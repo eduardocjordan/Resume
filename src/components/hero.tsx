@@ -7,14 +7,10 @@ import { hero } from "@/lib/data";
 import { FadeIn } from "./fade-in";
 import { cn } from "@/lib/utils";
 import { useCountUp } from "@/hooks/use-count-up";
+import { pushGtmEvent } from "@/lib/gtm";
 import { ORIENTATION_DISMISS_KEY } from "./orientation-layer";
 
 const orderedStats = [hero.stats[0], hero.stats[2], hero.stats[1]];
-
-function pushGtmEvent(event: string, extra?: Record<string, unknown>) {
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  (window as any).dataLayer.push({ event, ...extra });
-}
 
 // Gates the hero stat count-up to fire ~520ms after the orientation overlay
 // is dismissed (matching the prototype's entrance cascade), or shortly after
