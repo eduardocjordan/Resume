@@ -1,24 +1,42 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { doritosEvidence, doritosRainbowCopy } from "@/lib/data";
 import { pushGtmEvent } from "@/lib/gtm";
 
+const EVIDENCE_AUTOPLAY_INTERVAL_MS = 4500;
+
 function EvidenceCarousel() {
   const [index, setIndex] = useState(0);
+  const [hovering, setHovering] = useState(false);
   const [interacted, setInteracted] = useState(false);
   const total = doritosEvidence.length;
+
+  // Random start, client-only — mirrors the shuffle() pattern in brands-grid.tsx
+  // so SSR (index 0) and the client's first paint never mismatch.
+  useEffect(() => {
+    setIndex(Math.floor(Math.random() * total));
+  }, [total]);
+
   const go = (delta: number) => {
     if (!interacted) pushGtmEvent("gallery_nav", { project: "Doritos Rainbow" });
     setInteracted(true);
     setIndex((i) => (i + delta + total) % total);
   };
 
+  // Autoplay until the visitor interacts, same pattern as defining-work.tsx's ProjectGallery.
+  useEffect(() => {
+    if (total <= 1 || hovering || interacted) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % total), EVIDENCE_AUTOPLAY_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [total, hovering, interacted]);
+
   return (
-    <div>
+    <div onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
       <div className="relative rotate-[-1.8deg] md:rotate-[-2.2deg] w-[170px] md:w-[min(38vw,380px)] max-w-[380px] mx-auto md:mx-0">
         {doritosEvidence.map((evidence, i) => {
           const offset = (i - index + total) % total;
@@ -47,7 +65,7 @@ function EvidenceCarousel() {
                 top: 0,
                 left: 0,
                 width: "100%",
-                transform: `translate(${offset * 14}px, ${offset * 18}px) rotate(${offset * 1.4}deg)`,
+                transform: `translate(${offset * 18}px, ${offset * 22}px) rotate(${offset * 1.8}deg)`,
                 zIndex: total - offset,
                 pointerEvents: offset <= 1 ? "auto" : "none",
                 cursor: isPeek ? "pointer" : undefined,
@@ -68,19 +86,19 @@ function EvidenceCarousel() {
       </div>
 
       {total > 1 && (
-        <div className="flex items-center justify-center md:justify-start gap-5 mt-5">
+        <div className="flex items-center justify-center md:justify-start gap-5 mt-12">
           <button
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous evidence photo"
             className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors hover:bg-white/15"
-            style={{ borderColor: "rgba(255,255,255,0.55)", color: "rgba(255,255,255,0.92)" }}
+            style={{ borderColor: "#fff", color: "#fff" }}
           >
             ‹
           </button>
           <span
             className="font-mono uppercase text-[10px]"
-            style={{ letterSpacing: "0.12em", color: "rgba(255,255,255,0.8)" }}
+            style={{ letterSpacing: "0.12em", color: "#fff" }}
           >
             {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
           </span>
@@ -89,7 +107,7 @@ function EvidenceCarousel() {
             onClick={() => go(1)}
             aria-label="Next evidence photo"
             className="font-mono text-[14px] leading-none w-6 h-6 flex items-center justify-center rounded-full border transition-colors hover:bg-white/15"
-            style={{ borderColor: "rgba(255,255,255,0.55)", color: "rgba(255,255,255,0.92)" }}
+            style={{ borderColor: "#fff", color: "#fff" }}
           >
             ›
           </button>

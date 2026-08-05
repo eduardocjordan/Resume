@@ -2,7 +2,7 @@
 
 ## Experience
 
-### Marketing Director — apex Consulting (Mar 2024 — Present)
+### Head of Marketing — apex Consulting (Mar 2024 — Present)
 Industry: Advertisement Services.
 Leading end-to-end marketing strategy and execution for FMCG and consumer-facing brands across Mexico and the US, managing a team of 6.
 
@@ -12,7 +12,7 @@ Leading end-to-end marketing strategy and execution for FMCG and consumer-facing
 
 Skills/tags: Brand Strategy, Performance Marketing, CRM, A/B Testing
 
-### Business Unit Manager, US — Grupo Mariposa (Apr 2020 — Feb 2024)
+### Marketing Lead — Grupo Mariposa (Apr 2020 — Feb 2024)
 Industry: Food & Beverage FMCG.
 Built a brand and a full innovation pipeline from scratch. Managed a US$750K P&L and led 360° campaigns across Google, Meta, and TikTok.
 

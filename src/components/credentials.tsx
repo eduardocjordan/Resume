@@ -16,7 +16,7 @@ function ScrollDots({ count, active }: { count: number; active: number }) {
         <span
           key={i}
           className="block w-2 h-2 rounded-full transition-colors duration-300"
-          style={{ backgroundColor: i === active ? "#C25028" : "#EDE8E0" }}
+          style={{ backgroundColor: i === active ? "rgb(var(--accent))" : "#EDE8E0" }}
         />
       ))}
     </div>

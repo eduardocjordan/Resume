@@ -311,7 +311,7 @@ export const experience: Role[] = [
     dates: "Mar 2024 — Present",
     company: "apex Consulting",
     industry: "Advertisement Services",
-    title: "Marketing Director",
+    title: "Head of Marketing",
     description:
       "Leading end-to-end marketing strategy and execution for FMCG and consumer-facing brands across Mexico and the US, managing a team of 6.",
     bullets: [
@@ -326,7 +326,7 @@ export const experience: Role[] = [
     dates: "Apr 2020 — Feb 2024",
     company: "Grupo Mariposa",
     industry: "Food & Beverage FMCG",
-    title: "Business Unit Manager, US",
+    title: "Marketing Lead",
     description:
       "Built a brand and a full innovation pipeline from scratch. Managed a US$750K P&L and led 360° campaigns across Google, Meta, and TikTok.",
     bullets: [
@@ -502,6 +502,8 @@ export type ContactLink = {
   href: string;
   external: boolean;
   gtmEvent: string;
+  download?: boolean;
+  variant?: "accent";
 };
 
 export const contactCopy = {
@@ -535,6 +537,16 @@ export const contactCopy = {
       href: contact.linkedinUrl,
       external: true,
       gtmEvent: "linkedin_click",
+    },
+    {
+      icon: "download",
+      label: "Résumé",
+      value: "Download the PDF",
+      href: hero.cv,
+      external: false,
+      download: true,
+      gtmEvent: "resume_download",
+      variant: "accent",
     },
   ] satisfies ContactLink[],
 };

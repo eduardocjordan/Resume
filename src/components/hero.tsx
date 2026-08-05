@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/data";
 import { FadeIn } from "./fade-in";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,26 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { ORIENTATION_DISMISS_KEY } from "./orientation-layer";
 
 const orderedStats = [hero.stats[0], hero.stats[2], hero.stats[1]];
+const TAGLINE_INTERVAL_MS = 5500;
+
+// Random start, then loop — mirrors the shuffle() pattern in brands-grid.tsx:
+// render index 0 on the server, randomize client-side after mount so SSR/CSR
+// markup matches and there's no hydration mismatch.
+function useRotatingTagline(count: number, prefersReducedMotion: boolean) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setIndex(Math.floor(Math.random() * count));
+  }, [count]);
+
+  useEffect(() => {
+    if (count <= 1 || prefersReducedMotion) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), TAGLINE_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [count, prefersReducedMotion]);
+
+  return index;
+}
 
 // Gates the hero stat count-up to fire ~520ms after the orientation overlay
 // is dismissed (matching the prototype's entrance cascade), or shortly after
@@ -51,6 +71,7 @@ export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const portraitY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, 40]);
   const statsStart = useStatsStart();
+  const taglineIndex = useRotatingTagline(hero.taglines.length, !!prefersReducedMotion);
 
   return (
     <section
@@ -125,18 +146,22 @@ export function Hero() {
         <FadeIn delay={0.2}>
           <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-[clamp(28px,5vw,72px)] items-start mt-[clamp(30px,5vh,58px)]">
             <div className="flex flex-col">
-              <div className="flex flex-col gap-[14px] max-w-[560px]">
-                {hero.taglines.map((t, i) => (
-                  <p
-                    key={i}
+              <div className="max-w-[560px]" style={{ minHeight: "clamp(6.5rem, 15vw, 9rem)" }}>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={taglineIndex}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className={cn(
-                      "text-[clamp(0.92rem,1.12vw,1.06rem)] leading-[1.7] font-light text-ink/78",
-                      i === 1 && "hidden md:block",
-                      i === 2 && "font-headline italic text-[clamp(1.15rem,1.7vw,1.5rem)] leading-[1.4] text-ink font-normal"
+                      "text-[clamp(1.05rem,1.4vw,1.3rem)] leading-[1.65] font-light text-ink/78",
+                      taglineIndex === 2 &&
+                        "font-headline italic text-[clamp(1.4rem,2.1vw,1.9rem)] leading-[1.35] text-ink font-normal"
                     )}
-                    dangerouslySetInnerHTML={{ __html: t }}
+                    dangerouslySetInnerHTML={{ __html: hero.taglines[taglineIndex] }}
                   />
-                ))}
+                </AnimatePresence>
               </div>
 
               {/* Mobile stats — swipeable, scroll-snapped carousel */}
