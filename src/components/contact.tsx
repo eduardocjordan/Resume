@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FadeIn } from "./fade-in";
 import { contact, contactCopy } from "@/lib/data";
 import { pushGtmEvent } from "@/lib/gtm";
+import { cn } from "@/lib/utils";
 
 export function Contact() {
   return (
@@ -35,7 +36,7 @@ export function Contact() {
 
           {/* Right — contact links */}
           <FadeIn delay={0.12}>
-            {/* Mobile: plain text */}
+            {/* Mobile: plain text + accent CTA */}
             <div className="md:hidden text-center">
               <p className="text-sm leading-loose text-paper/80">
                 <a
@@ -54,49 +55,85 @@ export function Contact() {
                   {contact.emailDirect}
                 </a>
               </p>
+              {contactCopy.links
+                .filter((link) => link.variant === "accent")
+                .map((link) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    {...(link.download ? { download: true } : {})}
+                    data-gtm-event={link.gtmEvent}
+                    data-gtm-location="contact"
+                    onClick={() => pushGtmEvent(link.gtmEvent, { click_location: "contact" })}
+                    className="editorial-gradient text-white inline-flex items-center gap-2 mt-6 px-5 py-3 rounded-sm font-label text-xs font-semibold tracking-wide uppercase"
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <span className="material-symbols-outlined text-base">{link.icon}</span>
+                    {link.value}
+                  </motion.a>
+                ))}
             </div>
 
             {/* Desktop: card CTAs */}
             <div className="hidden md:block space-y-4">
-              {contactCopy.links.map((link) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  {...(link.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  data-gtm-event={link.gtmEvent}
-                  data-gtm-location="contact"
-                  onClick={() => pushGtmEvent(link.gtmEvent, { click_location: "contact" })}
-                  className="flex items-center gap-6 bg-paper/5"
-                  initial={{ borderLeftColor: "rgba(212,98,42,0.4)" }}
-                  whileHover={{
-                    y: -4,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-                    borderLeftColor: "rgba(212,98,42,0.8)",
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  style={{
-                    borderLeft: "4px solid rgba(212,98,42,0.4)",
-                    padding: "28px 32px",
-                  }}
-                >
-                  <span className="material-symbols-outlined text-3xl text-paper/45">
-                    {link.icon}
-                  </span>
-                  <div className="text-left">
-                    <p
-                      className="font-label text-xs uppercase text-paper/55"
-                      style={{ letterSpacing: "0.3em" }}
+              {contactCopy.links.map((link) => {
+                const isAccent = link.variant === "accent";
+                const hoverProps = isAccent
+                  ? { whileHover: { y: -4, boxShadow: "0 20px 40px rgba(212,98,42,0.35)" } }
+                  : {
+                      initial: { borderLeftColor: "rgba(212,98,42,0.4)" },
+                      whileHover: {
+                        y: -4,
+                        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                        borderLeftColor: "rgba(212,98,42,0.8)",
+                      },
+                    };
+                return (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    {...(link.download ? { download: true } : {})}
+                    data-gtm-event={link.gtmEvent}
+                    data-gtm-location="contact"
+                    onClick={() => pushGtmEvent(link.gtmEvent, { click_location: "contact" })}
+                    className={cn("flex items-center gap-6", isAccent ? "editorial-gradient" : "bg-paper/5")}
+                    {...hoverProps}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    style={
+                      isAccent
+                        ? { padding: "28px 32px" }
+                        : { borderLeft: "4px solid rgba(212,98,42,0.4)", padding: "28px 32px" }
+                    }
+                  >
+                    <span
+                      className={cn(
+                        "material-symbols-outlined text-3xl",
+                        isAccent ? "text-white/85" : "text-paper/45"
+                      )}
                     >
-                      {link.label}
-                    </p>
-                    <p className="font-display italic text-paper" style={{ fontSize: "22px" }}>
-                      {link.value}
-                    </p>
-                  </div>
-                </motion.a>
-              ))}
+                      {link.icon}
+                    </span>
+                    <div className="text-left">
+                      <p
+                        className={cn(
+                          "font-label text-xs uppercase",
+                          isAccent ? "text-white/80" : "text-paper/55"
+                        )}
+                        style={{ letterSpacing: "0.3em" }}
+                      >
+                        {link.label}
+                      </p>
+                      <p
+                        className={cn("font-display italic", isAccent ? "text-white" : "text-paper")}
+                        style={{ fontSize: "22px" }}
+                      >
+                        {link.value}
+                      </p>
+                    </div>
+                  </motion.a>
+                );
+              })}
             </div>
           </FadeIn>
         </div>
