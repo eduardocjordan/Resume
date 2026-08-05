@@ -75,7 +75,7 @@ function TimelineEntry({
         </div>
 
         {/* Right: content */}
-        <div className="flex-1 pb-2 md:pb-10">
+        <div className="flex-1 min-w-0 pb-2 md:pb-10">
           <button
             onClick={onToggle}
             data-gtm-event="experience_expand"

@@ -144,7 +144,7 @@ export function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-[clamp(28px,5vw,72px)] items-start mt-[clamp(30px,5vh,58px)]">
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-[clamp(28px,5vw,72px)] items-start mt-[clamp(30px,5vh,58px)]">
             <div className="flex flex-col">
               <div className="max-w-[560px]" style={{ minHeight: "clamp(6.5rem, 15vw, 9rem)" }}>
                 <AnimatePresence mode="wait">
