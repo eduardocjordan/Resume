@@ -95,9 +95,14 @@ function ProjectCard({ project, i }: { project: Project; i: number }) {
           <h3 className="font-display italic text-ink leading-[1.05] mb-4 text-[clamp(1.6rem,2.4vw,2.2rem)]">
             {project.title}
           </h3>
-          <p className="font-body text-[15px] leading-[1.7] text-ink/[0.72] flex-1">
-            {project.description}
-          </p>
+          <div className="flex-1 flex flex-col gap-3">
+            <p className="font-body italic text-[13px] leading-[1.6] text-ink/55">
+              {project.challenge}
+            </p>
+            <p className="font-body text-[15px] leading-[1.7] text-ink/[0.72]">
+              {project.action}
+            </p>
+          </div>
           <div className="mt-7 pt-5 border-t border-ink/15">
             <p className="font-label text-[11px] tracking-[0.08em] text-ink/55">
               {project.metrics}

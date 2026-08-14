@@ -12,6 +12,8 @@ His own framing of what he does: "I build brands that move both culture and mark
 
 His move into marketing was not accidental — it was engineered. While working as a Project Management Officer (PMO) running automation on packaging lines, the innovation team at PepsiCo noticed how he handled ambiguity and ran meetings. His technical/engineering credentials got him into the room; his performance in the room got him the marketing role.
 
+Eduardo measures the work by more than the brand outcome — by his account, two promotions were built into the business case at both Johnson & Johnson and Grupo Mariposa, and he manages a team of six at Apex Consulting today.
+
 ## Languages
 
 - English — Native / Fluent

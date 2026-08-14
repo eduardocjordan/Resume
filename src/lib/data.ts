@@ -1,15 +1,32 @@
+// Career start = PepsiCo start date, the oldest entry in `experience` (Nov 2012).
+// Recomputed on every real page load from the visitor's own clock — see STRATEGY.md
+// §3.1 for why this needs no SSR/CSR reconciliation (useCountUp always SSRs a "0").
+const CAREER_START_DATE = new Date(2012, 10, 1); // month is 0-indexed: 10 = November
+
+function yearsSince(start: Date): number {
+  const now = new Date();
+  let years = now.getFullYear() - start.getFullYear();
+  const beforeAnniversary =
+    now.getMonth() < start.getMonth() ||
+    (now.getMonth() === start.getMonth() && now.getDate() < start.getDate());
+  if (beforeAnniversary) years -= 1;
+  return years;
+}
+
+const heroYears = yearsSince(CAREER_START_DATE);
+
 export const hero = {
   name: "Eduardo Castro",
   role: "Brand Strategy",
   location: "Mexico City",
   taglines: [
-    "Engineer-turned-marketer with <strong>13+ years</strong> in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
+    `Engineer-turned-marketer with <strong>${heroYears}+ years</strong> in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.`,
     "The project that defines my career is <strong>Doritos® Rainbow</strong>. PepsiCo's first purpose-driven product. Sold out in one week instead of eight.<br />It's been a Pride flagship ever since.",
     "I build brands that move both culture and market share.",
   ],
   portrait: "/assets/IMG_3827.jpeg",
   stats: [
-    { value: "13", suffix: "+", label: "Years FMCG" },
+    { value: String(heroYears), suffix: "+", label: "Years FMCG" },
     { value: "12", suffix: "+", label: "Brands" },
     { value: "200", suffix: "M", label: "Organic Impressions" },
   ],
@@ -210,7 +227,8 @@ export type Project = {
   index: string;
   company: string;
   title: string;
-  description: string;
+  challenge: string;
+  action: string;
   metrics: string;
   photos: EvidencePhoto[];
 };
@@ -220,8 +238,10 @@ export const projects: Project[] = [
     index: "01",
     company: "J&J / PepsiCo®",
     title: "ERG Leadership & Inclusion",
-    description:
-      "Founded EQUAL ERG at PepsiCo® and led Open & Out at J&J. Contributed to J&J earning HRC 'Best Place to Work for LGBT+ Equity' and LATAM Forum recognition.",
+    challenge:
+      "Neither PepsiCo nor J&J had an LGBTQ+ employee resource group when Eduardo joined — no internal advocacy structure, no visible allyship program.",
+    action:
+      "Founded EQUAL ERG at PepsiCo® and Open & Out at J&J, building both advocacy and allyship programs from the ground up.",
     metrics: "HRC Best Place to Work · James E. Burke Award · LATAM Forum recognition",
     photos: ergEvidence,
   },
@@ -229,8 +249,10 @@ export const projects: Project[] = [
     index: "02",
     company: "Johnson & Johnson",
     title: "Neutrogena® Sun Care Launch",
-    description:
-      "Unlocked a four-year regulatory stall by mapping the SPF 55+ COFEPRIS pathway. Coordinated regional production in Brazil and launched the category from zero.",
+    challenge:
+      "Neutrogena's Sun Care line had been stalled at the Mexican border for four years — SPF 55+ is classified as a drug in Mexico, requiring a COFEPRIS pathway nobody had mapped.",
+    action:
+      "Mapped the regulatory pathway, coordinated regional production in Brazil, and launched the category from zero within two years.",
     metrics: "New category from zero · +10% incremental B2B revenue · New market share",
     photos: suncareEvidence,
   },
@@ -238,8 +260,10 @@ export const projects: Project[] = [
     index: "03",
     company: "Grupo Mariposa",
     title: "Brand Built from Zero",
-    description:
-      "Built a brand and innovation system from scratch. Filtered 165 ideas down to one market-ready product through rigorous consumer validation gates.",
+    challenge:
+      "No brand, no innovation pipeline, and no system for deciding which of dozens of raw ideas were worth funding under a US$750K P&L.",
+    action:
+      "Built the validation system from scratch — concept testing, sensory panels, pricing ladders — and ran 165 ideas through it before committing budget to production.",
     metrics: "+35% revenue growth · Digital-first export brand · Full P&L ownership",
     photos: fromZeroEvidence,
   },
@@ -485,6 +509,8 @@ export const howIWorkCopy = {
   heading: "How I Work",
   closingQuote:
     "The methodology itself became an asset the company didn’t have before I arrived.",
+  closingSecondary:
+    "The measure of the work isn’t just the brand — it’s the team left behind it: two promotions built into the business case at both J&J and Grupo Mariposa, a team of six at Apex today.",
 };
 
 export const impactCopy = {
