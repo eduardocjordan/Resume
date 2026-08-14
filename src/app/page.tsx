@@ -27,12 +27,12 @@ export default function Home() {
       <FixedChapterEyebrow />
       <main id="main-content">
         <Hero />
+        <BrandsGrid />
         <DoritosRainbow />
         <DefiningWork />
-        <HowIWork />
-        <Experience />
-        <BrandsGrid />
         <Impact />
+        <Experience />
+        <HowIWork />
         <Credentials />
         <Contact />
       </main>

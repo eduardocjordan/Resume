@@ -9,7 +9,7 @@
 > - `INFERRED:` — a reasonable read of the pattern, not stated anywhere as a rule.
 > - `OPEN QUESTION:` — genuinely undocumented; don't guess, ask Eddie.
 >
-> Last verified against the working tree on branch `claude/landing-page-blindspots-3jn5my`, 2026-07-08 (blindspot pass + interview with Eddie; see the 2026-07-08 addendum at the end).
+> Last verified against the working tree on branch `claude/eddies-landing-audit-9dt405`, 2026-08-14 (landing-page improvement pass, sourced from an external portfolio audit and narrowed through review with Eddie; see the 2026-08-14 addendum at the end).
 
 -----
 
@@ -19,9 +19,11 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 ### 1.1 Section order
 
-`FACT:` (verified 2026-07-08) `src/app/page.tsx` renders, in order: `Loader → OrientationLayer → ProgressBar → NavBar → FixedChapterEyebrow → Hero → DoritosRainbow → DefiningWork → HowIWork → Experience → BrandsGrid → Impact → Credentials → Contact → Footer → ChatWidget`. The CookieBanner was removed 2026-07-08 (per Eddie — replaced by a plain-language privacy note in the footer; see addendum).
+`FACT:` (verified 2026-08-14) `src/app/page.tsx` renders, in order: `Loader → OrientationLayer → ProgressBar → NavBar → FixedChapterEyebrow → Hero → BrandsGrid → DoritosRainbow → DefiningWork → Impact → Experience → HowIWork → Credentials → Contact → Footer → ChatWidget`. The CookieBanner was removed 2026-07-08 (per Eddie — replaced by a plain-language privacy note in the footer; see addendum).
 
-`FACT:` (per Eddie, 2026-06-19) the *original* order was a deliberate narrative arc — identity/credibility (Hero) → proof via concrete wins (DefiningWork) → quantified breadth (Impact) → Experience → BrandsGrid → HowIWork → Credentials → Contact. `OPEN QUESTION:` the subsequent reorder (DoritosRainbow inserted as a dedicated flagship section, HowIWork moved ahead of Experience, Impact moved after BrandsGrid) happened without a recorded rationale — the current order is fact, its narrative logic is not confirmed the way the original arc was.
+`FACT:` (per Eddie, 2026-06-19) the *original* order was a deliberate narrative arc — identity/credibility (Hero) → proof via concrete wins (DefiningWork) → quantified breadth (Impact) → Experience → BrandsGrid → HowIWork → Credentials → Contact. `OPEN QUESTION:` the 2026-07-08 reorder (DoritosRainbow inserted as a dedicated flagship section, HowIWork moved ahead of Experience, Impact moved after BrandsGrid) happened without a recorded rationale — the order at that point was fact, its narrative logic was not confirmed the way the original arc was.
+
+`OPEN QUESTION:` a further reorder shipped 2026-08-14 (BrandsGrid moved directly after Hero; Impact moved ahead of Experience, into the same run as DoritosRainbow/DefiningWork; HowIWork moved after Experience) — again without a separately recorded narrative rationale distinct from the funnel-model reasoning discussed with Eddie in the originating session (fit scan → work skim → identity check → contact). Treat as fact-of-code; if that reasoning is ever formalized, replace this note rather than stacking another one beside it.
 
 ### 1.2 Hero composition
 
@@ -33,7 +35,7 @@ Almost nothing in this pillar has a written "why" anywhere in the repo. `ASSETS.
 
 ### 1.3 "Defining Work" card pattern
 
-`FACT:` (`src/components/defining-work.tsx:67-89`) each of the 4 projects renders as an indexed card (`01 — Company`) with title, description, a metrics line set off by a top border, then an image — metrics are placed *before* the image in render order. Mobile = snap-scroll horizontal carousel; desktop = 2-column CSS grid (same component, responsive classes, not two separate components).
+`FACT:` (`src/components/defining-work.tsx:84-116`, verified 2026-08-14) the `DefiningWork` grid renders **3** projects (ERG Leadership & Inclusion, Neutrogena Sun Care Launch, Brand Built from Zero) — not 4; Doritos Rainbow is a separate flagship section (§2.2 below), not part of this grid. Each card is an indexed card (`01 — Company`) with title, an unlabeled challenge/action pair (`project.challenge` as a muted italic lead line, `project.action` in standard body weight — replacing what was a single `description` field until 2026-08-14), a metrics line set off by a top border, then an image — metrics are placed *before* the image in render order. Mobile = snap-scroll horizontal carousel; desktop = 2-column CSS grid (same component, responsive classes, not two separate components).
 
 `FACT:` the image-to-card mapping is deliberate and already documented in `ASSETS.md`'s "Section-specific image assignments" table — cross-reference that table rather than restating it here.
 
@@ -67,14 +69,16 @@ Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1
 
 `FACT:` quoted verbatim, side by side, to make the duplication visible:
 
-- `src/lib/data.ts:6-8` (feeds the website): *"Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM. ... I build brands that move both culture and market share."*
+- `src/lib/data.ts:23-25` (feeds the website): *"Engineer-turned-marketer with {N}+ years in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM. ... I build brands that move both culture and market share."*
 - `data/knowledge/bio.md:5-9` (feeds the chatbot): *"Engineer-turned-marketer with 13+ years in international FMCG/CPG — PepsiCo, Johnson & Johnson, and Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM. ... His own framing of what he does: 'I build brands that move both culture and market share.'"*
+
+`FACT:` (updated 2026-08-14) the site's copy of this line is no longer a static string — `{N}` is `heroYears`, computed in `data.ts` from a `CAREER_START_DATE` constant (see 3.1). `data/knowledge/bio.md`'s copy is still a hardcoded literal "13+" and is **not** wired to the same computation — it will silently diverge from the site's figure starting the next time `heroYears` increments. This is a known, accepted gap (see 3.1) — flagged here so it isn't mistaken for a duplication that's still in sync.
 
 `FACT:` the same core facts and the exact same closing line appear in both, independently phrased — this duplication is the most load-bearing fact in this pillar (see 2.6).
 
 ### 2.2 The four "evidence pillar" projects — and why these four
 
-`FACT:` defined in `src/lib/data.ts:32-73` and `data/knowledge/projects.md:1-21`: Doritos Rainbow (PepsiCo), ERG Leadership & Inclusion (J&J/PepsiCo), Neutrogena Sun Care Launch (J&J), Brand Built from Zero (Grupo Mariposa).
+`FACT:` defined in `src/lib/data.ts:236-270` (the 3-card `DefiningWork` grid) plus `doritosRainbowCopy` for the separate flagship section, and `data/knowledge/projects.md:1-21`: Doritos Rainbow (PepsiCo), ERG Leadership & Inclusion (J&J/PepsiCo), Neutrogena Sun Care Launch (J&J), Brand Built from Zero (Grupo Mariposa).
 
 `FACT:` (per Eddie, 2026-06-19) these four were not selected to deliberately cover four distinct competency axes — they're the strongest/most-documented wins available. The competency-axis reading below is the document author's pattern-match after the fact, not Eddie's actual selection logic, and should not be treated as a rule governing what a 5th project would need to satisfy:
 - Doritos Rainbow → purpose-driven brand-building with a commercial payoff (200M+ impressions, sold out in 1 week vs. 8 projected)
@@ -86,7 +90,9 @@ Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1
 
 ### 2.3 The "stories" layer — process philosophy
 
-`FACT:` (`src/lib/data.ts:219-236`, rendered by `how-i-work.tsx`) four short narratives — "The brief nobody asked for," "The regulatory detour," "The 165 ideas," "The packaging line crossover" — retell some of the *same* underlying events as the Pillar-2.2 projects (Neutrogena, Grupo Mariposa) but through a process/methodology lens instead of a results lens, each closing on an aphorism (e.g., *"Strategy without diagnosis is just confidence."*).
+`FACT:` (`src/lib/data.ts:416-437`, rendered by `how-i-work.tsx`) four short narratives — "The brief nobody asked for," "The regulatory detour," "The 165 ideas," "The packaging line crossover" — retell some of the *same* underlying events as the Pillar-2.2 projects (Neutrogena, Grupo Mariposa) but through a process/methodology lens instead of a results lens, each closing on an aphorism (e.g., *"Strategy without diagnosis is just confidence."*).
+
+`FACT:` (added 2026-08-14) the section's closing block (`howIWorkCopy`, `src/lib/data.ts:507-514`) now carries a second line beneath the existing `closingQuote` blockquote — `closingSecondary`, a leadership/team-development statement evidenced by the "drove two promotions" bullets already present at both the J&J and Grupo Mariposa entries in `experience` and the "team of 6" line in the Apex Consulting entry. It is not a new claim, just a first explicit surfacing of facts that previously only existed inside collapsed `Experience` timeline detail.
 
 `INFERRED:` this dual-telling — results-first in "Defining Work," process-first in "How I Work" — functions as proof, then methodology. Flagged as inference; no comment states this scaffolding is deliberate.
 
@@ -120,7 +126,7 @@ Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1
 
 `FACT:` (verified 2026-07-08) the tracked definition of "the site is converting" is the GTM event set inventoried in **`ANALYTICS.md` §1** — that file is now the single source of truth for event names, parameters, and firing rules (conversion CTAs, the chat funnel, `scroll_depth`, the `prologue_*` experiment events, plus the engagement events `section_view`, `experience_expand`, `story_select`, `gallery_nav`, `theme_toggle`, `credential_click`, and the `chat_session_id` lead-join state). `contact_cta_click` is retired (see 1.2). `ANALYTICS.md` §2 lists the GTM/GA4 admin configuration these events depend on — none of it is enforceable from this repo.
 
-**Distinguish this clearly from the hero's stated stats** ("13+ years," "12+ brands," "200M organic impressions," `data.ts:11-15`) — those are hardcoded copy, not live or computed metrics. Treating them as if they were dashboard-driven would be a conflation: they require manual updates and currently have no mechanism keeping them current (e.g., "13+ years" will go stale silently).
+**Distinguish this clearly from the hero's stated stats** ("N+ years," "12+ brands," "200M organic impressions," `data.ts:28-32`) — these are not live/dashboard-driven metrics regardless of what follows. As of 2026-08-14, the years figure is no longer a hardcoded literal: `hero.stats[0].value` and the embedded figure in `hero.taglines[0]` (`data.ts:23`) both derive from `heroYears = yearsSince(CAREER_START_DATE)`, computed fresh on every page load from the visitor's own clock (`CAREER_START_DATE` = Nov 2012, PepsiCo start, `data.ts:1-16`) — so it can no longer go stale, and the stat tile and the tagline can no longer disagree with each other. "12+ brands" and "200M organic impressions" remain hardcoded copy with no mechanism keeping them current — treating either as dashboard-driven would still be a conflation, and they will go stale silently unless manually re-checked (see the Cross-Pillar checklist entry for this).
 
 `FACT:` the loader-gating sequence (the chat widget stays hidden until `site:loader-complete` fires or an 8-second timeout, `chat-widget.tsx:34-42`) is a deliberate perceived-performance decision — first paint/loader takes priority over chat availability. Cross-linked from Pillar 1.5, not re-derived.
 
@@ -191,7 +197,8 @@ A pre-flight checklist, not narrative — run the relevant line before shipping 
 - **Changing the message cap or spend ceiling** → raise via env var (`CHAT_MESSAGE_CAP`, `CHAT_DAILY_SPEND_CEILING_USD`), never remove the check in code (3.7).
 - **Changing the chat model** → re-derive `PRICE_PER_MTOK_*` in `sessionGuard.ts` against current Anthropic pricing before the spend ceiling math is trustworthy again (3.7).
 - **Adding a new homepage section** → does it fit the existing render-order arc (1.1), or does it require re-justifying the whole sequence? If no rationale exists, say so rather than retrofitting one.
-- **Changing hero copy or stats** → `hero.stats` (`data.ts:11-15`) is hardcoded, not computed — "13+ years" will go stale silently if not updated by hand (3.1).
+- **Changing hero copy or stats** → `hero.stats[0]` ("years") and the figure embedded in `hero.taglines[0]` are both computed from `CAREER_START_DATE` (`data.ts:1-16`) — don't hand-edit either back into a literal. `hero.stats[1]`/`[2]` ("12+ brands," "200M organic impressions") are still hardcoded (3.1).
+- **Editing `experience`, `brands`, or `projects`** → "12+ brands" and "200M organic impressions" in `hero.stats` are NOT derived from these arrays and won't update automatically — manually re-verify both figures are still accurate whenever those arrays change (3.1).
 - **Adding a 5th "evidence pillar" project** → does it pair a qualitative story with a quantified metric like the existing four (2.2, 2.6)? If it can't be quantified, flag that as a deliberate deviation, not an oversight.
 - **Changing what `insights.ts`'s `SUMMARY_TOOL` extracts** → does the new field still capture only explicitly volunteered information, or does it invite inference/profiling? Check against the literal guardrail text (3.6).
 - **Repositioning or restyling the chat widget** (e.g., making it more prominent, giving it its own section) → current placement (1.5) is a default, not a deliberate decision, and Eddie has already flagged wanting to explore more prominence; treat an increase in prominence as executing a known direction, not reversing settled intent. Still treat it as a positioning decision, not a styling one, and update the disclaimer copy (3.2) if the bot's role is changing too.
@@ -221,3 +228,17 @@ A blindspot review found the site had drifted from this document after 2026-06-1
 5. **Cookie banner removed** — replaced by a truthful privacy note in the footer (`footerCopy.privacyNote`) covering analytics and chat lead capture. The old banner auto-recorded consent without interaction and claimed "no personal data is saved," which contradicted the chat pipeline (3.6).
 
 Bug fixes in the same pass, no decision needed: resume-download 404 (`public/download` → `public/downloads`, duplicate PDF in `/assets` removed); brands-marquee `touchAction: none` blocked vertical scrolling on mobile (now `pan-y`); undefined `--font-plus-jakarta` variable meant body text fell back to generic sans-serif (now references `'Plus Jakarta Sans'` directly); dark-mode hardcoded colors tokenized (hero portrait wash, hero CTA borders, Experience timeline dots, Impact stat/label colors — Impact's count-up end color now reads the `--paper` token at runtime); reduced-motion respected by the marquee, gallery autoplay, and chat ping (count-ups already were); orientation overlay got `role="dialog"`, focus on its Enter button, and an explicit button handler; a real 1200×630 OG image (`/assets/og-image.jpg`) replaced the portrait that was mis-declared as landscape; dead fields `hero.email` / `contact.cvUrl` removed.
+
+-----
+
+## Addendum — 2026-08-14 landing-page improvement pass (decisions per Eddie)
+
+Sourced from an external career-portfolio audit, cross-checked against this repo's actual code and content, then narrowed through iterative review with Eddie into four confirmed changes. Two changes considered in the same review (an intro-sequence redesign, a hub-and-spoke multi-page architecture) were explicitly rejected/deferred — see below, so they aren't re-proposed without new information.
+
+1. **Section reorder** — see 1.1. `BrandsGrid` promoted to directly after `Hero` (fast third-party authority signal before slower content); `Impact` moved to sit with the other proof sections (`DoritosRainbow`, `DefiningWork`) instead of being stranded after two identity sections; `HowIWork` moved into the identity block after `Experience`. Rationale: sequence by function (fit scan → work skim → identity check → contact) rather than the undocumented order the site had drifted into.
+2. **Defining Work cards restructured** — `Project.description` split into unlabeled `challenge`/`action` fields (see 1.3, 2.2). Visual treatment is typography-only (muted italic lead line + standard body paragraph), no text labels — chosen over a labeled Challenge/Action/Result treatment after a visual mockup comparison.
+3. **ERG card fact correction** — `data.ts` and `data/knowledge/projects.md` said Eduardo "led" Open & Out at J&J; `data/knowledge/resume.md` said he "Founded" it. Per Eddie: he founded it. `data.ts` and `projects.md` updated to match; `resume.md` was already correct and untouched.
+4. **Leadership-philosophy line added** — see 2.3. Appended to `howIWorkCopy.closingSecondary`, rendered beneath the section's existing closing blockquote in `how-i-work.tsx`. Evidenced by facts already present in `experience` (the identical "drove two promotions" bullet at both J&J and Grupo Mariposa; "team of 6" at Apex) — not a new claim. A candidate placement above the `Experience` timeline was considered and passed over in favor of this one, since it required first fixing a pre-existing gap (that section's intro copy is hardcoded outside `data.ts`, contrary to the 2.6 standing rule) that was out of scope for this pass.
+5. **Hero stat staleness fix** — see 3.1. `hero.stats[0]` and the figure embedded in `hero.taglines[0]` are now both computed from a `CAREER_START_DATE` constant instead of hardcoded literals, closing off a silent-drift risk and a same-viewport self-contradiction risk (stat tile and tagline could otherwise disagree on the exact date the underlying year increments). `hero.stats[1]`/`[2]` ("12+ brands," "200M organic impressions") remain hardcoded by design — they're event-driven facts, not time-driven ones, so a checklist trigger (Cross-Pillar Decision Framework) replaces a computed formula. `data/knowledge/bio.md`'s own "13+ years" literal and four "13+ years" occurrences in `src/app/layout.tsx` metadata/JSON-LD were explicitly left out of scope — lower urgency since they're not simultaneously visible with the hero to the same visitor, but they carry the same underlying staleness risk and should be swept in a future pass.
+
+**Rejected/deferred, not implemented in this pass:** a redesign of the loader/`OrientationLayer` intro sequence toward a non-blocking treatment (two alternatives were mocked and visually reviewed; decision was to keep the current full-screen prologue exactly as implemented — see 1.5, unchanged); a hub-and-spoke multi-page architecture with a dedicated URL per case study (not rejected on merits, just not this round — revisit if per-case-study deep-linking or content gating becomes relevant); a live load-speed/mobile rendering audit (no issues observed in practice, downgraded from the original priority list); testimonials (discarded for this round); reconciling the site's "Engineer-turned-marketer" positioning line against the CV's "Engineer by training, marketer by conviction" (per Eddie, the two are equivalent and meant to communicate per-context, not be memorized verbatim — no reconciliation needed).

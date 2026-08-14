@@ -6,7 +6,7 @@ PepsiCo's first purpose-driven product. 100% of profits were donated to LGBT+ al
 Metrics: 200M+ organic impressions, +2.3% brand SOM (share of market), President's Outliers Award.
 
 ## 01 — ERG Leadership & Inclusion (Johnson & Johnson / PepsiCo)
-Founded the EQUAL Employee Resource Group at PepsiCo and led Open & Out at Johnson & Johnson. Contributed to J&J earning HRC's "Best Place to Work for LGBT+ Equity" recognition and LATAM Forum recognition.
+Founded the EQUAL Employee Resource Group at PepsiCo and founded Open & Out at Johnson & Johnson. Contributed to J&J earning HRC's "Best Place to Work for LGBT+ Equity" recognition and LATAM Forum recognition.
 
 Metrics: HRC Best Place to Work, James E. Burke Award, LATAM Forum recognition.
 

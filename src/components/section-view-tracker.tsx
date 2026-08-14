@@ -6,12 +6,12 @@ import { pushGtmEvent } from "@/lib/gtm";
 // Every section id on the page, in render order.
 const SECTIONS = [
   "hero",
+  "brands",
   "doritos-rainbow",
   "defining-work",
-  "how-i-work",
-  "experience",
-  "brands",
   "impact",
+  "experience",
+  "how-i-work",
   "credentials",
   "contact",
 ];
