@@ -39,6 +39,18 @@ whenever the server reassigns the id (`setGtmState`, `chat-widget.tsx`). This is
 the same UUID the lead-summary email prints as "Session ID", which is the join:
 *lead email → GA4 session → source/medium/campaign + everything they did.*
 
+**dataLayer state (not an event):** `stored_utm_source` / `stored_utm_medium` /
+`stored_utm_campaign` / `stored_utm_content` — pushed once per page view
+(`AttributionTracker` → `captureAttribution()`, `src/lib/attribution.ts`).
+Captures `utm_*` from the landing URL into `localStorage` and re-pushes it on
+every later page view in that browser for up to 30 days, even if that later
+visit carries no UTM params at all. Exists because GA4's own Session
+source/medium/campaign is scoped to a single session — a recruiter who returns
+days later by typing the URL or opening a bookmark otherwise shows up as a
+second, unattributed `(direct)` session with no link back to the original
+company/application. These are the *last* tagged touch in this browser, not a
+lifetime first-touch — a later `/via/...` visit overwrites the stored value.
+
 Retired: `contact_cta_click` (CTA removed 2026-07-08 — see STRATEGY.md §1.2).
 
 ## 2. GTM / GA4 admin checklist (cannot be configured from this repo)
