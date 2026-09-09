@@ -352,12 +352,12 @@ export const experience: Role[] = [
     industry: "Food & Beverage FMCG",
     title: "Marketing Lead",
     description:
-      "Built a brand and a full innovation pipeline from scratch. Managed a US$750K P&L and led 360° campaigns across Google, Meta, and TikTok.",
+      "Built a brand and a full innovation pipeline from scratch, leading a matrixed team of up to 10. Managed US$750K per-project budgets with full P&L ownership and led 360° campaigns across Google, Meta, and TikTok.",
     bullets: [
       { bold: "+35% revenue growth", rest: " in a lean, digital-first export operation" },
       { bold: "3% CTR", rest: " through omni-channel campaign management" },
       { bold: "165 ideas filtered to 1", rest: " launched product through rigorous consumer validation" },
-      { bold: "Drove two promotions", rest: " within the team and built the business case to create a new role, expanding the team's capacity to support regional growth" },
+      { bold: "Monitored competitor sell-out", rest: ", promotions, and communication campaigns — commercially and culturally — while building the brand" },
     ],
     tags: ["P&L Management", "NPD", "Go-to-Market"],
   },
@@ -368,7 +368,7 @@ export const experience: Role[] = [
     industry: "Health & Beauty CPG",
     title: "Senior Regional Marketing Manager, LATAM",
     description:
-      "Managed brand growth for Neutrogena®, Listerine®, Johnson's® Baby, Lubriderm®, and Tylenol across Mexico, Central America, the Caribbean, and Andean region.",
+      "Managed brand growth for Neutrogena®, Listerine®, Johnson's® Baby, Lubriderm®, and Tylenol across Mexico, Central America, the Caribbean, and Andean region, coaching a regional team of 4 direct reports across Mexico, Colombia, and Panama.",
     bullets: [
       { bold: "James E. Burke Award", rest: " — J&J's global recognition for creative leadership" },
       { bold: "+11% YoY revenue", rest: " through innovation launches and shopper marketing" },
@@ -510,7 +510,7 @@ export const howIWorkCopy = {
   closingQuote:
     "The methodology itself became an asset the company didn’t have before I arrived.",
   closingSecondary:
-    "The measure of the work isn’t just the brand — it’s the team left behind it: two promotions built into the business case at both J&J and Grupo Mariposa, a team of six at Apex today.",
+    "The measure of the work isn’t just the brand — it’s the team left behind it: two promotions built into the business case at J&J, a team of six at Apex today.",
 };
 
 export const impactCopy = {
