@@ -14,18 +14,18 @@ Skills/tags: Brand Strategy, Performance Marketing, CRM, A/B Testing
 
 ### Marketing Lead — Grupo Mariposa (Apr 2020 — Feb 2024)
 Industry: Food & Beverage FMCG.
-Built a brand and a full innovation pipeline from scratch. Managed a US$750K P&L and led 360° campaigns across Google, Meta, and TikTok.
+Built a brand and a full innovation pipeline from scratch, leading a matrixed team of up to 10. Managed US$750K per-project budgets with full P&L ownership and led 360° campaigns across Google, Meta, and TikTok.
 
 - +35% revenue growth in a lean, digital-first export operation
 - 3% CTR through omni-channel campaign management
 - 165 ideas filtered down to 1 launched product through rigorous consumer validation
-- Drove two promotions within the team and built the business case to create a new role, expanding the team's capacity to support regional growth
+- Monitored competitor sell-out, promotions, and communication campaigns — commercially and culturally — while building the brand
 
 Skills/tags: P&L Management, NPD (New Product Development), Go-to-Market
 
 ### Senior Regional Marketing Manager, LATAM — Johnson & Johnson (Mar 2017 — Apr 2020)
 Industry: Health & Beauty CPG.
-Managed brand growth for Neutrogena, Listerine, Johnson's Baby, Lubriderm, and Tylenol across Mexico, Central America, the Caribbean, and the Andean region.
+Managed brand growth for Neutrogena, Listerine, Johnson's Baby, Lubriderm, and Tylenol across Mexico, Central America, the Caribbean, and the Andean region, coaching a regional team of 4 direct reports across Mexico, Colombia, and Panama.
 
 - James E. Burke Award — J&J's global recognition for creative leadership
 - +11% YoY revenue through innovation launches and shopper marketing
