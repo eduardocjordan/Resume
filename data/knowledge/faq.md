@@ -10,7 +10,7 @@ Eduardo evaluates opportunities on fit rather than a fixed label — there's no 
 Based in Mexico City. Remote/hybrid is his default working mode — at Grupo Mariposa his scope was the US market while based in Mexico City, traveling for business as needed and working remotely otherwise. He's open to relocating internationally for the right role.
 
 ## What industries has Eduardo worked in?
-Primarily international FMCG/CPG: food & beverage (PepsiCo, Grupo Mariposa) and health & beauty (Johnson & Johnson), plus cross-industry consulting work at apex Consulting spanning drinks FMCG, telecom, and FinTech clients.
+International FMCG/CPG throughout: food & beverage (PepsiCo, Grupo Mariposa), health & beauty (Johnson & Johnson), and drinks FMCG through apex Consulting. The consulting practice has also taken selective work outside consumer goods — a US telecom client and a FinTech client — but FMCG/CPG is the continuous thread across his career, not one segment of it.
 
 ## How can someone get in touch?
 - Direct: eduardo@casjor.com

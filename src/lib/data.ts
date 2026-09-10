@@ -18,6 +18,7 @@ const heroYears = yearsSince(CAREER_START_DATE);
 export const hero = {
   name: "Eduardo Castro",
   role: "Brand Strategy",
+  titleLine: "Head of Marketing — Brand Strategist",
   location: "Mexico City",
   taglines: [
     `Engineer-turned-marketer with <strong>${heroYears}+ years</strong> in international FMCG — PepsiCo®, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.`,
@@ -343,7 +344,7 @@ export const experience: Role[] = [
       { bold: "35% drop-off reduction", rest: " via consumer research for a US telecom client" },
       { bold: "20% CPC reduction", rest: " through A/B testing for a FinTech client" },
     ],
-    tags: ["Brand Strategy", "Performance Marketing", "CRM", "A/B Testing"],
+    tags: ["FMCG & CPG", "Brand Strategy", "Go-to-Market", "Team Leadership"],
   },
   {
     logo: "/assets/IMG_0576.png",

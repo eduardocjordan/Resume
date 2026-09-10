@@ -6,14 +6,14 @@ import "./globals.css";
 const siteUrl = "https://eduardo.casjor.com";
 
 export const metadata: Metadata = {
-  title: "Brand Strategy | Eduardo Castro",
+  title: "Eduardo Castro | Head of Marketing, FMCG",
   description:
-    "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
+    "Engineer-turned-marketer and Head of Marketing with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — P&L ownership, product launches, and teams across the US and LATAM.",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Brand Strategy | Eduardo Castro",
+    title: "Eduardo Castro | Head of Marketing, FMCG",
     description:
-      "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
+      "Engineer-turned-marketer and Head of Marketing with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — P&L ownership, product launches, and teams across the US and LATAM.",
     url: siteUrl,
     siteName: "Eduardo Castro",
     images: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/assets/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Eduardo Castro — Marketing Director",
+        alt: "Eduardo Castro — Head of Marketing",
       },
     ],
     type: "website",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brand Strategy | Eduardo Castro",
+    title: "Eduardo Castro | Head of Marketing, FMCG",
     description:
-      "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
+      "Engineer-turned-marketer and Head of Marketing with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
     images: [`${siteUrl}/assets/og-image.jpg`],
   },
   alternates: {
@@ -43,7 +43,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Eduardo Castro",
-  jobTitle: "Marketing Director",
+  jobTitle: "Head of Marketing",
   description:
     "Engineer-turned-marketer with 13+ years in international FMCG across the US and LATAM.",
   url: siteUrl,
@@ -74,10 +74,13 @@ const jsonLd = {
     "Team leadership and performance management",
     "P&L management",
     "FMCG and CPG marketing",
+    "Multi-market brand management across LATAM and the US",
+    "Regional marketing across Mexico, Central America, the Caribbean, and the Andean region",
+    "Working in matrixed organizational structures and leading matrixed teams",
   ],
   hasOccupation: {
     "@type": "Occupation",
-    name: "Marketing Director",
+    name: "Head of Marketing",
     responsibilities: [
       "Manages and coordinates the marketing function across subfunctions, including market research, brand and product management, trade management, and marketing and sales campaigns and promotions.",
       "Designs, proposes, and implements marketing and product strategies, guidelines, and procedures to meet short- and long-term business needs.",
@@ -86,7 +89,7 @@ const jsonLd = {
       "Develops and attains key performance indicators for implemented marketing strategies, and assesses and communicates the results.",
       "Connects the marketing and sales functions by leading their joint work with distributors, retailers, and trade partners through annual brand plan, forecasting, and pricing routines.",
       "Contributes to the development of new products, coordinating with sales, engineering, manufacturing, and regulatory functions on design and launch.",
-      "Supports the professional development of subordinate staff and assesses their performance, including building the business case for new roles and promotions.",
+      "Supports the professional development of subordinate staff and assesses their performance, including building the business case for new roles and promotions, across matrixed and multi-country teams.",
     ],
     skills:
       "Market research, brand and product management, trade management, campaign and promotion management, pricing strategy, sales planning and forecasting, go-to-market strategy, new product development, marketing KPI development, distribution channel management, team leadership and performance management.",

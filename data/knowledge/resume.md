@@ -10,7 +10,7 @@ Leading end-to-end marketing strategy and execution for FMCG and consumer-facing
 - 35% drop-off reduction via consumer research for a US telecom client's support funnel
 - 20% CPC reduction through A/B testing across paid social for a FinTech client's acquisition campaigns
 
-Skills/tags: Brand Strategy, Performance Marketing, CRM, A/B Testing
+Skills/tags: FMCG & CPG, Brand Strategy, Go-to-Market, Team Leadership, Performance Marketing, CRM, A/B Testing
 
 ### Marketing Lead — Grupo Mariposa (Apr 2020 — Feb 2024)
 Industry: Food & Beverage FMCG.
@@ -34,6 +34,7 @@ Managed brand growth for Neutrogena, Listerine, Johnson's Baby, Lubriderm, and T
 - Founded the LGBTQ+ Employee Resource Group (Open & Out), earning HRC "Best Place to Work" ranking
 - Drove two promotions within the team and built the business case to create a new role, expanding the team's capacity to support regional growth
 - Pitched the Johnson's Baby Megarestage at client offices to land the launch
+- Supervised the joint marketing and sales work with the trade across full in-house teams
 
 Skills/tags: Multichannel Strategy, LATAM, Shopper Marketing, Trade Management
 
@@ -51,8 +52,10 @@ Skills/tags: Brand Innovation, Purpose Marketing, Pipeline Management
 
 At Grupo Mariposa, Johnson & Johnson, and PepsiCo, Eduardo ran formal marketing-and-sales alignment work with distributors, retailers, and trade partners. The vehicle was the annual Brand Plan, Forecasting, and Pricing routines — the cycle where brand plans, volume forecasts, and pricing get agreed jointly between marketing, the sales organization, and the trade.
 
-- Grupo Mariposa — responsible for commercial success: sales targets and forecasts, the channel sales plan, and quota-setting, supported by the core sales team and built on a real channel-data baseline rather than marketing execution alone. Built the marketing and sales ecosystem from the ground up.
-- Johnson & Johnson — pitched the Johnson's Baby Megarestage at client offices to land the launch.
+The shape of the work differed by company, and the difference is worth stating plainly:
+
+- Johnson & Johnson — supervisory. J&J had full teams in place, so Eduardo supervised the joint marketing and sales work with the trade rather than executing it himself. Pitched the Johnson's Baby Megarestage at client offices to land the launch.
+- Grupo Mariposa — full ownership without a department underneath. Eduardo held every marketing function directly, supported by external teams. Responsible for commercial success: sales targets and forecasts, the channel sales plan, and quota-setting, supported by the core sales team and built on a real channel-data baseline rather than marketing execution alone. Built the marketing and sales ecosystem from the ground up.
 - PepsiCo — mapped data from 6 limited-edition launches and proposed a trade activation sequencing change that became standard practice.
 
 ## Education

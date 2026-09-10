@@ -32,7 +32,7 @@ In your Vercel project: **Settings → Environment Variables**. Add each one bel
 | `RESEND_FROM_EMAIL` | The "from" address on summary emails | An address on a domain you've verified in Resend's dashboard (Resend walks you through verifying a domain you own) |
 | `OWNER_NOTIFICATION_EMAIL` | Where summary emails get sent | Your own inbox — e.g. eduardo@casjor.com |
 | `CRON_SECRET` | A password you make up yourself (any long random string) so the daily cleanup job can prove it's really Vercel calling, not a stranger | Make one up — e.g. mash the keyboard for 30 characters |
-| `TARGET_COMP_MIN`, `TARGET_COMP_MAX` | Your real target compensation range, used only so the bot can tell whether a visitor's number is in the right ballpark — it will never repeat this number back to anyone | You supply the actual figures. Leave blank for now if you're not ready — the bot will just avoid judging any number a visitor gives, which is the safe default |
+| `TARGET_COMP_MIN`, `TARGET_COMP_MAX` | Your real target compensation range, used only so the bot can tell whether a visitor's number is in the right ballpark — it will never repeat this number back to anyone | You supply the actual figures. Leave blank if you're not ready — the bot then avoids judging any number a visitor gives, and will not characterize you as too senior or too expensive for a role. (Before 2026-09-10 that was the documented intent but not the actual behavior; see `STRATEGY.md` 3.4.) |
 | `TARGET_COMP_CURRENCY` | e.g. `USD` | — |
 | `CHAT_MESSAGE_CAP` | Optional. Defaults to 20 if you skip it | — |
 | `CHAT_DAILY_SPEND_CEILING_USD` | Optional. Defaults to $2/day if you skip it | — |

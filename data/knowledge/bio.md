@@ -1,6 +1,6 @@
 # Bio
 
-Eduardo Castro is a Marketing Director based in Mexico City, working in Brand Strategy.
+Eduardo Castro is Head of Marketing at apex Consulting, based in Mexico City, working in Brand Strategy.
 
 Engineer-turned-marketer with 13+ years in international FMCG/CPG — PepsiCo, Johnson & Johnson, and Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.
 
