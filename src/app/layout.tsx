@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/assets/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Eduardo Castro — Marketing Director",
+        alt: "Eduardo Castro — Head of Marketing",
       },
     ],
     type: "website",
@@ -43,7 +43,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Eduardo Castro",
-  jobTitle: "Marketing Director",
+  jobTitle: "Head of Marketing",
   description:
     "Engineer-turned-marketer with 13+ years in international FMCG across the US and LATAM.",
   url: siteUrl,
@@ -77,7 +77,7 @@ const jsonLd = {
   ],
   hasOccupation: {
     "@type": "Occupation",
-    name: "Marketing Director",
+    name: "Head of Marketing",
     responsibilities: [
       "Manages and coordinates the marketing function across subfunctions, including market research, brand and product management, trade management, and marketing and sales campaigns and promotions.",
       "Designs, proposes, and implements marketing and product strategies, guidelines, and procedures to meet short- and long-term business needs.",

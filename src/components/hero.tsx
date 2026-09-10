@@ -75,7 +75,7 @@ export function Hero() {
       >
         <Image
           src={hero.portrait}
-          alt="Eduardo Castro — Marketing Director, Brand Growth Strategist"
+          alt="Eduardo Castro — Head of Marketing, Brand Growth Strategist"
           fill
           className="object-cover object-top"
           priority
@@ -127,7 +127,7 @@ export function Hero() {
             className="uppercase text-[clamp(0.72rem,1vw,0.86rem)] tracking-[0.2em] text-ink/55 mt-[clamp(18px,2.6vh,30px)]"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            Senior Marketing Director — Brand Strategist
+            {hero.titleLine}
           </p>
         </FadeIn>
 

@@ -15,7 +15,7 @@ export function GET() {
     fs.readFileSync(path.join(dir, file), "utf-8").trim()
   ).join("\n\n---\n\n");
 
-  return new Response(`# Eduardo Castro — Marketing Director\n\n${body}\n`, {
+  return new Response(`# Eduardo Castro — Head of Marketing\n\n${body}\n`, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
