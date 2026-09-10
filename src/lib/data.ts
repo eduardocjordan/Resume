@@ -343,7 +343,7 @@ export const experience: Role[] = [
       { bold: "35% drop-off reduction", rest: " via consumer research for a US telecom client" },
       { bold: "20% CPC reduction", rest: " through A/B testing for a FinTech client" },
     ],
-    tags: ["Brand Strategy", "Performance Marketing", "CRM", "A/B Testing"],
+    tags: ["FMCG & CPG", "Brand Strategy", "Go-to-Market", "Team Leadership"],
   },
   {
     logo: "/assets/IMG_0576.png",
