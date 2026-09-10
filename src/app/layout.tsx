@@ -8,12 +8,12 @@ const siteUrl = "https://eduardo.casjor.com";
 export const metadata: Metadata = {
   title: "Eduardo Castro | Brand strategist",
   description:
-    "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
+    "Head of Marketing, engineer-turned-marketer. 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — P&L ownership, product launches, and teams across the US and LATAM.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Eduardo Castro | Brand strategist",
     description:
-      "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
+      "Head of Marketing, engineer-turned-marketer. 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — P&L ownership, product launches, and teams across the US and LATAM.",
     url: siteUrl,
     siteName: "Eduardo Castro",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Eduardo Castro | Brand strategist",
     description:
-      "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
+      "Head of Marketing, engineer-turned-marketer. 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
     images: [`${siteUrl}/assets/og-image.jpg`],
   },
   alternates: {
