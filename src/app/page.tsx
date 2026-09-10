@@ -1,5 +1,3 @@
-import { Loader } from "@/components/loader";
-import { OrientationLayer } from "@/components/orientation-layer";
 import { NavBar } from "@/components/nav-bar";
 import { ProgressBar } from "@/components/progress-bar";
 import { SectionViewTracker } from "@/components/section-view-tracker";
@@ -20,8 +18,6 @@ import { ChatWidget } from "@/components/chat-widget";
 export default function Home() {
   return (
     <>
-      <Loader />
-      <OrientationLayer />
       <SectionViewTracker />
       <AttributionTracker />
       <ProgressBar />

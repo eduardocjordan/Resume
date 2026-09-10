@@ -8,7 +8,6 @@ import { FadeIn } from "./fade-in";
 import { cn } from "@/lib/utils";
 import { useCountUp } from "@/hooks/use-count-up";
 import { pushGtmEvent } from "@/lib/gtm";
-import { ORIENTATION_DISMISS_KEY } from "./orientation-layer";
 
 const orderedStats = [hero.stats[0], hero.stats[2], hero.stats[1]];
 const TAGLINE_INTERVAL_MS = 5500;
@@ -32,28 +31,17 @@ function useRotatingTagline(count: number, prefersReducedMotion: boolean) {
   return index;
 }
 
-// Gates the hero stat count-up to fire ~520ms after the orientation overlay
-// is dismissed (matching the prototype's entrance cascade), or shortly after
-// mount if the overlay was already dismissed earlier this session.
+// Fires the hero stat count-up shortly after mount. Previously gated behind
+// the orientation overlay's dismiss event (matching its entrance cascade);
+// with the loader/overlay no longer in the render tree (hero loads directly,
+// see STRATEGY.md §1.1), that event never fires, so this starts on a plain
+// timeout instead.
 function useStatsStart() {
   const [start, setStart] = useState(false);
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout> | undefined;
-
-    if (sessionStorage.getItem(ORIENTATION_DISMISS_KEY)) {
-      timeout = setTimeout(() => setStart(true), 100);
-      return () => clearTimeout(timeout);
-    }
-
-    const onDismiss = () => {
-      timeout = setTimeout(() => setStart(true), 520);
-    };
-    window.addEventListener("site:orientation-dismissed", onDismiss, { once: true });
-    return () => {
-      window.removeEventListener("site:orientation-dismissed", onDismiss);
-      if (timeout) clearTimeout(timeout);
-    };
+    const timeout = setTimeout(() => setStart(true), 100);
+    return () => clearTimeout(timeout);
   }, []);
 
   return start;
