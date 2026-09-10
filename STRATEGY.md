@@ -118,6 +118,10 @@ Resolved as of 2026-06-19 (per Eddie) — see the `FACT:` updates in 1.1, 1.2, 1
 
 **This is a standing structural risk, not a bug per se: a content edit in one place does not propagate to the other.** It is the anchor of the cross-pillar checklist below.
 
+`FACT:` (2026-09-10) a third consumer now reads the markdown pipeline: `src/app/llms.txt/route.ts` serves `bio.md`, `resume.md`, and `projects.md` as plain text at `/llms.txt`, prerendered at build time (`dynamic = "force-static"`, so it needs no `outputFileTracingIncludes` entry). `faq.md` is deliberately excluded — it holds bot-handling instructions, not public profile content. This narrows the duplication problem rather than widening it: the markdown files are now the single source for both the chatbot and the crawlable text surface. `data.ts` remains separate and unreconciled.
+
+`FACT:` (2026-09-10) the gap between the two pipelines is now **wider in content, not just in structure**: `resume.md` carries commercial-scope facts (sales targets and forecasts, channel sales plan, quota-setting at Grupo Mariposa; the Johnson's Baby Megarestage client pitch; the annual Brand Plan/Forecasting/Pricing routines across three employers) that `data.ts` does not. This was deliberate — see the 2026-09-10 job-description alignment addendum. The consequence to watch: the chatbot can state commercial-ownership facts that the visible Experience timeline never shows.
+
 `FACT:` (per Eddie, 2026-07-08) **all visitor-facing copy lives in `data.ts`, not in components.** A third de-facto pipeline had grown — section copy hardcoded inside `doritos-rainbow.tsx`, `orientation-layer.tsx`, `loader.tsx`, `how-i-work.tsx`, `impact.tsx`, `contact.tsx`, `footer.tsx` — and was consolidated back into `data.ts` (`loaderCopy`, `orientationCopy`, `doritosRainbowCopy`, `howIWorkCopy`, `impactCopy`, `contactCopy`, `footerCopy`). This is now a standing rule: new sections put their strings in `data.ts` from the start.
 
 -----
@@ -258,3 +262,27 @@ Sourced from an external career-portfolio audit, cross-checked against this repo
 Consequence for §3.1: `prologue_shown` / `prologue_dismissed` (`ANALYTICS.md` §1) no longer fire — that pair of rows in the inventory is now dormant, not retired; restore instrumentation if the overlay is reintroduced. `scroll_depth` (`nav-bar.tsx`) is untouched — `NavBar` was explicitly kept in this pass (Eddie: nav-link usage is low-volume enough to be lower priority right now than the loading-screen question), so it still fires and remains one of the engagement signals available for this test's readout.
 
 Verified before push: `tsc --noEmit` clean, `next lint` clean (pre-existing warnings only, unrelated to this change), `next build` succeeds, and a rendered screenshot confirmed the hero paints immediately with the stat counters animating and no loader/overlay flash.
+
+-----
+
+## Addendum — 2026-09-10 job-description alignment (decisions per Eddie)
+
+Goal, per Eddie: make AI scrapers and search engines read his profile as matching a formal Marketing Director job description he supplied. `INFERRED:` the source text tracks a standard occupational description clause-for-clause rather than reading like a casual job ad. The purpose behind it was not stated and is not recorded here.
+
+**Method.** Eddie's JD was decomposed into eight responsibility clauses and each was checked against documented evidence in `data.ts` / `data/knowledge/*.md`. Six had strong grounding already. Two did not: (a) connecting marketing and sales via distribution channels, (b) sales plans as a named deliverable. Rather than stretch existing copy to cover them, both gaps were put back to Eddie, who supplied the missing facts directly (2026-09-10). Those facts — and only those — were added to `resume.md`. Nothing was written to cover a clause that lacked evidence.
+
+**Three decisions, per Eddie:**
+
+1. **Schema and knowledge base only — no visible page change.** No human-facing competencies section was added; `data.ts` was not touched. `OPEN QUESTION:` this deliberately forgoes the strongest crawlable signal (rendered body copy) in favor of JSON-LD plus `/llms.txt`. Eddie chose this knowing the tradeoff was flagged; revisit if the match underperforms.
+2. **No SOC/O*NET code in the structured data.** `hasOccupation.occupationalCategory` was deliberately left unset — tagging a formal occupational classification would assert a standard this repo cannot verify is the one being matched against.
+3. **Gap clauses filled from Eddie's own account**, not inferred from adjacent facts.
+
+**What changed:**
+
+- `data/knowledge/resume.md` — Grupo Mariposa gains commercial ownership (sales targets and forecasts, channel sales plan, quota-setting with the core sales team, real channel-data baseline; marketing and sales ecosystem built from the ground up). Johnson & Johnson gains the Johnson's Baby Megarestage client pitch. New "Commercial scope — marketing and sales alignment" section states the cross-employer annual Brand Plan/Forecasting/Pricing routines with distributors, retailers, and trade partners. Skills tags extended with Sales Planning & Forecasting, Channel Management, Trade Management.
+- `src/app/layout.tsx` — the `Person` JSON-LD gains `knowsAbout` (14 competency topics) and `hasOccupation` (an `Occupation` with eight `responsibilities` entries and a `skills` string). The responsibilities are written in Eddie's own evidenced terms using the JD's vocabulary; the JD text itself was **not** copied verbatim — semantic match does not require it, and a boilerplate paste is both less credible under cross-check and someone else's text.
+- `src/app/llms.txt/route.ts` — new. Serves `bio.md` + `resume.md` + `projects.md` as plain text at `/llms.txt`, prerendered at build time. See the 2.6 note.
+
+**Deliberately not done:** `robots.txt` and `sitemap.xml`. Absent a `robots.txt`, crawling is already permitted by default, and a sitemap for a single-page site adds no discovery value Google does not already have. Both would have been ceremony, not signal.
+
+`INFERRED:` reliability of the three crawlable channels differs and should not be treated as equivalent — JSON-LD is reliably parsed by search engines and present in raw HTML for any LLM fetching the page; a plain-text route is readable by anything that crawls; the `llms.txt` filename convention itself has **no confirmed adoption** by major AI crawlers, so its value rests on being a clean text surface at a guessable path, not on the convention being honored.
