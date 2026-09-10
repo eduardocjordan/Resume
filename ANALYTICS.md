@@ -25,8 +25,8 @@
 | `social_click` | `click_location`, `platform` | Hero LinkedIn CTA | `hero.tsx` |
 | `email_click` / `linkedin_click` | `click_location` (contact) | Contact-section card clicked | `contact.tsx` |
 | `scroll_depth` | `percent_scrolled` (25/50/75/100) | Scroll milestones, once each | `nav-bar.tsx` |
-| `prologue_shown` | — | Orientation overlay appears | `orientation-layer.tsx` |
-| `prologue_dismissed` | `seconds_visible` | Overlay dismissed (any path) | `orientation-layer.tsx` |
+| `prologue_shown` | — | **Dormant since 2026-09-10** — `OrientationLayer` was pulled from `page.tsx`'s render tree (see `STRATEGY.md` 2026-09-10 addendum); code and event name kept for a fast revert. Previously: orientation overlay appears. | `orientation-layer.tsx` |
+| `prologue_dismissed` | `seconds_visible` | **Dormant since 2026-09-10**, same reason. Previously: overlay dismissed (any path). | `orientation-layer.tsx` |
 | `section_view` | `section` (id: hero, doritos-rainbow, …, contact) | Section becomes ≥20% visible, once per page view | `section-view-tracker.tsx` |
 | `experience_expand` | `company` | Visitor opens a role in the timeline (not the default-open first entry, not collapses) | `experience.tsx` |
 | `story_select` | `story` (title) | How-I-Work story activated (only on change) | `how-i-work.tsx` |
@@ -146,9 +146,10 @@ own sessions pollute exactly the source/medium data the UTM scheme exists for.
 
 ### 2.3 Verify (after publishing the GTM container)
 
-1. GTM → **Preview** (Tag Assistant) → load the site. Walk the page: dismiss
-   the prologue, scroll to the footer, open a role, click a story, arrow a
-   gallery, toggle theme, send a chat message.
+1. GTM → **Preview** (Tag Assistant) → load the site. Walk the page: scroll to
+   the footer, open a role, click a story, arrow a gallery, toggle theme, send
+   a chat message. (Skip "dismiss the prologue" — `prologue_shown`/
+   `prologue_dismissed` are dormant since 2026-09-10, see §1 above.)
 2. GA4 → **DebugView**: confirm each event arrives **with its parameters** —
    click an event and check the parameter panel shows `section`, `company`,
    etc. A missing parameter = a DLV name typo in the tag mapping.

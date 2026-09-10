@@ -59,6 +59,38 @@ const jsonLd = {
     { "@type": "Organization", name: "Johnson & Johnson" },
     { "@type": "Organization", name: "Grupo Mariposa" },
   ],
+  knowsAbout: [
+    "Market research and competitive intelligence",
+    "Brand management",
+    "Product management",
+    "Trade management",
+    "Marketing and sales campaigns and promotions",
+    "Pricing strategy",
+    "Sales planning, forecasting, and quota-setting",
+    "Go-to-market strategy",
+    "New product development",
+    "Marketing KPI development and performance reporting",
+    "Distribution channel and trade partner management",
+    "Team leadership and performance management",
+    "P&L management",
+    "FMCG and CPG marketing",
+  ],
+  hasOccupation: {
+    "@type": "Occupation",
+    name: "Marketing Director",
+    responsibilities: [
+      "Manages and coordinates the marketing function across subfunctions, including market research, brand and product management, trade management, and marketing and sales campaigns and promotions.",
+      "Designs, proposes, and implements marketing and product strategies, guidelines, and procedures to meet short- and long-term business needs.",
+      "Oversees market research and monitors competitor activity, including competitor sell-out, promotions, and communication campaigns.",
+      "Oversees the development of marketing plans for the company's products and brands, including pricing strategies and sales plans.",
+      "Develops and attains key performance indicators for implemented marketing strategies, and assesses and communicates the results.",
+      "Connects the marketing and sales functions by leading their joint work with distributors, retailers, and trade partners through annual brand plan, forecasting, and pricing routines.",
+      "Contributes to the development of new products, coordinating with sales, engineering, manufacturing, and regulatory functions on design and launch.",
+      "Supports the professional development of subordinate staff and assesses their performance, including building the business case for new roles and promotions.",
+    ],
+    skills:
+      "Market research, brand and product management, trade management, campaign and promotion management, pricing strategy, sales planning and forecasting, go-to-market strategy, new product development, marketing KPI development, distribution channel management, team leadership and performance management.",
+  },
 };
 
 export default function RootLayout({

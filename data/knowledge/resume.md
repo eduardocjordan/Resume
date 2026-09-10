@@ -20,8 +20,10 @@ Built a brand and a full innovation pipeline from scratch, leading a matrixed te
 - 3% CTR through omni-channel campaign management
 - 165 ideas filtered down to 1 launched product through rigorous consumer validation
 - Monitored competitor sell-out, promotions, and communication campaigns — commercially and culturally — while building the brand
+- Held responsibility for commercial success, not marketing execution alone: set sales targets and forecasts, built the channel sales plan, and set quotas with the support of the core sales team, working from a real channel-data baseline
+- Built the marketing and sales ecosystem from the ground up
 
-Skills/tags: P&L Management, NPD (New Product Development), Go-to-Market
+Skills/tags: P&L Management, NPD (New Product Development), Go-to-Market, Sales Planning & Forecasting, Channel Management
 
 ### Senior Regional Marketing Manager, LATAM — Johnson & Johnson (Mar 2017 — Apr 2020)
 Industry: Health & Beauty CPG.
@@ -31,8 +33,9 @@ Managed brand growth for Neutrogena, Listerine, Johnson's Baby, Lubriderm, and T
 - +11% YoY revenue through innovation launches and shopper marketing
 - Founded the LGBTQ+ Employee Resource Group (Open & Out), earning HRC "Best Place to Work" ranking
 - Drove two promotions within the team and built the business case to create a new role, expanding the team's capacity to support regional growth
+- Pitched the Johnson's Baby Megarestage at client offices to land the launch
 
-Skills/tags: Multichannel Strategy, LATAM, Shopper Marketing
+Skills/tags: Multichannel Strategy, LATAM, Shopper Marketing, Trade Management
 
 ### Marketing Innovation Manager → PMO & Ideation Leader → IT Project Manager — PepsiCo (Nov 2012 — Mar 2017)
 Industry: Food & Beverage FMCG.
@@ -43,6 +46,14 @@ Owned the full pipeline for Doritos, Cheetos, Tostitos, and Quaker — 60+ produ
 - Awarded a "Swiss Army knife" for being the team's multi-tool — still an accurate description of the role
 
 Skills/tags: Brand Innovation, Purpose Marketing, Pipeline Management
+
+## Commercial scope — marketing and sales alignment
+
+At Grupo Mariposa, Johnson & Johnson, and PepsiCo, Eduardo ran formal marketing-and-sales alignment work with distributors, retailers, and trade partners. The vehicle was the annual Brand Plan, Forecasting, and Pricing routines — the cycle where brand plans, volume forecasts, and pricing get agreed jointly between marketing, the sales organization, and the trade.
+
+- Grupo Mariposa — responsible for commercial success: sales targets and forecasts, the channel sales plan, and quota-setting, supported by the core sales team and built on a real channel-data baseline rather than marketing execution alone. Built the marketing and sales ecosystem from the ground up.
+- Johnson & Johnson — pitched the Johnson's Baby Megarestage at client offices to land the launch.
+- PepsiCo — mapped data from 6 limited-edition launches and proposed a trade activation sequencing change that became standard practice.
 
 ## Education
 
