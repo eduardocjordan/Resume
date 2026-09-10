@@ -6,12 +6,12 @@ import "./globals.css";
 const siteUrl = "https://eduardo.casjor.com";
 
 export const metadata: Metadata = {
-  title: "Brand Strategy | Eduardo Castro",
+  title: "Eduardo Castro | Brand strategist",
   description:
     "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Brand Strategy | Eduardo Castro",
+    title: "Eduardo Castro | Brand strategist",
     description:
       "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa — managing P&Ls, launching products, and leading teams across the US and LATAM.",
     url: siteUrl,
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brand Strategy | Eduardo Castro",
+    title: "Eduardo Castro | Brand strategist",
     description:
       "Engineer-turned-marketer with 13+ years in international FMCG — PepsiCo, J&J, Grupo Mariposa.",
     images: [`${siteUrl}/assets/og-image.jpg`],
@@ -74,6 +74,9 @@ const jsonLd = {
     "Team leadership and performance management",
     "P&L management",
     "FMCG and CPG marketing",
+    "Multi-market brand management across LATAM and the US",
+    "Regional marketing across Mexico, Central America, the Caribbean, and the Andean region",
+    "Working in matrixed organizational structures and leading matrixed teams",
   ],
   hasOccupation: {
     "@type": "Occupation",
@@ -86,7 +89,7 @@ const jsonLd = {
       "Develops and attains key performance indicators for implemented marketing strategies, and assesses and communicates the results.",
       "Connects the marketing and sales functions by leading their joint work with distributors, retailers, and trade partners through annual brand plan, forecasting, and pricing routines.",
       "Contributes to the development of new products, coordinating with sales, engineering, manufacturing, and regulatory functions on design and launch.",
-      "Supports the professional development of subordinate staff and assesses their performance, including building the business case for new roles and promotions.",
+      "Supports the professional development of subordinate staff and assesses their performance, including building the business case for new roles and promotions, across matrixed and multi-country teams.",
     ],
     skills:
       "Market research, brand and product management, trade management, campaign and promotion management, pricing strategy, sales planning and forecasting, go-to-market strategy, new product development, marketing KPI development, distribution channel management, team leadership and performance management.",
